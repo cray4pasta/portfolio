@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerna Kashyap</title>
+  <meta name="description" content="LinkedIn's feed is full of noise and irrelevant posts — reimagining the experience to foster intentional scrolling.">
+  <meta name="keywords" content="product designer, UX designer, Prerna Kashyap, LinkedIn, case study">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/linkedin.html">
+  <meta property="og:title" content="LinkedIn Reimagined — Prerna Kashyap | Product Designer">
+  <meta property="og:description" content="LinkedIn's feed is full of noise and irrelevant posts — reimagining the experience to foster intentional scrolling.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LinkedIn Reimagined — Prerna Kashyap | Product Designer">
+  <meta name="twitter:description" content="LinkedIn's feed is full of noise and irrelevant posts — reimagining the experience to foster intentional scrolling.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* ─── FIGMA REDESIGN TOKENS ───
+       Page-scoped; overrides shared.css's .cs-v2 typography defaults for
+       this page only (loaded after shared.css, so these win the cascade).
+       Same hex values as copart.html/goodyhearts.html/panacea.html — shared Figma design system. */
+    :root {
+      --li-primary: #2a2a2b;
+      --li-body: #575757;
+      --li-label: #b8b8b8;
+      --li-card: #fafafa;
+      --li-frame: #f3f3f3;
+      --li-frame-border: #f2f2f2;
+    }
+
+    body { background: #fffffe; }
+
+    /* Nav hidden on case-study pages — Back (in the sidebar) covers
+       top-level navigation here. Kept in markup, not deleted, so it's a
+       one-line revert if that changes. */
+    body.cs-v2 nav { display: none; }
+
+    /* Starts at 84px (same as the homepage's nav-height + 20px gap) even
+       though nav is hidden here, so content lines up at the same vertical
+       position across pages. */
+    .home-wrap { margin-top: 84px; height: calc(100vh - 84px); }
+
+    /* ─── SIDEBAR ───
+       Same specificity as shared.css's .home-layout .sidebar (which sets
+       gap: 20px) — this wins since it loads after shared.css. Back stays
+       pinned to the top and the section nav to the bottom via
+       justify-content: space-between on the two children. */
+    .home-layout .sidebar { gap: 8px; justify-content: space-between; }
+
+    /* ─── PAGE HEADING (in main content, above the hero) ─── */
+    .li-page-heading {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--li-primary);
+      text-wrap: balance;
+      margin-bottom: 20px;
+    }
+
+    /* ─── PROJECT META ROW (Role/Team/Timeline/Type, in main content) ─── */
+    .li-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
+    .li-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .li-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--li-label); }
+    .li-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--li-primary); }
+
+    /* Active link slides right and darkens, matching the reference sidebar's
+       scroll-spy animation (color + transform, 0.2s each). */
+    .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cs-context-link {
+      color: var(--li-body);
+      font-size: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      width: fit-content;
+      transform: translateX(0);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .cs-context-link:hover { color: var(--li-primary); }
+    .cs-context-link.active { color: var(--li-primary); transform: translateX(12px); }
+    /* Section nav relies on .home-right being a scroll container for its
+       scroll-spy; once the layout stacks (same breakpoint as the sidebar
+       collapse below), that stops being true, so hide it. */
+    @media (max-width: 1040px) {
+      .cs-context-nav { display: none; }
+    }
+
+    /* ─── MAIN COLUMN (blank canvas — sections go here) ───
+       shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
+       column is wider (~936px), so drop that cap for this page. */
+    .cs-v2 .cs-main { max-width: none; margin: 0; }
+    .cs-v2 .hero-img {
+      width: 100%;
+      height: 465px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-v2 .section-break {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      width: 100%;
+      max-width: 936px;
+      min-width: 0;
+      padding: 0;
+      border-bottom: none;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    /* Same specificity as shared.css's .cs-v2 .section-header (which sets
+       gap: 14px) — this wins since it loads after shared.css. */
+    .cs-v2 .section-header { gap: 8px; }
+    .cs-v2 .label { color: var(--li-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--li-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--li-body); }
+    .cs-v2 .cs-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 120px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 0 140px 0 0;
+    }
+    /* Scale the 140px right padding down at the same breakpoints shared.css
+       already uses to shrink .home-layout's own padding. Left stays 0
+       (flush with the hero img/meta row) at every width. */
+    @media (max-width: 1040px) {
+      .cs-v2 .cs-content { padding-right: 70px; }
+    }
+    @media (max-width: 640px) {
+      .cs-v2 .cs-content { padding-right: 35px; }
+    }
+
+    .home-right { padding-top: 0; overflow-x: hidden; }
+    .cs-back-link {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--li-body);
+      text-decoration: none;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+    .cs-back-link:hover { color: var(--li-primary); }
+
+    /* ─── PROBLEM: STAT BOX ─── */
+    .li-stat-box { background: #fffbf1; border: 1px solid #ffb200; border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start; width: 100%; box-sizing: border-box; }
+    .li-stat-box .caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+    .li-stat-number-group { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .li-stat-number { font-family: var(--font-sans); font-weight: 600; font-size: 38px; line-height: 44px; color: var(--li-primary); }
+    .li-stat-source { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--li-label); }
+
+    /* ─── RESEARCH: QUOTE GRID (2x2) ─── */
+    .li-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
+    .li-quote-card { background: var(--li-card); border-radius: 4px; padding: 20px; display: flex; gap: 8px; align-items: center; }
+    .li-quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--li-frame-border); flex-shrink: 0; }
+    .li-quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+
+    /* ─── RESEARCH: SCREENSHOT CARD ─── */
+    .li-screenshot-card { background: #fffffe; border-radius: 4px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .li-screenshot-frame { width: 100%; aspect-ratio: 720 / 311; border-radius: 4px; overflow: hidden; position: relative; }
+    .li-screenshot-frame img { position: absolute; display: block; max-width: none; height: 159.51%; width: 100%; left: 0; top: -0.01%; }
+    .li-screenshot-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+
+    /* ─── PROBLEM 2: PERSONAS ─── */
+    .li-persona-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .li-persona-card { background: var(--li-card); border: 1px solid var(--li-frame-border); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box; }
+    .li-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--li-primary); }
+    .li-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+
+    /* ─── NUMBERED INSIGHTS (why the noise exists) ─── */
+    .li-insight-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .li-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .li-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--li-primary); flex-shrink: 0; white-space: nowrap; }
+    .li-insight-text { display: flex; flex-direction: column; gap: 12px; width: 587px; max-width: 100%; }
+    .li-insight-text .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--li-primary); }
+    .li-insight-text .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+
+    /* ─── SOLUTION: PHONE MOCKUP ROWS WITH ANNOTATIONS ─── */
+    .li-solution-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .li-solution-frame {
+      background: var(--li-card);
+      border: 1px solid var(--li-frame-border);
+      border-radius: 4px;
+      width: 100%;
+      height: 543px;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .li-solution-inner { display: flex; gap: 20px; align-items: flex-start; }
+    .li-solution-annotation { display: flex; gap: 12px; align-items: center; width: 146px; flex-shrink: 0; }
+    .li-solution-annotation.left { padding-top: 200px; }
+    .li-solution-annotation.right { padding-top: 40px; }
+    .li-solution-annotation p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: #000; margin: 0; }
+    .li-solution-line { width: 35px; height: 1px; background: var(--li-primary); flex-shrink: 0; position: relative; }
+    .li-solution-line::after { content: ''; position: absolute; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--li-primary); transform: translateY(-50%); }
+    .li-solution-line.dot-end::after { right: -3px; }
+    .li-solution-line.dot-start::after { left: -3px; }
+
+    .li-phone-wrap { position: relative; width: 221px; height: 452px; flex-shrink: 0; }
+    .li-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 2; }
+    .li-phone-screen { position: absolute; overflow: hidden; z-index: 1; }
+    .li-phone-screen video, .li-phone-screen img { position: absolute; display: block; }
+
+    /* ─── FINAL PHOTO ─── */
+    .li-final-img { width: 100%; aspect-ratio: 720 / 371; border-radius: 4px; overflow: hidden; }
+    .li-final-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 16px; }
+      .nav-clock { display: none; }
+      * { cursor: auto !important; }
+    }
+  </style>
+</head>
+<body class="cs-v2">
+
+  <!-- NAV -->
+  <div data-component="nav" data-variant="home"></div>
+  <script src="assets/nav.js"></script>
+
+  <!-- LAYOUT (split-scroll, same system as the homepage / copart.html) -->
+  <div class="home-wrap">
+   <div class="home-layout">
+
+    <!-- SIDEBAR (Figma case-study design) -->
+    <aside class="sidebar">
+      <a href="index.html" class="cs-back-link">Back</a>
+
+      <div class="cs-context-nav">
+        <a href="#section-challenge" class="cs-context-link">Challenge</a>
+        <a href="#section-research" class="cs-context-link">Research</a>
+        <a href="#section-problem-2" class="cs-context-link">Problem</a>
+        <a href="#section-solution" class="cs-context-link">Solution</a>
+        <a href="#section-reflection" class="cs-context-link">Reflection</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT (blank canvas — sections go here) -->
+    <section class="home-right">
+     <div class="cs-main">
+
+      <h1 class="li-page-heading">Reimagining LinkedIn to foster intentional scrolling.</h1>
+
+      <div class="hero-img">
+        <video autoplay muted loop playsinline>
+          <source src="assets/li maybe hero hp.mov" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- PROJECT META (full-bleed, aligned with hero img above — not
+           inset by .cs-content's column padding) -->
+      <div class="li-meta-row">
+        <div class="li-meta-col">
+          <p class="li-meta-label">Role</p>
+          <p class="li-meta-value">Product Designer</p>
+        </div>
+        <div class="li-meta-col">
+          <p class="li-meta-label">Team</p>
+          <p class="li-meta-value">5 students</p>
+        </div>
+        <div class="li-meta-col">
+          <p class="li-meta-label">Timeline</p>
+          <p class="li-meta-value">5 hours</p>
+        </div>
+        <div class="li-meta-col">
+          <p class="li-meta-label">Type</p>
+          <p class="li-meta-value">Assignment</p>
+        </div>
+      </div>
+
+      <div class="cs-content">
+
+        <!-- PROBLEM -->
+        <div class="section-break" id="section-problem">
+          <div class="section-header">
+            <p class="section-heading">Social media experiences currently, are built for engagement at the direct expense of the users mental health.</p>
+          </div>
+          <div class="li-stat-box">
+            <p class="caption">Avg time spent on social media per week</p>
+            <div class="li-stat-number-group">
+              <p class="li-stat-number">18 hours 36 minutes</p>
+              <p class="li-stat-source">acc to DataReportal's 2026 overview report</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHALLENGE -->
+        <div class="section-break" id="section-challenge">
+          <div class="section-header">
+            <p class="label">Challenge</p>
+            <p class="section-heading">What would a content consumption experience look like if it was actually useful and not exploitative?</p>
+            <p class="section-body">We were asked to reimagine an existing digital product and we chose LinkedIn.</p>
+          </div>
+        </div>
+
+        <!-- RESEARCH -->
+        <div class="section-break" id="section-research">
+          <div class="section-header">
+            <p class="label">Research</p>
+            <p class="section-heading">LinkedIn feels performative and irrelevant.</p>
+            <p class="section-body">We started by interrogating our own relationship with the platform and talking to peers about how LinkedIn actually makes them feel when they open it.</p>
+          </div>
+          <div class="li-quote-grid">
+            <div class="li-quote-card"><p>I don't even open it anymore, all it does is make me compare myself to everyone.</p></div>
+            <div class="li-quote-card"><p>It's full of posts about how getting married taught someone B2B sales.</p></div>
+            <div class="li-quote-card"><p>Nobody is realistic on there. Only posting fake positive things for visibility.</p></div>
+            <div class="li-quote-card"><p>My feed recently has a lot of forced suggestions that i don't care about.</p></div>
+          </div>
+          <div class="li-screenshot-card">
+            <div class="li-screenshot-frame">
+              <img src="assets/Screenshot reddit linkedin.png" alt="Screenshot of a subreddit dedicated to mocking LinkedIn content">
+            </div>
+            <p class="li-screenshot-caption">People are so tired that there is an entire subreddit dedicated to hating on linkedin content.</p>
+          </div>
+        </div>
+
+        <!-- PROBLEM 2: PERSONAS -->
+        <div class="section-break" id="section-problem-2">
+          <div class="section-header">
+            <p class="label">Problem</p>
+            <p class="section-heading">People use LinkedIn for different things but end up getting distracted by the constant noise and professional FOMO.</p>
+          </div>
+          <div class="li-persona-list">
+            <div class="li-persona-card">
+              <p class="t">Job seeker</p>
+              <p class="b">Uses linkedIn to network and find companies or people that are hiring. Comes online and sees everyones success stories and layoff posts. Feels overwhelmed and spends 2 hours just scrolling.</p>
+            </div>
+            <div class="li-persona-card">
+              <p class="t">Working professional/startup founder</p>
+              <p class="b">New tech updates, AI tools, keeping up with the ever changing news. See's posts offering adivce/sharing stories from their work. Closes linkedin.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHY THE NOISE EXISTS -->
+        <div class="section-break">
+          <div class="section-header">
+            <p class="section-heading">I started thinking about why this noise even exists? What causes people to act like this?</p>
+          </div>
+          <div class="li-insight-list">
+            <div class="li-insight-row">
+              <p class="li-insight-num">01</p>
+              <div class="li-insight-text">
+                <p class="t">"Get recruiters to notice you"</p>
+                <p class="b">This one is the most obvious, the job market is so bad that for anyone trying to find a job or switch a job has to find ways to stand out and posting on linkedin is the easiest ways to do that but they end up just adding to the noise.</p>
+              </div>
+            </div>
+            <div class="li-insight-row">
+              <p class="li-insight-num">02</p>
+              <div class="li-insight-text">
+                <p class="t">Everyone is building a personal brand and advancing their career except me.</p>
+                <p class="b">It's famously called the red queen effect. Everyone is posting and commenting not necessarily to get ahead or help others, but purely to avoid falling behind the professional visibility curve and they now feel pressured to post more frequently or more dramatically, simply to try and stand out.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLUTION -->
+        <div class="section-break" id="section-solution">
+          <div class="section-header">
+            <p class="section-heading">Solution</p>
+          </div>
+          <div class="li-solution-list">
+            <div class="li-solution-frame">
+              <div class="li-solution-inner">
+                <div class="li-solution-annotation left">
+                  <p>Content is relevant to users needs, avoiding distraction and comparision loop.</p>
+                  <span class="li-solution-line dot-end"></span>
+                </div>
+                <div class="li-phone-wrap">
+                  <div class="li-phone-screen" style="left:12px; top:11px; width:198px; height:430px; border-radius:16px;">
+                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+                      <source src="assets/linkedin tabs demo.mov" type="video/mp4">
+                    </video>
+                  </div>
+                  <img class="li-phone-bezel" src="assets/Phone bezel.png" alt="">
+                </div>
+                <div class="li-solution-annotation right">
+                  <span class="li-solution-line dot-start"></span>
+                  <p>Organizing LinkedIn's feed into tabs so feed is curated for the specific goal.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="li-solution-frame">
+              <div class="li-solution-inner">
+                <div class="li-solution-annotation left">
+                  <p>Reduced algorithmic noise so users get more value from the platform.</p>
+                  <span class="li-solution-line dot-end"></span>
+                </div>
+                <div class="li-phone-wrap">
+                  <div class="li-phone-screen" style="left:13px; top:17px; width:196px; height:425px; border-radius:15px;">
+                    <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+                      <source src="assets/linkedin feed demo.mov" type="video/mp4">
+                    </video>
+                  </div>
+                  <img class="li-phone-bezel" src="assets/Phone bezel.png" alt="">
+                </div>
+                <div class="li-solution-annotation right">
+                  <span class="li-solution-line dot-start"></span>
+                  <p>Focus mode so feed prioritizes relevance to the user's selected objective rather than engagement potential.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="li-solution-frame">
+              <div class="li-solution-inner">
+                <div class="li-solution-annotation left">
+                  <p>No infinite scrolling to protect users time</p>
+                  <span class="li-solution-line dot-end"></span>
+                </div>
+                <div class="li-phone-wrap">
+                  <div class="li-phone-screen" style="left:12px; top:37px; width:197px; height:407px; border-radius:0 0 30px 30px; overflow:hidden;">
+                    <img src="assets/Screenshot goal achieved.png" alt="Goal achieved confirmation screen" style="height:107.62%; width:100.1%; left:-0.05%; top:0;">
+                  </div>
+                  <div class="li-phone-screen" style="left:12px; top:11px; width:197px; height:74px; border-radius:30px 30px 0 0; overflow:hidden;">
+                    <img src="assets/Screenshot goal achieved.png" alt="" style="height:591.89%; width:100.1%; left:-0.05%; top:-450%;">
+                  </div>
+                  <img class="li-phone-bezel" src="assets/Phone bezel.png" alt="">
+                </div>
+                <div class="li-solution-annotation right">
+                  <span class="li-solution-line dot-start"></span>
+                  <p>Users can choose to start a new goal or exit instead of linkedin immediately serving more content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDE NOTE -->
+        <div class="section-break">
+          <div class="section-header">
+            <p class="section-heading">Side note - A more personalized feed would also allow for more relevant ads and increased click-through rates.</p>
+          </div>
+        </div>
+
+        <!-- FINAL PHOTO -->
+        <div class="section-break">
+          <div class="li-final-img"><img src="assets/linkedin last final.png" alt="Presenting the LinkedIn redesign to the class"></div>
+          <div class="section-header">
+            <p class="section-body">After we presented, the whole room resonated with our redesign, so many people said they'd start using LinkedIn again if it were adopted.</p>
+          </div>
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="section-break" id="section-reflection">
+          <div class="section-header">
+            <p class="label">Reflection</p>
+            <p class="section-heading">Designing and prototyping in 1 hour meant compromising on visuals.</p>
+            <p class="section-body">Come back again and I might have changed some things up :p</p>
+          </div>
+        </div>
+
+      </div><!-- /cs-content -->
+     </div><!-- /cs-main -->
+    </section><!-- /home-right -->
+   </div><!-- /home-layout -->
+  </div><!-- /home-wrap -->
+
+  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    let raf;
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+  </script>
+
+<script src="assets/cursor-trail.js"></script>
+
+<!-- SIDEBAR NAV SCROLL-SPY -->
+<script>
+(function() {
+  var ids = ['section-challenge', 'section-research', 'section-problem-2', 'section-solution', 'section-reflection'];
+  var links = document.querySelectorAll('.cs-context-link');
+  var root = document.querySelector('.home-right');
+  var sections = ids.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+  if (!root || !sections.length || !links.length) return;
+
+  function setActive(id) {
+    links.forEach(function(l) {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+    });
+  }
+
+  var current = sections[0].id;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) current = entry.target.id;
+    });
+    setActive(current);
+  }, {
+    root: root,
+    rootMargin: '-15% 0px -70% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function(el) { observer.observe(el); });
+  setActive(current);
+})();
+</script>
+</body>
+</html>

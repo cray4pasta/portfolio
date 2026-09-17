@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Prerna Kashyap</title>
+  <meta name="description" content="A few other things Prerna Kashyap has made, outside of client work.">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/fun.html">
+  <meta property="og:title" content="Fun — Prerna Kashyap">
+  <meta property="og:description" content="A few other things Prerna Kashyap has made, outside of client work.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fun — Prerna Kashyap">
+  <meta name="twitter:description" content="A few other things Prerna Kashyap has made, outside of client work.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* Fun page (Figma: node 1186-1021). Plain top-nav + a full-width row:
+       a 349px intro card on the left (matches .sidebar width on index.html),
+       a 3-column masonry of media on the right. Padding/column behavior
+       mirrors the homepage's .home-layout (40px sides, fluid — not capped
+       to a fixed max-width) instead of Figma's fixed 1200px canvas, so the
+       columns scale with the viewport like the homepage's project grid. */
+
+    .fun2-wrap {
+      margin-top: 20px;
+      padding: 0 40px 172px;
+    }
+    .fun2-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    /* ─── LEFT: INTRO CARD ─── */
+    .fun2-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 349px;
+      flex-shrink: 0;
+    }
+    .fun2-photo {
+      width: 100%;
+      height: 364px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .fun2-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .fun2-photo img.media-loaded { opacity: 1; }
+    .fun2-photo canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .fun2-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      width: 100%;
+    }
+    .fun2-title {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 32px;
+      color: var(--text);
+      width: 100%;
+      text-wrap: balance;
+    }
+    .fun2-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .fun2-cta:hover { opacity: 0.7; }
+    .fun2-cta-text {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .fun2-cta svg { flex-shrink: 0; width: 24px; height: 24px; fill: var(--accent); }
+
+    /* ─── RIGHT: MEDIA GRID ─── */
+    .fun2-grid {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      flex: 1;
+      min-width: 0;
+    }
+    .fun2-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+    .fun2-col-a { flex: 336 1 0; }
+    .fun2-col-b { flex: 252 1 0; }
+    .fun2-col-c { flex: 203 1 0; }
+
+    .fun2-cell {
+      width: 100%;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: #e8e8e8;
+    }
+    .fun2-cell img,
+    .fun2-cell video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .fun2-cell img.media-loaded,
+    .fun2-cell video.media-loaded { opacity: 1; }
+
+    .fun2-cell-golf   { aspect-ratio: 336 / 290; }
+    .fun2-cell-fruit  { aspect-ratio: 336 / 224; }
+    .fun2-cell-recap  { aspect-ratio: 252 / 336; }
+    .fun2-cell-screen { aspect-ratio: 252 / 178; }
+    .fun2-cell-print  { aspect-ratio: 203 / 243; }
+    .fun2-cell-adobe  { aspect-ratio: 203 / 271; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1040px) {
+      .fun2-row { flex-direction: column; }
+      .fun2-left { width: 100%; flex-direction: row; }
+      .fun2-photo { width: 349px; }
+      .fun2-grid { width: 100%; }
+    }
+    @media (max-width: 768px) {
+      .fun2-wrap { padding: 0 24px 96px; }
+      .fun2-left { flex-direction: column; }
+      .fun2-photo { width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .fun2-grid { flex-direction: column; }
+      .fun2-col-a, .fun2-col-b, .fun2-col-c { width: 100%; }
+      .fun2-title { font-size: 20px; line-height: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div data-component="nav"></div>
+  <script src="assets/nav.js"></script>
+
+  <div class="fun2-wrap">
+    <div class="fun2-row">
+
+      <!-- LEFT: INTRO CARD -->
+      <div class="fun2-left">
+        <div class="fun2-photo">
+          <img src="assets/fun-soldering.png" alt="Prerna soldering a circuit board">
+          <canvas class="hero-color-trail" aria-hidden="true"></canvas>
+        </div>
+        <div class="fun2-intro">
+          <p class="fun2-title">Things I have built, physically and digitally.</p>
+          <a href="mailto:prernakashyap1610@yahoo.com" class="fun2-cta">
+            <span class="fun2-cta-text">Come lets grab boba</span>
+            <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: MEDIA GRID -->
+      <div class="fun2-grid">
+        <div class="fun2-col fun2-col-a">
+          <div class="fun2-cell fun2-cell-golf">
+            <video autoplay muted loop playsinline preload="none">
+              <source src="assets/mini golf.webm" type="video/webm">
+              <source src="assets/mini golf.mov" type="video/mp4">
+            </video>
+          </div>
+          <div class="fun2-cell fun2-cell-fruit">
+            <video autoplay muted loop playsinline preload="none">
+              <source src="assets/fruit game.webm" type="video/webm">
+              <source src="assets/fruit game.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <div class="fun2-col fun2-col-b">
+          <div class="fun2-cell fun2-cell-recap">
+            <video autoplay muted loop playsinline preload="none">
+              <source src="assets/weekly recap.webm" type="video/webm">
+              <source src="assets/weekly recap.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="fun2-cell fun2-cell-screen">
+            <video autoplay muted loop playsinline preload="none">
+              <source src="assets/screen recording.webm" type="video/webm">
+              <source src="assets/screen recording.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <div class="fun2-col fun2-col-c">
+          <div class="fun2-cell fun2-cell-print">
+            <video autoplay muted loop playsinline preload="none">
+              <source src="assets/3d print.webm" type="video/webm">
+              <source src="assets/3d print.MOV" type="video/mp4">
+            </video>
+          </div>
+          <div class="fun2-cell fun2-cell-adobe">
+            <video autoplay muted loop playsinline preload="none">
+              <source src="assets/adobe walk.webm" type="video/webm">
+              <source src="assets/adobe walk.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="cursor"><img id="cursor-icon" src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    let cursorRaf;
+
+    // Fade in media once loaded, instead of popping in instantly
+    document.querySelectorAll('.fun2-photo img, .fun2-cell img, .fun2-cell video').forEach(el => {
+      const markLoaded = () => el.classList.add('media-loaded');
+      if (el.tagName === 'IMG') {
+        if (el.complete && el.naturalWidth > 0) markLoaded();
+        else el.addEventListener('load', markLoaded, { once: true });
+      } else {
+        if (el.readyState >= 2) markLoaded();
+        else el.addEventListener('loadeddata', markLoaded, { once: true });
+      }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(cursorRaf);
+      cursorRaf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+  </script>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+  const lenis = window.lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+  function lenisRaf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(lenisRaf);
+  }
+  requestAnimationFrame(lenisRaf);
+</script>
+
+<!-- PHOTO COLOR REVEAL — same effect as the homepage hero: paints the color
+     photo in the cursor's path over the B&W one, fading each painted spot
+     back to B&W after a few seconds. -->
+<script>
+(function() {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var container = document.querySelector('.fun2-photo');
+  var canvas = container && container.querySelector('.hero-color-trail');
+  if (!container || !canvas || reduceMotion) return;
+
+  var ctx = canvas.getContext('2d');
+  var brush = document.createElement('canvas');
+  var brushCtx = brush.getContext('2d');
+
+  var colorImg = new Image();
+  colorImg.src = 'assets/fundiethercolor.png';
+
+  var BRUSH_SIZE = 34;       // triangle brush size, px
+  var FADE_PER_FRAME = 0.02; // ~2.5s for a stroke to fully fade at 60fps
+
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w = 0, h = 0;
+  var lastX = null, lastY = null;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    w = rect.width;
+    h = rect.height;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    brush.width = w * dpr;
+    brush.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    brushCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Replicates CSS object-fit: cover so the color image lines up with
+  // the B&W one pixel-for-pixel (both boxes share the same crop values).
+  function drawCover(context, img, cw, ch) {
+    var scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    var dw = img.naturalWidth * scale;
+    var dh = img.naturalHeight * scale;
+    context.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+  }
+
+  // Stamps a triangular brush tip at (x, y), pointing in the direction
+  // of travel (angle), like an arrowhead-shaped nib.
+  function drawTriangle(x, y, angle) {
+    var tipLen = BRUSH_SIZE * 0.6;
+    var backLen = BRUSH_SIZE * 0.4;
+    var halfBase = BRUSH_SIZE * 0.5;
+    var tipX = x + tipLen * Math.cos(angle);
+    var tipY = y + tipLen * Math.sin(angle);
+    var baseX = x - backLen * Math.cos(angle);
+    var baseY = y - backLen * Math.sin(angle);
+    var perp = angle + Math.PI / 2;
+
+    brushCtx.beginPath();
+    brushCtx.moveTo(tipX, tipY);
+    brushCtx.lineTo(baseX + halfBase * Math.cos(perp), baseY + halfBase * Math.sin(perp));
+    brushCtx.lineTo(baseX - halfBase * Math.cos(perp), baseY - halfBase * Math.sin(perp));
+    brushCtx.closePath();
+    brushCtx.fill();
+  }
+
+  // Paints a row of triangular stamps from the last cursor position to
+  // the new one (not just a single stamp) so fast movement still traces
+  // a continuous path instead of leaving gaps.
+  function paintSegment(x0, y0, x1, y1) {
+    if (!colorImg.complete) return;
+
+    var dx = x1 - x0, dy = y1 - y0;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var angle = Math.atan2(dy, dx);
+    var steps = Math.max(1, Math.ceil(dist / 4));
+
+    brushCtx.clearRect(0, 0, w, h);
+    brushCtx.globalCompositeOperation = 'source-over';
+    brushCtx.fillStyle = '#fff';
+    for (var i = 0; i <= steps; i++) {
+      var t = i / steps;
+      drawTriangle(x0 + dx * t, y0 + dy * t, angle);
+    }
+
+    brushCtx.globalCompositeOperation = 'source-in';
+    drawCover(brushCtx, colorImg, w, h);
+
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.drawImage(brush, 0, 0, w, h);
+  }
+
+  container.addEventListener('mousemove', function(e) {
+    var rect = canvas.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
+    if (lastX !== null) paintSegment(lastX, lastY, x, y);
+    lastX = x;
+    lastY = y;
+  });
+  container.addEventListener('mouseleave', function() {
+    lastX = null;
+    lastY = null;
+  });
+
+  function render() {
+    // Fade whatever's already painted, revealing B&W underneath.
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'rgba(0,0,0,' + FADE_PER_FRAME + ')';
+    ctx.fillRect(0, 0, w, h);
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+})();
+</script>
+
+<script src="assets/cursor-trail.js"></script>
+</body>
+</html>

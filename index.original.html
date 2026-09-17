@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerna Kashyap — Product Designer</title>
+  <meta name="description" content="Portfolio of Prerna Kashyap, a product designer bridging complex workflows and the people who use them. UX, service design, and cross-platform experience design.">
+  <meta name="keywords" content="product designer, UX designer, product design portfolio, Seattle product designer, MHCID, experience design, service design">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/">
+  <meta property="og:title" content="Prerna Kashyap — Product Designer">
+  <meta property="og:description" content="Portfolio of Prerna Kashyap, a product designer bridging complex workflows and the people who use them.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Prerna Kashyap — Product Designer">
+  <meta name="twitter:description" content="Portfolio of Prerna Kashyap, a product designer bridging complex workflows and the people who use them.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* ─── Fonts ─── */
+    @font-face {
+      font-family: 'Test Tiempos Headline';
+      src: url('Fonts/Test Tiempos/Test Tiempos Headline/test-tiempos-headline-light.woff2') format('woff2'),
+           url('Fonts/Test Tiempos/Test Tiempos Headline/TestTiemposHeadline-Light.otf') format('opentype');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Test Tiempos Headline';
+      src: url('Fonts/Test Tiempos/Test Tiempos Headline/test-tiempos-headline-light-italic.woff2') format('woff2');
+      font-weight: 300; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Test Tiempos Headline';
+      src: url('Fonts/Test Tiempos/Test Tiempos Headline/test-tiempos-headline-regular-italic.woff2') format('woff2');
+      font-weight: 400; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_ExtraLight.otf') format('opentype');
+      font-weight: 200; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_ExtraLight_Italic.otf') format('opentype');
+      font-weight: 200; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_Light.otf') format('opentype');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_Light_Italic.otf') format('opentype');
+      font-weight: 300; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_Book.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_Book_Italic.otf') format('opentype');
+      font-weight: 400; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Halyard Display';
+      src: url('Fonts/Halyard Display/fonnts.com-Halyard_Display_Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+
+    /* ─── Tokens ─── */
+    :root {
+      --bg:          #fefcff;
+      --text:        #111213;
+      --border:      #cbcacc;
+      --purple:      #6a5acd;
+      --font-serif:  'Test Tiempos Headline', Georgia, serif;
+      --font-sans:   'Halyard Display', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      cursor: none !important;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      background: var(--bg);
+      transform: translateY(0);
+      transition: transform 0.35s ease;
+    }
+    nav.nav-hidden { transform: translateY(-100%); }
+    .nav-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img {
+      height: 41px;
+      width: auto;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--font-sans);
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 28px;
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 8px;
+      transition: color 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--purple); }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: flex;
+      justify-content: center;
+      padding: 200px 20px 120px;
+    }
+    .hero-inner {
+      width: 100%;
+      max-width: 936px;
+    }
+    .hero-text {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 300;
+      line-height: 48px;
+      color: var(--text);
+      text-align: left;
+    }
+
+    /* Divider below hero */
+    .hero-divider {
+      width: 100%;
+      max-width: 936px;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* ─── PROJECTS ─── */
+    .projects {
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      margin-top: 120px;
+    }
+    .projects-inner {
+      width: 100%;
+      max-width: 936px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 300;
+      line-height: 48px;
+      color: var(--text);
+    }
+    .project-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 72px;
+      padding-bottom: 40px;
+    }
+
+    /* Project Card */
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project-thumb {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-radius 0.4s ease;
+    }
+    .project-thumb:hover { border-radius: 32px; }
+
+    .thumb-copart  { height: 532px; }
+    .thumb-goody   { height: 532px; border: 1px solid white; }
+    .thumb-panacea { height: 532px; border: 1px solid white; }
+
+    .thumb-copart .fill,
+    .thumb-goody .fill,
+    .thumb-panacea .fill {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .thumb-copart:hover .fill,
+    .thumb-goody:hover .fill,
+    .thumb-panacea:hover .fill {
+      transform: scale(1.05);
+    }
+
+    /* Project Metadata */
+    .project-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 2px 0;
+    }
+    .project-tags {
+      display: flex;
+      align-items: center;
+      padding: 24px 12px 0;
+    }
+    .tag-label {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 24px;
+      color: var(--text);
+      flex: 1;
+    }
+    .project-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 12px 24px;
+    }
+    .project-title-row h2 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 40px;
+      color: var(--text);
+    }
+    .lock-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-top: 0;
+    }
+
+    /* ─── PLAYGROUND ─── */
+    .playground {
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      margin-top: 120px;
+    }
+    .playground-inner {
+      width: 100%;
+      max-width: 936px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .playground-heading {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 300;
+      line-height: 48px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .playground-cards {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      width: 100%;
+    }
+    .playground-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 448px;
+      flex-shrink: 0;
+    }
+    .playground-thumb {
+      width: 448px;
+      height: 360px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .playground-caption {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 28px;
+      color: var(--text);
+    }
+    .playground-caption em  { font-style: italic; }
+    .playground-caption s   { text-decoration: line-through; }
+
+    /* Inbox card */
+    .thumb-inbox { overflow: hidden; }
+    .playground-thumb .inbox-fill {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .playground-thumb:hover .inbox-fill { transform: scale(1.05); }
+
+    /* Claude card */
+    .thumb-claude { overflow: hidden; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 258px;
+      padding: 64px 120px;
+      margin-top: 200px;
+    }
+    .footer-inner {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .footer-heading {
+      font-family: var(--font-serif);
+      font-size: 40px;
+      font-weight: 300;
+      line-height: 48px;
+      color: var(--text);
+      padding: 8px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      padding: 12px 0;
+    }
+    .footer-links a {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 24px;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0 8px;
+      white-space: nowrap;
+      transition: color 0.25s ease;
+    }
+    .footer-links a:hover { color: var(--purple); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .playground-cards { flex-direction: column; align-items: center; }
+      .playground-card  { width: 100%; max-width: 600px; }
+      .playground-thumb { width: 100%; }
+    }
+
+    @media (max-width: 900px) {
+      .project-cards { gap: 48px; }
+      .project-meta  { padding: 16px 8px 8px; }
+      .playground-inner { gap: 32px; }
+      .playground-heading { font-size: 32px; line-height: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { height: auto; padding: 16px 20px; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 16px; padding: 8px 4px; }
+      .nav-logo img { height: 32px; }
+
+      /* Hero */
+      .hero { padding: 60px 20px; }
+      .hero-text { font-size: 28px; line-height: 36px; }
+
+      /* Projects */
+      .projects { margin-top: 60px; padding: 0 20px; }
+      .projects-inner { max-width: 100%; }
+      .section-heading { font-size: 32px; line-height: 40px; }
+      .thumb-copart,
+      .thumb-goody,
+      .thumb-panacea { height: 280px; }
+      .project-title-row h2 { font-size: 24px; line-height: 32px; }
+      .tag-label { font-size: 16px; }
+
+      /* Playground */
+      .playground { margin-top: 80px; padding: 0 20px; }
+      .playground-inner { max-width: 100%; gap: 24px; }
+      .playground-heading { font-size: 28px; line-height: 36px; }
+      .playground-cards { flex-direction: column; align-items: stretch; gap: 16px; }
+      .playground-card { width: 100%; }
+      .playground-thumb { width: 100%; height: 260px; }
+      .thumb-claude { height: 260px; }
+
+      /* Footer */
+      footer { height: auto; padding: 48px 24px; margin-top: 80px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .footer-heading { font-size: 32px; line-height: 40px; }
+      .footer-links a { font-size: 16px; }
+
+      /* Hide custom cursor on touch */
+      #cursor { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text { font-size: 24px; line-height: 32px; }
+      .section-heading { font-size: 28px; }
+      .project-title-row h2 { font-size: 20px; line-height: 28px; }
+      .playground-heading { font-size: 24px; line-height: 32px; }
+      .footer-heading { font-size: 28px; line-height: 36px; }
+    }
+
+    /* ─── CURSOR ─── */
+    #cursor {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 100px;
+      background: #6A5ACD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      white-space: nowrap;
+      transition:
+        width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        background 0.35s ease;
+    }
+    #cursor.expanded { height: 56px; background: #6A5ACD; }
+    #cursor-label {
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      opacity: 0;
+      transition: opacity 0.2s ease 0.15s;
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    #cursor.expanded #cursor-label { opacity: 1; }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="assets/Logo.svg" alt="Prerna Kashyap">
+      </div>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="about.html">About</a>
+        <a href="assets/Resume - Prerna Kashyap Amazon.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-text">Hi, I'm Prerna. Designer with a background in customer success, currently designing B2B2C experiences</p>
+    </div>
+  </section>
+
+  <div class="hero-divider"></div>
+
+  <!-- WORK -->
+  <section class="projects" id="work">
+    <div class="projects-inner">
+      <h2 class="section-heading">Work</h2>
+      <div class="project-cards">
+
+        <!-- Copart -->
+        <div class="project-card">
+          <div class="project-thumb thumb-copart">
+            <img class="fill" src="assets/Copart Hero 1.png" alt="Copart">
+          </div>
+          <div class="project-meta">
+            <div class="project-tags">
+              <span class="tag-label">B2C | Design System | Cross Platform Design</span>
+            </div>
+            <div class="project-title-row">
+              <h2>Redesigning the offer flow to drive vehicle aquisition</h2>
+              <img class="lock-icon" src="https://www.figma.com/api/mcp/asset/b971dc7c-9c22-46df-92f4-a70dfa217636" alt="NDA — locked">
+            </div>
+          </div>
+        </div>
+
+        <!-- Goody Hearts -->
+        <a href="goodyhearts.html" class="project-card">
+          <div class="project-thumb thumb-goody">
+            <img class="fill" src="assets/Goody Hearts Hero.png" alt="Goody Hearts Club">
+          </div>
+          <div class="project-meta">
+            <div class="project-tags">
+              <span class="tag-label">Design System | UGC submission Flow | 0-1</span>
+            </div>
+            <div class="project-title-row">
+              <h2>Lowering the barrier to social impact for art hobbyists</h2>
+            </div>
+          </div>
+        </a>
+
+        <!-- Panacea -->
+        <a href="panacea.html" class="project-card">
+          <div class="project-thumb thumb-panacea">
+            <img class="fill" src="https://www.figma.com/api/mcp/asset/550424cb-5159-427e-a53d-759e0d1ca6ff" alt="Panacea case study preview">
+          </div>
+          <div class="project-meta">
+            <div class="project-tags">
+              <span class="tag-label">Information Architecture | B2B | Website Redesign</span>
+            </div>
+            <div class="project-title-row">
+              <h2>Reducing Navigation Friction by 75% for B2B Pharma</h2>
+            </div>
+          </div>
+        </a>
+
+      </div>
+      <div class="section-divider"></div>
+    </div>
+  </section>
+
+  <!-- PLAYGROUND -->
+  <section class="playground">
+    <div class="playground-inner">
+      <p class="playground-heading">Playground</p>
+      <div class="playground-cards">
+
+        <!-- Inbox organizer -->
+        <div class="playground-card">
+          <div class="playground-thumb thumb-inbox">
+            <img class="inbox-fill" src="assets/triage img.png" alt="Inbox organizer">
+          </div>
+          <p class="playground-caption">Inbox organizer with Conversational Search</p>
+        </div>
+
+        <!-- Hey Claude -->
+        <div class="playground-card">
+          <div class="playground-thumb thumb-claude">
+            <img class="inbox-fill" src="assets/hey claude img.png" alt="Hey Claude">
+          </div>
+          <p class="playground-caption">Hey <s><em>Siri</em></s> Claude</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-heading">Let's Grab<br>some Boba</p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/prernaakashyap/" target="_blank" rel="noopener">Linkedin</a>
+        <a href="mailto:prernakashyap1610@yahoo.com">Email</a>
+        <a href="assets/Resume - Prerna Kashyap Amazon.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cursor"><div id="cursor-label"></div></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const label  = document.getElementById('cursor-label');
+    let raf;
+
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+
+    const thumbConfig = {
+      'thumb-copart':  { text: 'Still Under Progress', width: '173px' },
+      'thumb-goody':   { text: 'View Case Study',        width: '152px' },
+      'thumb-panacea': { text: 'View Case Study',       width: '152px' },
+    };
+
+    document.querySelectorAll('.project-thumb').forEach(thumb => {
+      const key = [...thumb.classList].find(c => thumbConfig[c]);
+      if (!key) return;
+      thumb.addEventListener('mouseenter', () => {
+        const cfg = thumbConfig[key];
+        label.textContent = cfg.text;
+        cursor.style.width = cfg.width;
+        cursor.classList.add('expanded');
+      });
+      thumb.addEventListener('mouseleave', () => {
+        cursor.classList.remove('expanded');
+        cursor.style.width = '14px';
+      });
+    });
+
+    document.addEventListener('mouseleave', () => {
+      cursor.classList.remove('expanded');
+      cursor.style.width = '14px';
+    });
+
+    // Hide nav on scroll down, show on scroll up
+    (() => {
+      const nav = document.querySelector('nav');
+      let lastY = 0;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y > lastY && y > 80) {
+          nav.classList.add('nav-hidden');
+        } else {
+          nav.classList.remove('nav-hidden');
+        }
+        lastY = y;
+      }, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>

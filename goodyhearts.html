@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerna Kashyap</title>
+  <meta name="description" content="Lowering the barrier to social impact for art hobbyists through a joyful, friction-free platform.">
+  <meta name="keywords" content="product designer, UX designer, Prerna Kashyap, Goody Hearts Club, case study, design system">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/goodyhearts.html">
+  <meta property="og:title" content="Goody Hearts Club — Prerna Kashyap | Product Designer">
+  <meta property="og:description" content="Lowering the barrier to social impact for art hobbyists through a joyful, friction-free platform.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Goody Hearts Club — Prerna Kashyap | Product Designer">
+  <meta name="twitter:description" content="Lowering the barrier to social impact for art hobbyists through a joyful, friction-free platform.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* ─── FIGMA REDESIGN TOKENS ───
+       Page-scoped; overrides shared.css's .cs-v2 typography defaults for
+       this page only (loaded after shared.css, so these win the cascade). */
+    :root {
+      --gh-primary: #2a2a2b;
+      --gh-body: #575757;
+      --gh-label: #b8b8b8;
+      --gh-card: #fafafa;
+      --gh-frame: #f3f3f3;
+      --gh-frame-border: #f2f2f2;
+    }
+
+    body { background: #fffffe; }
+
+    /* Nav hidden on case-study pages — Back (in the sidebar) covers
+       top-level navigation here. Kept in markup, not deleted, so it's a
+       one-line revert if that changes. */
+    body.cs-v2 nav { display: none; }
+
+    /* Starts at 84px (same as the homepage's nav-height + 20px gap) even
+       though nav is hidden here, so content lines up at the same vertical
+       position across pages. */
+    .home-wrap { margin-top: 84px; height: calc(100vh - 84px); }
+
+    /* ─── SIDEBAR ───
+       Same specificity as shared.css's .home-layout .sidebar (which sets
+       gap: 20px) — this wins since it loads after shared.css. Back stays
+       pinned to the top and the section nav to the bottom via
+       justify-content: space-between on the two children. */
+    .home-layout .sidebar { gap: 8px; justify-content: space-between; }
+
+    /* ─── PAGE HEADING (in main content, above the hero) ─── */
+    .gh-page-heading {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      text-wrap: balance;
+      margin-bottom: 20px;
+    }
+
+    /* ─── PROJECT META ROW (Role/Team/Timeline/Build, in main content) ─── */
+    .gh-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
+    .gh-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .gh-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gh-label); }
+    .gh-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gh-primary); }
+
+    /* Active link slides right and darkens, matching the reference sidebar's
+       scroll-spy animation (color + transform, 0.2s each). */
+    .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cs-context-link {
+      color: var(--gh-body);
+      font-size: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      width: fit-content;
+      transform: translateX(0);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .cs-context-link:hover { color: var(--gh-primary); }
+    .cs-context-link.active { color: var(--gh-primary); transform: translateX(12px); }
+    /* Section nav relies on .home-right being a scroll container for its
+       scroll-spy; once the layout stacks (same breakpoint as the sidebar
+       collapse below), that stops being true, so hide it. */
+    @media (max-width: 1040px) {
+      .cs-context-nav { display: none; }
+    }
+
+    /* ─── MAIN COLUMN (empty shell — sections go here) ───
+       shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
+       column is wider (~936px), so drop that cap for this page. */
+    .cs-v2 .cs-main { max-width: none; margin: 0; }
+    .cs-v2 .hero-img {
+      width: 100%;
+      height: 465px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-v2 .section-break {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      width: 100%;
+      max-width: 936px;
+      min-width: 0;
+      padding: 0;
+      border-bottom: none;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    /* Same specificity as shared.css's .cs-v2 .section-header (which sets
+       gap: 14px) — this wins since it loads after shared.css. */
+    .cs-v2 .section-header { gap: 8px; }
+    .cs-v2 .label { color: var(--gh-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--gh-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--gh-body); }
+    .cs-v2 .cs-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 120px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 0 140px 0 0;
+    }
+    /* Scale the 140px right padding down at the same breakpoints shared.css
+       already uses to shrink .home-layout's own padding. Left stays 0
+       (flush with the hero img/meta row) at every width. */
+    @media (max-width: 1040px) {
+      .cs-v2 .cs-content { padding-right: 70px; }
+    }
+    @media (max-width: 640px) {
+      .cs-v2 .cs-content { padding-right: 35px; }
+    }
+
+    /* ─── PHOTO PAIR (Impact section) ─── */
+    .photo-pair { display: flex; gap: 21px; align-items: center; width: 100%; }
+    .photo-pair figure { flex-shrink: 0; width: 347px; height: 232px; border-radius: 4px; overflow: hidden; }
+    .photo-pair img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .caption {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--gh-body);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ─── FRAME BOX (video/screen-mockup placeholders) ─── */
+    .frame-box {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 720px;
+      max-width: 100%;
+      height: 583px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .frame-box .phone-shape {
+      width: 236px;
+      height: 494px;
+      border-radius: 41px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .frame-box .phone-shape video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .frame-box.h-606 { height: 606px; }
+
+    /* ─── DESIGN 03 (cropped screen "peeks" with captions) ─── */
+    .small-things-frame {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 100%;
+      height: 433px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .st-caption {
+      position: absolute;
+      top: 136px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #333233;
+    }
+    .st-peek { position: absolute; top: 192.27px; border-radius: 12px 12px 0 0; overflow: hidden; }
+    .st-peek.shadow { box-shadow: 0 16px 60px 0 rgba(0,0,0,0.12); }
+    .st-peek img { position: absolute; display: block; max-width: none; }
+
+    /* ─── USABILITY TESTING (numbered insights + annotated UT screenshots) ─── */
+    .ut-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .ut-stack { display: flex; flex-direction: column; gap: 12px; width: 700px; max-width: 100%; }
+    .ut-frame {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 100%;
+      max-width: 700px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .ut-frame.h-345 { height: 345px; }
+    .ut-frame.h-581 { height: 581px; }
+    .ut-card { position: absolute; border-radius: 8px; overflow: hidden; }
+    .ut-card img { position: absolute; display: block; max-width: none; }
+    .ut-caption {
+      position: absolute;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #333233;
+    }
+    .ut-page-label {
+      position: absolute;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      white-space: nowrap;
+    }
+
+    /* ─── AI EXPERIMENTS ─── */
+    .ai-exp-frame {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 700px;
+      max-width: 100%;
+      height: 433px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .ai-exp-frame img {
+      position: absolute;
+      left: 29px;
+      top: 31px;
+      width: 639px;
+      max-width: calc(100% - 58px);
+      height: 401px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* ─── PROBLEM ICON CALLOUT ─── */
+    .icon-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--gh-card);
+      border-radius: 4px;
+      padding: 20px;
+      width: 100%;
+    }
+    .icon-row img { width: 36px; height: 36px; flex-shrink: 0; }
+    .icon-row .icon-title {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      margin-bottom: 8px;
+    }
+    .icon-row .icon-body {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-body);
+    }
+
+    /* ─── QUOTE GRID (2×2) ─── */
+    .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+    .quote-card {
+      background: var(--gh-card);
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--gh-frame-border); flex-shrink: 0; }
+    .quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); }
+
+    /* ─── CENTERED MEDIA (CA image) ─── */
+    .ca-img { width: 610px; height: 528px; max-width: 100%; margin: 0 auto; }
+    .ca-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ─── HMW / PIVOT ─── */
+    .hmw-group { display: flex; flex-direction: column; gap: 80px; align-items: center; width: 100%; }
+    .pivot-group { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .pivot-card {
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .pivot-card.bad { background: #fef5f4; border: 1px solid #e50000; }
+    .pivot-card.good { background: rgba(209,223,214,0.2); border: 1px solid #1b6134; }
+    .pivot-card img { flex-shrink: 0; margin-top: 2px; }
+    .pivot-card .t {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-body);
+      margin-bottom: 12px;
+    }
+    .pivot-card .b {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-body);
+    }
+
+    /* ─── BEFORE/AFTER FLOW ─── */
+    .flow-block { display: flex; flex-direction: column; gap: 12px; width: 675px; max-width: 100%; }
+    .flow-label {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+    }
+    .flow-row { display: flex; align-items: center; width: 100%; }
+    .flow-card {
+      width: 211px;
+      height: 96px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-body);
+    }
+    .flow-arrow { width: 21px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .flow-arrow img { width: 21px; height: auto; display: block; }
+
+    /* ─── IDEATION (competitor grid + numbered insights) ─── */
+    .ideation-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 60px;
+      width: 100%;
+      padding: 20px 0;
+    }
+    .ideation-pair { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+    .ideation-images { display: flex; gap: 8px; width: 100%; }
+    .ideation-images figure { flex: 1; height: 325px; border-radius: 4px; overflow: hidden; }
+    .ideation-images img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .insight-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .insight-num {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      flex-shrink: 0;
+    }
+    .insight-text { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .insight-text .t {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+    }
+    .insight-text .b {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-body);
+    }
+
+    /* ─── DESIGN PRINCIPLES ─── */
+    .principle-row { display: flex; gap: 24px; align-items: center; width: 100%; }
+    .principle-card {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 224px;
+      height: 96px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+    }
+    .principle-card p {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #333233;
+    }
+
+    /* ─── DESIGN SECTIONS (observation/insight/action cards + iteration frames) ─── */
+    .section-break.gap-l { gap: 40px; }
+    .design-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .design-cards-row { display: flex; gap: 8px; width: 100%; }
+    .design-card {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 234px;
+      flex: 1;
+      box-sizing: border-box;
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+    .design-card.tall { height: 212px; }
+    .design-card .lbl { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gh-body); }
+    .design-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--gh-primary); }
+    .design-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); }
+
+    .iteration-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .iteration-frame {
+      background: var(--gh-card);
+      border: 1px solid var(--gh-frame-border);
+      border-radius: 4px;
+      width: 100%;
+      height: 583px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .iteration-title {
+      position: absolute;
+      left: 19px;
+      top: 24px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      white-space: nowrap;
+    }
+    .iteration-frame img.it-phone { position: absolute; top: 48px; width: 237px; height: 485px; object-fit: cover; }
+
+    /* callout: a short line with a small dot marker at one end, pointing at the phone */
+    .callout { position: absolute; display: flex; align-items: center; gap: 12px; }
+    .callout-text {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      flex-shrink: 0;
+    }
+    .callout-line { position: relative; height: 1px; background: var(--gh-primary); flex-shrink: 0; }
+    .callout-line::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gh-primary);
+      transform: translateY(-50%);
+    }
+    .callout-line.dot-start::after { left: -3px; }
+    .callout-line.dot-end::after { right: -3px; }
+
+    /* Final Iteration uses Figma's own flex layout (annotations centered against the phone's height) */
+    .fi-annotated { position: absolute; left: 32px; top: 43px; display: flex; gap: 6px; align-items: center; }
+    .fi-left { display: flex; gap: 12px; align-items: center; }
+    .fi-left .callout-text { width: 125px; }
+    .fi-left .callout-line { width: 62px; }
+    .fi-right-wrap { display: flex; gap: 14px; align-items: flex-end; }
+    .fi-phone { position: static; width: 237px; height: 485px; object-fit: cover; flex-shrink: 0; }
+    .fi-right { display: flex; gap: 12px; height: 388px; align-items: center; }
+    .fi-right .callout-line { width: 69px; }
+    .fi-right .callout-text { width: 123px; }
+
+    .home-right { padding-top: 0; overflow-x: hidden; }
+    .cs-back-link {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--gh-body);
+      text-decoration: none;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+    .cs-back-link:hover { color: var(--gh-primary); }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 16px; }
+      .nav-clock { display: none; }
+      * { cursor: auto !important; }
+    }
+  </style>
+</head>
+<body class="cs-v2">
+
+  <!-- NAV -->
+  <div data-component="nav" data-variant="home"></div>
+  <script src="assets/nav.js"></script>
+
+  <!-- LAYOUT (split-scroll, same system as the homepage / copart.html) -->
+  <div class="home-wrap">
+   <div class="home-layout">
+
+    <!-- SIDEBAR (Figma case-study design) -->
+    <aside class="sidebar">
+      <a href="index.html" class="cs-back-link">Back</a>
+
+      <div class="cs-context-nav">
+        <a href="#section-impact" class="cs-context-link">Impact</a>
+        <a href="#section-research" class="cs-context-link">Research</a>
+        <a href="#section-problem" class="cs-context-link">Problem</a>
+        <a href="#section-principles" class="cs-context-link">Design</a>
+        <a href="#section-reflection" class="cs-context-link">Reflection</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT (empty — sections go here) -->
+    <section class="home-right">
+     <div class="cs-main">
+
+      <h1 class="gh-page-heading">Helping artists contribute to social impact</h1>
+
+      <div class="hero-img">
+        <video autoplay muted loop playsinline>
+          <source src="assets/goodyhearts case study video.mov" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- PROJECT META (full-bleed, aligned with hero img above — not
+           inset by .cs-content's column padding) -->
+      <div class="gh-meta-row">
+        <div class="gh-meta-col">
+          <p class="gh-meta-label">Role</p>
+          <p class="gh-meta-value">Product Designer</p>
+        </div>
+        <div class="gh-meta-col">
+          <p class="gh-meta-label">Team</p>
+          <p class="gh-meta-value">1 Product Designer, 1 PM, 1 Product Engineer, 2 UX Researchers</p>
+        </div>
+        <div class="gh-meta-col">
+          <p class="gh-meta-label">Timeline</p>
+          <p class="gh-meta-value">Feb 26' – May 26'</p>
+        </div>
+        <div class="gh-meta-col">
+          <p class="gh-meta-label">Build</p>
+          <p class="gh-meta-value">Designed and shipped completely using AI</p>
+        </div>
+      </div>
+
+      <div class="cs-content">
+
+        <!-- IMPACT -->
+        <div class="section-break" id="section-impact">
+          <div class="section-header">
+            <p class="label">Impact</p>
+            <p class="section-heading">We raised 150 trees within 2 weeks of our launch, completely selling out and received over 20 art submissions.</p>
+          </div>
+          <div class="photo-pair">
+            <figure><img src="assets/Booth 1.png" alt="First physical booth, photo 1"></figure>
+            <figure><img src="assets/Booth 2.png" alt="First physical booth, photo 2"></figure>
+          </div>
+          <p class="caption">Pictures from our first physical booth!</p>
+        </div>
+
+        <!-- RESEARCH SECTION -->
+        <div class="section-break" id="section-research">
+          <div class="section-header">
+            <p class="section-heading">An experience built around how artists think and feel</p>
+          </div>
+          <div class="frame-box">
+            <div class="phone-shape">
+              <video autoplay muted loop playsinline>
+                <source src="assets/goodyhearts homepage recording.mov" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROBLEM -->
+        <div class="section-break" id="section-problem">
+          <div class="section-header">
+            <p class="label">Problem</p>
+            <p class="section-heading">Artists want to use their creativity for social good but currently there is no clear pathway for them to do that.</p>
+          </div>
+          <div class="icon-row">
+            <img src="assets/Problem icon.svg" alt="">
+            <div>
+              <p class="icon-title">Artists feel like their art is not good enough to matter.</p>
+              <p class="icon-body">To understand the drivers and barriers for artist participation we conducted a user survey to explore their interests, behaviors, and past experiences. Through the 32 survey responses we received, we grouped the responses based on the common feelings of artists we could identify and came up with these 4 insights</p>
+            </div>
+          </div>
+          <div class="quote-grid">
+            <div class="quote-card"><p>I am not sure how much of an impact my art would have.</p></div>
+            <div class="quote-card"><p>I don't think my art is very good, not sure if others would be interested.</p></div>
+            <div class="quote-card"><p>I don't think my art is serious enough for something so important. I create for fun.</p></div>
+            <div class="quote-card"><p>I create art to make my activities more enjoyable.</p></div>
+          </div>
+        </div>
+
+        <!-- MARKET RESEARCH -->
+        <div class="section-break" id="section-market-research">
+          <div class="section-header">
+            <p class="label">Market research</p>
+            <p class="section-heading">Every existing platform in the market felt either like a competition or unpaid freelance work.</p>
+            <p class="section-body">I wanted to understand what current platforms are doing to solve this problem and evaluate their onboarding flows to see if they alienate artists. I used perplexity AI to run a competitive analysis</p>
+          </div>
+          <div class="ca-img"><img src="assets/CA img 1.png" alt="Competitive analysis"></div>
+        </div>
+
+        <!-- HMW / PIVOT -->
+        <div class="section-break" id="section-pivot">
+          <div class="section-header">
+            <p class="section-heading">How might we support art hobbyists to easily participate in social impact work through their creative practice?</p>
+          </div>
+          <div class="hmw-group">
+            <div class="pivot-group">
+              <div class="pivot-card bad">
+                <img src="assets/Icon x.png" alt="">
+                <div>
+                  <p class="t">What if we create a platform where artists can feature their art as stickers for a certain fee, which directly funds social impact?</p>
+                  <p class="b">But attaching money to art, especially for a new platform would have created the same friction and feeling of unpaid freelance work.  I knew that people are far less likely to act when there's no established relationship yet. We had no proof or credibility, no reason for an artist to pay and also create art when they could just donate directly.</p>
+                </div>
+              </div>
+              <div class="pivot-card good">
+                <img src="assets/Icon check.png" alt="">
+                <p class="t" style="margin:0;">I proposed flipping the model, free submissions for artists and everyone can purchase the stickers.</p>
+              </div>
+            </div>
+
+            <div class="flow-block">
+              <p class="flow-label">Before</p>
+              <div class="flow-row">
+                <div class="flow-card">Artists pay to submit art work</div>
+                <span class="flow-arrow"><img src="assets/Arrow 5.svg" alt=""></span>
+                <div class="flow-card">Funds go to social cause</div>
+                <span class="flow-arrow"><img src="assets/Arrow 5.svg" alt=""></span>
+                <div class="flow-card">Stickers distributed for free</div>
+              </div>
+            </div>
+            <div class="flow-block">
+              <p class="flow-label">After</p>
+              <div class="flow-row">
+                <div class="flow-card">Artists submit art work for free</div>
+                <span class="flow-arrow"><img src="assets/Arrow 5.svg" alt=""></span>
+                <div class="flow-card">Everyone can buy stickers</div>
+                <span class="flow-arrow"><img src="assets/Arrow 5.svg" alt=""></span>
+                <div class="flow-card">Profit funds social cause</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IDEATION -->
+        <div class="section-break" id="section-ideation">
+          <div class="section-header">
+            <p class="label">Ideation</p>
+            <p class="section-heading">With the foundation set, I began exploring different submission flows to understand what the artists were already used to.</p>
+            <p class="section-body">I looked at Ko-fi, Patreon, Pinterest, and Instagram - four platforms where artists share their work frequently to map what worked, what created friction, and what I needed to avoid.</p>
+          </div>
+
+          <div class="ideation-grid">
+            <div class="ideation-pair">
+              <div class="ideation-images">
+                <figure><img src="assets/IMG_1116.png" alt="Pinterest submission flow screenshot 1"></figure>
+                <figure><img src="assets/IMG_1117.png" alt="Pinterest submission flow screenshot 2"></figure>
+              </div>
+              <p class="caption">Pinterest</p>
+            </div>
+            <div class="ideation-pair">
+              <div class="ideation-images">
+                <figure><img src="assets/IMG_1114.png" alt="Instagram submission flow screenshot 1"></figure>
+                <figure><img src="assets/IMG_1115.png" alt="Instagram submission flow screenshot 2"></figure>
+              </div>
+              <p class="caption">Instagram</p>
+            </div>
+            <div class="ideation-pair">
+              <div class="ideation-images">
+                <figure><img src="assets/IMG_1119.png" alt="Ko-fi submission flow screenshot 1"></figure>
+                <figure><img src="assets/IMG_1120.png" alt="Ko-fi submission flow screenshot 2"></figure>
+              </div>
+              <p class="caption">Kofi</p>
+            </div>
+            <div class="ideation-pair">
+              <div class="ideation-images">
+                <figure><img src="assets/IMG_1121.png" alt="Patreon submission flow screenshot 1"></figure>
+                <figure><img src="assets/IMG_1124.png" alt="Patreon submission flow screenshot 2"></figure>
+              </div>
+              <p class="caption">Patreon</p>
+            </div>
+          </div>
+
+          <div class="insight-list">
+            <div class="insight-row">
+              <p class="insight-num">01</p>
+              <div class="insight-text">
+                <p class="t">Pinterest, Ko-fi, and Patreon all require signups before you can share or submit anything.</p>
+                <p class="b">I wanted the platform to be low commitment. Artists should be able to contribute to social impact without having to download a new app or sign up for emails from one more platform.</p>
+              </div>
+            </div>
+            <div class="insight-row">
+              <p class="insight-num">02</p>
+              <div class="insight-text">
+                <p class="t">Artists measure their works worth by engagement or the amount of likes and saves which most times takes the joy out of creating.</p>
+                <p class="b">A lot of platforms make sharing art into a competition, the best work gets picked and is used by non-profits but art is subjective and everyone who wants to contribute should be able to.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN PRINCIPLES -->
+        <div class="section-break" id="section-principles">
+          <div class="section-header">
+            <p class="label">Design Principles</p>
+            <p class="section-heading">Principles that guided my design</p>
+            <p class="section-body">Based on the findings from research and my own exploration, I developed these three design principles to inform my design decisions.</p>
+          </div>
+          <div class="principle-row">
+            <div class="principle-card"><p>Design for emotional safety and joy</p></div>
+            <div class="principle-card"><p>Focus on belonging over participating</p></div>
+            <div class="principle-card"><p>Reassure users that their contribution matters.</p></div>
+          </div>
+        </div>
+
+        <!-- DESIGN 01: REDUCING DECISIONAL FRICTION -->
+        <div class="section-break gap-l" id="section-design-01">
+          <div class="design-group">
+            <div class="section-header">
+              <p class="label">Design 01</p>
+              <p class="section-heading">Reducing Decisional Friction</p>
+            </div>
+            <div class="design-cards-row">
+              <div class="design-card tall">
+                <p class="lbl">Observation</p>
+                <p class="t">Artists hate choosing their own work</p>
+                <p class="b">Pre-launch, almost every artist sent multiple doodles and wanted us to choose what to sell.</p>
+              </div>
+              <div class="design-card">
+                <p class="lbl">Insight</p>
+                <p class="t">Choosing triggers perfectionism.</p>
+                <p class="b">Forcing one upload makes artists judge their own work, which might trigger decision anxiety.</p>
+              </div>
+              <div class="design-card tall">
+                <p class="lbl">Action</p>
+                <p class="t">Multi - photo upload</p>
+                <p class="b">Artists should be allowed to upload up to 5 photos so they don't have to pick their "best" work</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="iteration-stack">
+            <div class="iteration-frame">
+              <p class="iteration-title">Final Iteration</p>
+              <div class="fi-annotated">
+                <div class="fi-left">
+                  <p class="callout-text">Multi-photo option to prevent decision friction</p>
+                  <span class="callout-line dot-end"></span>
+                </div>
+                <div class="fi-right-wrap">
+                  <img class="fi-phone" src="assets/share art v3.png" alt="Final iteration of the art submission screen">
+                  <div class="fi-right">
+                    <span class="callout-line dot-start"></span>
+                    <p class="callout-text">Unequal visual weight to signal filling all 5 is optional.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="iteration-frame">
+              <p class="iteration-title">Iteration 1</p>
+              <img class="it-phone" style="left:241px;" src="assets/share art v1.png" alt="First iteration of the art submission screen">
+              <div class="callout" style="left:488px; top:145px;">
+                <span class="callout-line dot-start" style="width:69px;"></span>
+                <p class="callout-text" style="width:126px;">Too much text. Users rarely read instructions</p>
+              </div>
+              <div class="callout" style="left:67px; top:277px;">
+                <p class="callout-text" style="width:92px;">Multi-photo option is not obvious</p>
+                <span class="callout-line dot-end" style="width:62px;"></span>
+              </div>
+              <div class="callout" style="left:488px; top:291px;">
+                <span class="callout-line dot-start" style="width:69px;"></span>
+                <p class="callout-text" style="width:123px;">Final stickers are circular, might lead to awk cropping.</p>
+              </div>
+            </div>
+
+            <div class="iteration-frame">
+              <p class="iteration-title">Iteration 2</p>
+              <img class="it-phone" style="left:241px;" src="assets/share art v2.png" alt="Second iteration of the art submission screen">
+              <div class="callout" style="left:61px; top:189px;">
+                <p class="callout-text" style="width:92px;">Pre-loaded stickers to make artist feel they are adding to the gallery but is confusing</p>
+                <span class="callout-line dot-end" style="width:62px;"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN 02: DESIGNING FOR JOY -->
+        <div class="section-break" id="section-design-02">
+          <div class="section-header">
+            <p class="label">Design 02</p>
+            <p class="section-heading">Designing for joy to reduce anxiety and emphasize the submission value.</p>
+            <p class="section-body">The animation acts as a direct metaphor for the artist's impact on the social cause because without their art there would be no stickers to plant trees.</p>
+          </div>
+          <div class="frame-box h-606">
+            <div class="phone-shape">
+              <video autoplay muted loop playsinline>
+                <source src="assets/joy animation.mov" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN 03: REDUCING INPUT FATIGUE -->
+        <div class="section-break" id="section-design-03">
+          <div class="section-header">
+            <p class="label">Design 03</p>
+            <p class="section-heading">Reducing input fatigue and errors</p>
+            <p class="section-body">To reduce input fatigue, the email field automatically populates the moment a user types @ I also designed an interactive circular crop tool directly within the preview, allowing artists to scale and position their design with real-time visual proofing.</p>
+          </div>
+          <div class="small-things-frame">
+            <p class="st-caption" style="left:29px; width:188px;">real-time visual proofing.</p>
+            <div class="st-peek" style="left:27px; width:189.973px; height:336.729px;">
+              <img src="assets/Group 21.png" alt="Cropped preview of the sticker gallery, scaled up for visual proofing" style="height:145.14%; width:140.94%; left:-20.33%; top:-7.83%;">
+            </div>
+
+            <p class="st-caption" style="left:291px; white-space:nowrap;">autofill email address</p>
+            <div class="st-peek shadow" style="left:273px; width:191.772px; height:336.729px;">
+              <img src="assets/IMG_1107.png" alt="Email field showing autofill suggestions after typing @" style="height:123.47%; width:100%; left:0; top:-0.24%;">
+            </div>
+
+            <p class="st-caption" style="left:545px; white-space:nowrap;">error prevention</p>
+            <div class="st-peek shadow" style="left:508px; width:189.973px; height:336.729px;">
+              <img src="assets/IMG_1108.png" alt="Inline error flagging a mistyped email address" style="height:123.26%; width:100.78%; left:-0.39%; top:-0.13%;">
+            </div>
+          </div>
+        </div>
+
+        <!-- USABILITY TESTING -->
+        <div class="section-break gap-l" id="section-usability">
+          <div class="section-header">
+            <p class="label">Usability Testing</p>
+            <p class="section-heading">Validating User Confidence, Reassurance, and Perceived Clarity.</p>
+            <p class="section-body">To understand if there was a gap between my design intentions and real user perceptions, I ran 5 usability tests focusing on the emotional and cognitive experience of the artists. I wanted to understand how users felt navigating the platform.</p>
+          </div>
+
+          <div class="ut-group">
+            <div class="insight-list">
+              <div class="insight-row">
+                <p class="insight-num">01</p>
+                <div class="insight-text">
+                  <p class="t">Participants repeatedly tried clicking on existing community stickers in the gallery.</p>
+                  <p class="b">This behavior made me realize that people want to connect with the art and understand the story behind the design.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ut-stack">
+              <div class="ut-frame h-345">
+                <div class="ut-card" style="left:88px; top:44px; width:219px; height:257px;">
+                  <img src="assets/IMG_1137.png" alt="Expanded sticker card showing artist attribution and story" style="height:184.74%; width:100%; left:0; top:-29.33%;">
+                </div>
+                <p class="ut-caption" style="left:344px; top:145px; width:267px;">Made gallery art interactive to open into a bigger card and reveal more information about the artist.</p>
+              </div>
+              <div class="ut-frame h-345">
+                <div class="ut-card" style="left:41px; top:44px; width:315px; height:242px;">
+                  <img src="assets/IMG_1138.png" alt="Optional connection and story form fields on the submission flow" style="height:282.12%; width:99.92%; left:0; top:-82.42%;">
+                </div>
+                <p class="ut-caption" style="left:383px; top:116px; width:254px;">Added new form fields so artists can share their connection/story but made it optional to avoid forcing vulnerability</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="ut-group">
+            <div class="insight-list">
+              <div class="insight-row">
+                <p class="insight-num">02</p>
+                <div class="insight-text">
+                  <p class="t">Do I need to add more drawings?</p>
+                  <p class="b">The empty placeholder slots on the personal details screen caused confusion. Instead of making it easier to add more art it made participants feel like they had made a mistake or needed to upload more artwork.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ut-frame h-581">
+              <p class="ut-page-label" style="left:126px; top:44px;">Before</p>
+              <div class="ut-card" style="left:55px; top:81px; width:192px; height:445px;">
+                <img src="assets/Confirm page3.png" alt="Before: personal details screen showing empty placeholder slots" style="height:130.62%; width:100%; left:0; top:-0.1%;">
+              </div>
+
+              <p class="ut-page-label" style="left:349px; top:44px;">After</p>
+              <div class="ut-card" style="left:272px; top:81px; width:193px; height:392px;">
+                <img src="assets/Confirm page2.png" alt="After: personal details screen showing only uploaded art" style="height:148.38%; width:100%; left:0; top:-0.11%;">
+              </div>
+
+              <div class="callout" style="left:481px; top:240px;">
+                <span class="callout-line dot-start" style="width:48px;"></span>
+                <p class="callout-text" style="width:123px;">Changed to show only uploaded art</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI EXPERIMENTS -->
+        <div class="section-break" id="section-ai">
+          <div class="section-header">
+            <p class="label">AI Experiments</p>
+            <p class="section-heading">Claude can you build a UX copy?</p>
+            <p class="section-body">To ensure the tone remained consistently empathetic, clear, and reassuring across every touchpoint of the experience, I used Claude to build a comprehensive UX Copy Documentation framework.</p>
+          </div>
+          <div class="ai-exp-frame">
+            <img src="assets/ux copy.png" alt="Excerpt from the Goody Hearts Club UX writing guide, covering voice and tone">
+          </div>
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="section-break" id="section-reflection">
+          <div class="section-header">
+            <p class="section-heading">Working with AI requires a LOT of patience</p>
+            <p class="section-body">Because we had to design and launch this product on a brutally fast timeline, I initially turned to Claude to create wireframes which led to generic outputs, what did work was using it as a design review partner bec AI is really good at catching patterns/auditing. It taught me that you have to constantly experiment with AI workflows to figure out what actually accelerates your unique process and what just hinders it.</p>
+          </div>
+          <div class="section-header">
+            <p class="section-heading">Human connection is essential</p>
+            <p class="section-body">Stepping away from the screen to watch real people interact with our product was such an amazing experience. Seeing them connect with the non-profit's cause and buy the stickers filled me to so much joy. It reminded me that we are building tools that impact real human communities.</p>
+          </div>
+        </div>
+
+      </div><!-- /cs-content -->
+     </div><!-- /cs-main -->
+    </section><!-- /home-right -->
+   </div><!-- /home-layout -->
+  </div><!-- /home-wrap -->
+
+  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    let raf;
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+  </script>
+
+<script src="assets/cursor-trail.js"></script>
+
+<!-- SIDEBAR NAV SCROLL-SPY -->
+<script>
+(function() {
+  var ids = ['section-impact', 'section-research', 'section-problem', 'section-principles', 'section-reflection'];
+  var links = document.querySelectorAll('.cs-context-link');
+  var root = document.querySelector('.home-right');
+  var sections = ids.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+  if (!root || !sections.length || !links.length) return;
+
+  function setActive(id) {
+    links.forEach(function(l) {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+    });
+  }
+
+  var current = sections[0].id;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) current = entry.target.id;
+    });
+    setActive(current);
+  }, {
+    root: root,
+    rootMargin: '-15% 0px -70% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function(el) { observer.observe(el); });
+  setActive(current);
+})();
+</script>
+</body>
+</html>

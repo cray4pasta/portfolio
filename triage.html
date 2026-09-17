@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Prerna Kashyap</title>
+  <meta name="description" content="An AI-powered inbox organizer that declutters, categorizes, and surfaces the right information.">
+  <meta name="keywords" content="product designer, UX designer, Prerna Kashyap, Triage, AI, email, case study">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Triage — Prerna Kashyap | Product Designer">
+  <meta property="og:description" content="An AI-powered inbox organizer that declutters, categorizes, and surfaces the right information.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Triage — Prerna Kashyap | Product Designer">
+  <meta name="twitter:description" content="An AI-powered inbox organizer that declutters, categorizes, and surfaces the right information.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <style>
+    /* ─── LAYOUT ─── sidebar/main-col grid comes from shared.css (.page-layout);
+       hero-img sizing lives here, flattening + rhythm come from shared.css (.cs-v2). */
+    .hero-img {
+      width: 100%;
+      height: 460px;
+      overflow: hidden;
+      background: #111213;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-img img,
+    .hero-img video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    .next-project-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .next-project-link::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text3);
+      flex-shrink: 0;
+    }
+    .next-project-link:hover { color: #989799; }
+
+    /* ─── CASE STUDY CONTENT ─── */
+    .cs-content {
+      display: flex;
+      flex-direction: column;
+      gap: 72px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .section-break {
+      display: flex;
+      flex-direction: column;
+      gap: 72px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* ─── SECTION HEADER ───
+       .label, .section-heading, .section-body now come from shared.css's
+       scoped .cs-v2 rules. Role/Team/Duration meta moved into the sidebar. */
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    /* ─── STAT CARDS ─── */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+    .stat-card {
+      background: #F5F5F5;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stat-card-body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 22px;
+      color: var(--text);
+    }
+    .stat-card-source {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 18px;
+      color: var(--text3);
+    }
+
+    /* ─── COMPETITOR TABLE ─── */
+    .competitor-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+    .competitor-table thead tr {
+      background: var(--text);
+      color: var(--bg);
+    }
+    .competitor-table thead th {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      padding: 20px 24px;
+      text-align: left;
+    }
+    .competitor-table tbody tr {
+      border-bottom: 1px solid #ddd;
+    }
+    .competitor-table tbody tr:last-child { border-bottom: none; }
+    .competitor-table tbody td {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 22px;
+      color: var(--text2);
+      padding: 20px 24px;
+      vertical-align: top;
+    }
+    .competitor-table tbody td:first-child {
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    /* ─── CATEGORY PILLS ─── */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+    }
+    .category-pill {
+      background: #F5F5F5;
+      border: 1px solid #ddd;
+      border-radius: 100px;
+      padding: 14px 28px;
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--text2);
+    }
+
+    /* ─── PRINCIPLES ROW ─── */
+    .principles-row {
+      display: flex;
+      gap: 24px;
+      align-items: stretch;
+      width: 100%;
+    }
+    .principle-card {
+      background: #F5F5F5;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 28px 32px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    .principle-card:hover {
+      background: #F5F3F6;
+      transform: translateY(-4px);
+    }
+    .principle-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 24px;
+      color: var(--text);
+    }
+    .principle-body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 22px;
+      color: var(--text2);
+    }
+
+    /* ─── REFLECTION ─── */
+    .reflection-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+    .reflection-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+    .reflection-heading {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 300;
+      line-height: 40px;
+      color: var(--text);
+    }
+    .reflection-body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 22px;
+      color: var(--text2);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .section-break { gap: 48px; }
+    }
+
+    @media (max-width: 900px) {
+      .hero-img { height: 400px; }
+      .principles-row { flex-direction: column; }
+      .stat-cards { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-inner { flex-wrap: wrap; gap: 12px; }
+      .nav-links { gap: 16px; }
+      .nav-clock { display: none; }
+      .hero-img { height: 260px; }
+      .section-break { gap: 32px; }
+      * { cursor: auto !important; }
+    }
+
+    @media (max-width: 550px) {
+      .cs-main, .cs-main * { max-width: 100% !important; }
+      .cs-main img, .cs-main video { height: auto !important; }
+    }
+
+    /* ─── LIGHTBOX ─── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    #lightbox.active { opacity: 1; pointer-events: all; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      cursor: none !important;
+    }
+    #lightbox.active img { transform: scale(1); }
+    .lb-zoom { cursor: none !important; pointer-events: auto !important; position: relative; z-index: 1; }
+  </style>
+</head>
+<body class="cs-v2">
+
+  <!-- NAV -->
+  <div data-component="nav" data-variant="home"></div>
+  <script src="assets/nav.js"></script>
+
+  <!-- LAYOUT -->
+  <div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h1 class="hero-text">Cutting through inbox noise with <em>AI-powered</em> search.</h1>
+      <p class="hero-subtext">Email was breaking my brain: hundreds of unread messages, important things buried under newsletters. I designed and built Triage, an AI-powered inbox organizer that categorizes your mail, lets you search it conversationally, and drafts replies.</p>
+
+      <div class="cs-context">
+        <div class="cs-context-meta">
+          <div class="cs-context-row">
+            <span class="cs-context-label">Role</span>
+            <span class="cs-context-value">UX Designer + Builder</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Duration</span>
+            <span class="cs-context-value">2 Weeks</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Team</span>
+            <span class="cs-context-value">Solo</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Platform</span>
+            <span class="cs-context-value">Web Application</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Type</span>
+            <span class="cs-context-value">Side Project</span>
+          </div>
+        </div>
+        <hr class="sidebar-divider">
+        <div class="cs-context-nav">
+          <a class="cs-context-link" href="#t-context">Context</a>
+          <a class="cs-context-link" href="#t-problem">Problem</a>
+          <a class="cs-context-link" href="#t-solution">Solution</a>
+          <a class="cs-context-link" href="#t-ai">Working with AI</a>
+          <a class="cs-context-link" href="#t-reflection">Reflection</a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="col-divider"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-col">
+     <div class="cs-main">
+
+      <!-- HERO -->
+      <div class="hero-img">
+        <img src="assets/triage img.png" alt="Triage — AI-powered inbox organizer" loading="eager">
+      </div>
+
+      <div class="cs-content">
+
+        <!-- CONTEXT -->
+        <div class="section-break" id="t-context" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Context</p>
+            <p class="section-heading">An AI-powered inbox organizer that declutters, categorizes, and surfaces the right information — so you can work faster and smarter.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <p style="font-family:var(--font-sans);font-size:20px;font-weight:400;line-height:28px;color:var(--text2);">I built Triage because email was genuinely breaking my brain. Hundreds of unread messages, important things buried under newsletters, and no easy way to find what I actually needed. The inbox — a tool designed to help — had become the thing I dreaded most.</p>
+          </div>
+
+          <div class="stat-cards">
+            <div class="stat-card">
+              <p class="stat-card-body">The average worker spends 28% of their workweek — over 580 hours a year — just managing their inbox.</p>
+              <p class="stat-card-source">~McKinsey Global Institute</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card-body">Email overload reduces worker productivity by up to 40%, and only 10% of emails received are actually business-critical.</p>
+              <p class="stat-card-source">~cloudHQ / Mailbird, 2025</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card-body">Communication now consumes 60% of the workday through emails, chats, and meetings.</p>
+              <p class="stat-card-source">~Microsoft Work Trend Index, 2025</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-card-body">Organizations with structured email management see up to a 25% improvement in employee focus time.</p>
+              <p class="stat-card-source">~Gartner Workplace Productivity Analysis</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROBLEM -->
+        <div class="section-break" id="t-problem" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Problem</p>
+            <p class="section-heading">Existing tools have tried — but none got it right.</p>
+          </div>
+
+          <table class="competitor-table">
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>What it does well</th>
+                <th>The tradeoff</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Superhuman</td>
+                <td>Fast, beautiful, keyboard-first</td>
+                <td>$30–40/month, steep learning curve, reads full email content</td>
+              </tr>
+              <tr>
+                <td>SaneBox</td>
+                <td>Header-only analysis, strong privacy</td>
+                <td>No AI replies, no conversational search, dated UI</td>
+              </tr>
+              <tr>
+                <td>Shortwave</td>
+                <td>Advanced AI summaries and search</td>
+                <td>Requires full content access, replaces Gmail entirely</td>
+              </tr>
+              <tr>
+                <td>Gemini for Gmail</td>
+                <td>Built into Google</td>
+                <td>No categorization, no reply suggestions, no triage layer</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p style="font-family:var(--font-sans);font-style:italic;font-size:24px;line-height:32px;font-weight:400;color:var(--text2);border-left:2px solid var(--border);padding-left:24px;">The gap: a lightweight layer that organizes your inbox intelligently, lets you search it conversationally, and drafts replies — without replacing Gmail or demanding full content access.</p>
+        </div>
+
+        <!-- SOLUTION -->
+        <div class="section-break" id="t-solution" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Solution</p>
+            <p class="section-heading">Triage automatically sorts your inbox into five categories so you only see what matters, when you choose to.</p>
+          </div>
+
+          <div class="category-pills">
+            <span class="category-pill">Digest</span>
+            <span class="category-pill">Important</span>
+            <span class="category-pill">Notifications</span>
+            <span class="category-pill">Transactional</span>
+            <span class="category-pill">Marketing</span>
+          </div>
+
+          <img src="assets/triage inbox.png" alt="Triage inbox categorized view" style="width:100%;max-width:936px;display:block;border-radius:8px;" loading="lazy">
+        </div>
+
+        <div class="section-break" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Solution</p>
+            <p class="section-heading">A conversational search engine that finds exactly what you need — no digging, no guesswork.</p>
+          </div>
+
+          <p style="font-family:var(--font-sans);font-size:20px;font-weight:400;line-height:28px;color:var(--text2);max-width:800px;">No need to remember who sent you that attachment or when. Just ask: <em>"when is my upcoming flight?"</em> or <em>"i need my I-20"</em> — and Triage finds it.</p>
+
+          <img src="assets/triage search.png" alt="Triage conversational search showing flight results" style="width:100%;max-width:936px;display:block;border-radius:8px;" loading="lazy">
+        </div>
+
+        <div class="section-break" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Solution</p>
+            <p class="section-heading">Smart reply suggestions so you spend less time writing and more time on what matters.</p>
+          </div>
+
+          <p style="font-family:var(--font-sans);font-size:20px;font-weight:400;line-height:28px;color:var(--text2);max-width:800px;">Three contextual response options generated per email — pick one, edit, or send as-is.</p>
+
+          <img src="assets/triage reply.png" alt="Triage reply suggestion feature" style="width:100%;max-width:936px;display:block;border-radius:8px;" loading="lazy">
+        </div>
+
+        <div class="section-break" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Solution</p>
+            <p class="section-heading">A Digest tab that surfaces what needs your attention without overwhelming you.</p>
+          </div>
+
+          <img src="assets/triage digest.png" alt="Triage digest tab with needs attention section" style="width:100%;max-width:936px;display:block;border-radius:8px;" loading="lazy">
+        </div>
+
+        <!-- WORKING WITH AI -->
+        <div class="section-break" id="t-ai" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Working with AI</p>
+            <p class="section-heading">I built this with AI — and learned as much about prompting as I did about design.</p>
+          </div>
+
+          <p style="font-family:var(--font-sans);font-size:20px;font-weight:400;line-height:28px;color:var(--text2);max-width:800px;">I started building in Claude then moved to Cursor. Before writing a single line of code, I gave the AI a persona — and it changed everything.</p>
+
+          <img src="assets/triage claude prompt.png" alt="Claude project instructions: Think like both a Product Engineer and a Data Architect" style="width:100%;max-width:736px;display:block;border-radius:8px;" loading="lazy">
+
+          <p style="font-family:var(--font-sans);font-style:italic;font-size:24px;line-height:32px;font-weight:400;color:var(--text2);border-left:2px solid var(--border);padding-left:24px;">It didn't just give me better outputs — it helped me think about things I would not have considered before.</p>
+
+          <div class="principles-row">
+            <div class="principle-card">
+              <p class="principle-title">Phase-based building</p>
+              <p class="principle-body">I instructed the AI to work in phases: break down large tasks, ask clarifying questions before moving forward, and never code the whole app at once. This kept me in control of the logic before the UI was built.</p>
+            </div>
+            <div class="principle-card">
+              <p class="principle-title">Fact-checker sub-agent</p>
+              <p class="principle-body">To reduce hallucinations, I set up a Playwright MCP sub-agent in Cursor whose only job was to fact-check everything the main agent thought. It acted as the AI's eyes — catching mistakes before they shipped.</p>
+            </div>
+          </div>
+
+          <div class="section-header" style="margin-top:0;">
+            <p class="section-heading">Not always smooth sailing.</p>
+          </div>
+
+          <p style="font-family:var(--font-sans);font-size:20px;font-weight:400;line-height:28px;color:var(--text2);max-width:800px;">There were moments where no matter how carefully I phrased a prompt, the AI couldn't understand what I meant. I tried over 6 different variations on one feature. I even took a screenshot of the problem and asked Gemini to write the prompt for me. Nothing worked.</p>
+
+          <p style="font-family:var(--font-sans);font-style:italic;font-size:24px;line-height:32px;font-weight:400;color:var(--text2);border-left:2px solid var(--border);padding-left:24px;">And all I needed was a simple one liner with the term "container height."</p>
+
+          <img src="assets/triage cursor.png" alt="Cursor prompt showing working with AI to fix container height" style="width:100%;max-width:936px;display:block;border-radius:8px;" loading="lazy">
+
+          <p style="font-family:var(--font-sans);font-size:20px;font-weight:400;line-height:28px;color:var(--text2);max-width:800px;">Asking the AI <em>"what went wrong?"</em> was often more effective than re-prompting. After one stuck session, the AI added an error boundary message to the screen so I could paste back the exact error — and it figured out what went wrong. I thought that was very smart.</p>
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="section-break" id="t-reflection" style="margin-top:100px;">
+          <div class="section-header">
+            <p class="label">Reflection</p>
+            <p class="section-heading">Before this I always felt like I was trying to make AI read my mind.</p>
+          </div>
+
+          <div class="reflection-section">
+            <div class="reflection-block">
+              <p class="reflection-heading">This time it finally felt like AI was my partner instead of a kid I had to teach.</p>
+              <p class="reflection-body" style="margin-top:12px;">The persona + phase-based approach meant the AI was reasoning with me, not just generating at me. I came away with a working product and a new mental model for how to collaborate with AI that I'll carry into every project from here.</p>
+            </div>
+
+            <div class="reflection-block" style="margin-top:24px;">
+              <p class="reflection-heading">What I'd do differently.</p>
+              <p class="reflection-body" style="margin-top:12px;">I'd spend more time upfront defining the data schema before touching the UI. Several of my hardest debugging sessions came from UI assumptions that didn't match the underlying data structure. Logic first, interface second.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="linkedin.html" class="next-project-link">Next Project: Reimagining LinkedIn &rarr;</a>
+
+      </div><!-- /cs-content -->
+     </div><!-- /cs-main -->
+    </div><!-- /main-col -->
+  </div><!-- /page-layout -->
+
+  <div id="lightbox">
+    <img id="lb-img" src="" alt="">
+  </div>
+  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    let raf;
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+
+    // Lightbox
+    (() => {
+      const lb    = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lb-img');
+      function closeLb() { lb.classList.remove('active'); }
+      document.querySelectorAll('img').forEach(img => {
+        if (img.id === 'lb-img' || img.closest('.nav-logo') || img.closest('.hero-img') || img.closest('#cursor')) return;
+        img.classList.add('lb-zoom');
+      });
+      document.addEventListener('click', e => {
+        const img = e.target.closest('img.lb-zoom');
+        if (img) { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('active'); return; }
+        if (e.target.closest('#lightbox')) closeLb();
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    })();
+
+    // TOC scroll-spy
+    (function(){
+      var sections = ['t-context','t-problem','t-solution','t-ai','t-reflection'];
+      var links = document.querySelectorAll('.cs-context-link');
+      function onScroll(){
+        var scrollY = window.scrollY + 160;
+        var current = sections[0];
+        sections.forEach(function(id){
+          var el = document.getElementById(id);
+          if(el && el.offsetTop <= scrollY) current = id;
+        });
+        links.forEach(function(l){
+          l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+        });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
+
+
+  </script>
+</body>
+</html>

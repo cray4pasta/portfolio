@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goody Hearts Club — Prerna Kashyap | Product Designer</title>
+  <meta name="description" content="Lowering the barrier to social impact for art hobbyists through a joyful, friction-free platform.">
+  <meta name="keywords" content="product designer, UX designer, Prerna Kashyap, Goody Hearts Club, case study, design system">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/goodyhearts.html">
+  <meta property="og:title" content="Goody Hearts Club — Prerna Kashyap | Product Designer">
+  <meta property="og:description" content="Lowering the barrier to social impact for art hobbyists through a joyful, friction-free platform.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Goody Hearts Club — Prerna Kashyap | Product Designer">
+  <meta name="twitter:description" content="Lowering the barrier to social impact for art hobbyists through a joyful, friction-free platform.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* ─── FIGMA REDESIGN TOKENS ───
+       Page-scoped; overrides shared.css's .cs-v2 typography defaults for
+       this page only (loaded after shared.css, so these win the cascade). */
+    :root {
+      --gh-primary: #2a2a2b;
+      --gh-body: #575757;
+      --gh-label: #b8b8b8;
+      --gh-card: #f6f6f6;
+      --gh-frame: #f3f3f3;
+      --gh-frame-border: #dddddd;
+    }
+
+    /* Homepage uses #fffffe via .home-wrap; this page has no such wrapper,
+       so it falls back to shared.css's warmer --bg (#FBF9F9). Match the
+       homepage (and the Figma spec) instead. */
+    body { background: #fffffe; }
+
+    /* ─── SIDEBAR CARDS ─── */
+    .sidebar { gap: 20px; }
+    .side-card {
+      background: var(--gh-card);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+    }
+    .hero-text {
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 38px;
+      line-height: 44px;
+      color: var(--gh-primary);
+      text-wrap: balance;
+    }
+    .hero-subtext {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-body);
+    }
+    .cs-context { gap: 20px; margin-top: 0; }
+    .cs-context-meta { grid-template-columns: 1fr 1fr; row-gap: 20px; column-gap: 60px; }
+    .cs-context-row { gap: 4px; }
+    .cs-context-label { color: var(--gh-body); font-size: 14px; font-weight: 400; }
+    .cs-context-value { color: var(--gh-primary); font-size: 14px; font-weight: 400; }
+    .sidebar-divider { display: none; }
+    .cs-context-nav { gap: 4px; }
+    .cs-context-link { color: var(--gh-body); font-size: 14px; }
+    .cs-context-link:hover, .cs-context-link.active { color: var(--gh-primary); }
+
+    /* ─── MAIN COLUMN (empty shell — sections go here) ───
+       shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
+       column is wider (~936px), so drop that cap for this page. */
+    .cs-v2 .cs-main { max-width: none; margin: 0; }
+    .hero-img {
+      width: 100%;
+      height: 465px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-v2 .section-break {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 720px;
+      max-width: 100%;
+      min-width: 0;
+      padding: 0;
+      border-bottom: none;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .cs-v2 .label { color: var(--gh-label); font-weight: 400; }
+    .cs-v2 .section-heading { font-weight: 600; color: var(--gh-primary); letter-spacing: 0; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--gh-body); }
+    .cs-content {
+      display: flex;
+      flex-direction: column;
+      gap: 120px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* ─── PHOTO PAIR (Impact section) ─── */
+    .photo-pair { display: flex; gap: 21px; align-items: center; width: 100%; }
+    .photo-pair figure { flex-shrink: 0; width: 347px; height: 232px; border-radius: 8px; overflow: hidden; }
+    .photo-pair img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .caption {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--gh-body);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ─── BACK LINK ─── */
+    .cs-sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 0 0 0 -8px;
+      padding: 12px 0 12px 8px;
+      width: calc(100% + 8px);
+      background: rgba(255, 255, 254, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .cs-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gh-primary);
+      text-decoration: none;
+      width: fit-content;
+    }
+    .cs-back-link svg { width: 24px; height: 24px; display: block; fill: currentColor; flex-shrink: 0; }
+    .cs-back-link:hover { color: var(--gh-body); }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 16px; }
+      .nav-clock { display: none; }
+      .side-card { padding: 16px; }
+      .hero-text { font-size: 26px; line-height: 32px; }
+      * { cursor: auto !important; }
+    }
+  </style>
+</head>
+<body class="cs-v2">
+
+  <!-- NAV -->
+  <div data-component="nav" data-variant="home"></div>
+  <script src="assets/nav.js"></script>
+
+  <!-- LAYOUT (split-scroll, same system as the homepage) -->
+  <div class="home-wrap">
+   <div class="home-layout">
+
+    <!-- SIDEBAR (Figma case-study design) -->
+    <aside class="sidebar">
+      <div class="side-card">
+        <h1 class="hero-text">Helping artists contribute to social impact</h1>
+        <p class="hero-subtext">There was a gap in the market for artists to easily contribute to social impact.</p>
+        <p class="hero-subtext">I led the design of a 0 to 1 product for a community-driven platform, focusing on the onboarding experience for artists, to reduce vulnerability and increase participation.</p>
+      </div>
+
+      <div class="side-card">
+        <div class="cs-context-meta">
+          <div class="cs-context-row">
+            <span class="cs-context-label">Role</span>
+            <span class="cs-context-value">Product Designer</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Team</span>
+            <span class="cs-context-value">1 Product Designer, 1 PM, 1 Product Engineer, 2 UX Researchers</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Timeline</span>
+            <span class="cs-context-value">Feb 26' – May 26'</span>
+          </div>
+          <div class="cs-context-row">
+            <span class="cs-context-label">Build</span>
+            <span class="cs-context-value">Designed and shipped completely using AI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="cs-context-nav">
+          <a class="cs-context-link" href="#section-impact">Context</a>
+          <a class="cs-context-link" href="#section-problem">Problem</a>
+          <a class="cs-context-link" href="#section-design">Design</a>
+          <a class="cs-context-link" href="#section-reflection">Reflection</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT (empty — sections go here) -->
+    <section class="home-right">
+     <div class="cs-main">
+      <div class="cs-sticky-header">
+        <a href="index.html" class="cs-back-link">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+          Back
+        </a>
+      </div>
+
+      <div class="hero-img">
+        <video autoplay muted loop playsinline>
+          <source src="assets/goodyhearts case study video.mov" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="cs-content">
+
+        <!-- IMPACT -->
+        <div class="section-break" id="section-impact">
+          <div class="section-header">
+            <p class="label">Impact</p>
+            <p class="section-heading">We raised 150 trees within 2 weeks of our launch, completely selling out and received over 20 art submissions.</p>
+          </div>
+          <div class="photo-pair">
+            <figure><img src="assets/Booth 1.png" alt="First physical booth, photo 1"></figure>
+            <figure><img src="assets/Booth 2.png" alt="First physical booth, photo 2"></figure>
+          </div>
+          <p class="caption">Pictures from our first physical booth!</p>
+        </div>
+
+      </div><!-- /cs-content -->
+     </div><!-- /cs-main -->
+    </section><!-- /home-right -->
+   </div><!-- /home-layout -->
+  </div><!-- /home-wrap -->
+
+  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    let raf;
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+  </script>
+
+<script src="assets/cursor-trail.js"></script>
+<script>document.querySelector(".home-right").scrollTop = 900;</script></body>
+</html>

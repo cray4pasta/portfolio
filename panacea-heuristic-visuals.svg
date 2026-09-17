@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1660" viewBox="0 0 900 1660">
+  <defs>
+    <style>
+      text { font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    </style>
+    <!-- Clip paths for severity cards (rounds the bottom accent bar) -->
+    <clipPath id="cs1"><rect x="80"  y="874" width="176" height="163" rx="12"/></clipPath>
+    <clipPath id="cs2"><rect x="268" y="874" width="176" height="163" rx="12"/></clipPath>
+    <clipPath id="cs3"><rect x="456" y="874" width="176" height="163" rx="12"/></clipPath>
+    <clipPath id="cs4"><rect x="644" y="874" width="176" height="163" rx="12"/></clipPath>
+    <!-- Clip path for limitation card left bar -->
+    <clipPath id="clim"><rect x="40" y="1485" width="820" height="120" rx="12"/></clipPath>
+  </defs>
+
+  <!-- ─── Page background ─── -->
+  <rect width="900" height="1660" fill="#F9F8F5"/>
+
+  <!-- ════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════ -->
+  <text x="40" y="56"
+    font-size="11" font-weight="600" letter-spacing="1.5" fill="#9E9992">PANACEA BIOTEC — HEURISTIC EVALUATION</text>
+  <text x="40" y="84"
+    font-size="22" font-weight="700" letter-spacing="-0.3" fill="#1A1816">Usability Audit Findings</text>
+
+  <!-- ════════════════════════════════════════
+       CARD 1 — AT A GLANCE
+  ════════════════════════════════════════ -->
+  <rect x="40" y="104" width="820" height="378" rx="16" fill="#FFFFFF" stroke="#E8E5DF" stroke-width="1"/>
+
+  <!-- Section label -->
+  <text x="80" y="148" font-size="11" font-weight="600" letter-spacing="1.2" fill="#9E9992">AT A GLANCE</text>
+
+  <!-- Left block: dark / total -->
+  <rect x="80" y="165" width="388" height="185" rx="12" fill="#1A1816"/>
+  <text x="122" y="255" font-size="70" font-weight="800" letter-spacing="-2" fill="#FFFFFF">52</text>
+  <text x="122" y="278" font-size="13" font-weight="500" fill="#FFFFFF" fill-opacity="0.65">Total usability problems identified</text>
+  <text x="122" y="298" font-size="11" fill="#FFFFFF" fill-opacity="0.35">across all 10 NNG heuristics</text>
+
+  <!-- Right block: warm red / critical -->
+  <rect x="480" y="165" width="380" height="185" rx="12" fill="#F5EDE9" stroke="#DEB5A4" stroke-width="1"/>
+  <text x="522" y="255" font-size="70" font-weight="800" letter-spacing="-2" fill="#C8502A">9</text>
+  <text x="522" y="278" font-size="13" font-weight="500" fill="#8B3A20">Catastrophic — cause most visitors to fail</text>
+  <text x="522" y="296" font-size="13" font-weight="500" fill="#8B3A20">basic tasks entirely</text>
+  <text x="522" y="316" font-size="11" fill="#B06040" fill-opacity="0.85">Severity 4 · Immediate fix required</text>
+
+  <!-- Ratio bar -->
+  <rect x="80" y="370" width="760" height="12" rx="6" fill="#E8E5DF"/>
+  <rect x="80" y="370" width="132" height="12" rx="6" fill="#C8502A"/>
+
+  <!-- Ratio labels -->
+  <text x="80" y="400" font-size="12" font-weight="600" fill="#C8502A">9 critical issues (17%)</text>
+  <text x="840" y="400" font-size="12" fill="#9E9992" text-anchor="end">43 non-critical issues (83%)</text>
+
+  <!-- ════════════════════════════════════════
+       CARD 2 — DOT GRID (All 52 issues)
+  ════════════════════════════════════════ -->
+  <rect x="40" y="502" width="820" height="295" rx="16" fill="#FFFFFF" stroke="#E8E5DF" stroke-width="1"/>
+
+  <text x="80" y="543" font-size="11" font-weight="600" letter-spacing="1.2" fill="#9E9992">ALL 52 ISSUES — BY SEVERITY</text>
+
+  <!-- 52 dots arranged in 4 rows × 13 cols (r=11, step=30)
+       cx = 91 + col×30 | cy per row below
+       Severity colours: 4=#C8502A · 3=#E8824A · 2=#F2B970 · 1=#D4C9A8
+       Distribution: sev4×9, sev3×18, sev2×16, sev1×9 -->
+
+  <!-- ROW 0  cy=572  [sev4 ×9, sev3 ×4] -->
+  <circle cx="91"  cy="572" r="11" fill="#C8502A"/>
+  <circle cx="121" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="151" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="181" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="211" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="241" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="271" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="301" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="331" cy="572" r="11" fill="#C8502A"/>
+  <circle cx="361" cy="572" r="11" fill="#E8824A"/>
+  <circle cx="391" cy="572" r="11" fill="#E8824A"/>
+  <circle cx="421" cy="572" r="11" fill="#E8824A"/>
+  <circle cx="451" cy="572" r="11" fill="#E8824A"/>
+
+  <!-- ROW 1  cy=602  [sev3 ×13] -->
+  <circle cx="91"  cy="602" r="11" fill="#E8824A"/>
+  <circle cx="121" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="151" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="181" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="211" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="241" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="271" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="301" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="331" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="361" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="391" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="421" cy="602" r="11" fill="#E8824A"/>
+  <circle cx="451" cy="602" r="11" fill="#E8824A"/>
+
+  <!-- ROW 2  cy=632  [sev3 ×1, sev2 ×12] -->
+  <circle cx="91"  cy="632" r="11" fill="#E8824A"/>
+  <circle cx="121" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="151" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="181" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="211" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="241" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="271" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="301" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="331" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="361" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="391" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="421" cy="632" r="11" fill="#F2B970"/>
+  <circle cx="451" cy="632" r="11" fill="#F2B970"/>
+
+  <!-- ROW 3  cy=662  [sev2 ×4, sev1 ×9] -->
+  <circle cx="91"  cy="662" r="11" fill="#F2B970"/>
+  <circle cx="121" cy="662" r="11" fill="#F2B970"/>
+  <circle cx="151" cy="662" r="11" fill="#F2B970"/>
+  <circle cx="181" cy="662" r="11" fill="#F2B970"/>
+  <circle cx="211" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="241" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="271" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="301" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="331" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="361" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="391" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="421" cy="662" r="11" fill="#D4C9A8"/>
+  <circle cx="451" cy="662" r="11" fill="#D4C9A8"/>
+
+  <!-- Legend — row 1 -->
+  <circle cx="91"  cy="695" r="6" fill="#C8502A"/>
+  <text   x="103" cy="695" y="700" font-size="12" font-weight="500" fill="#6B6560">Severity 4 — Catastrophic (9)</text>
+  <circle cx="310" cy="695" r="6" fill="#E8824A"/>
+  <text   x="322" cy="695" y="700" font-size="12" font-weight="500" fill="#6B6560">Severity 3 — Major (18)</text>
+
+  <!-- Legend — row 2 -->
+  <circle cx="91"  cy="719" r="6" fill="#F2B970"/>
+  <text   x="103" cy="719" y="724" font-size="12" font-weight="500" fill="#6B6560">Severity 2 — Minor (16)</text>
+  <circle cx="310" cy="719" r="6" fill="#D4C9A8"/>
+  <text   x="322" cy="719" y="724" font-size="12" font-weight="500" fill="#6B6560">Severity 1 — Cosmetic (9)</text>
+
+  <!-- Subtext -->
+  <text x="80" y="753" font-size="11" fill="#9E9992">Each circle = one usability problem. Severity distribution is illustrative — update counts if you have the full breakdown.</text>
+
+  <!-- ════════════════════════════════════════
+       CARD 3 — SEVERITY SCALE
+  ════════════════════════════════════════ -->
+  <rect x="40" y="817" width="820" height="268" rx="16" fill="#FFFFFF" stroke="#E8E5DF" stroke-width="1"/>
+
+  <text x="80" y="858" font-size="11" font-weight="600" letter-spacing="1.2" fill="#9E9992">NIELSEN NORMAN GROUP SEVERITY SCALE</text>
+
+  <!-- Cards: x=[80,268,456,644] w=176 h=163 (4 cols × 176px + 3 gaps × 12px = 740px) -->
+
+  <!-- SEV 1 ── Cosmetic -->
+  <g clip-path="url(#cs1)">
+    <rect x="80"  y="874" width="176" height="163" fill="#FAF7F0"/>
+    <rect x="80"  y="1034" width="176" height="3" fill="#D4C9A8"/>
+  </g>
+  <rect x="80"  y="874" width="176" height="163" rx="12" fill="none" stroke="#E8DFC8" stroke-width="1"/>
+  <text x="100" y="916" font-size="28" font-weight="800" fill="#A09070">1</text>
+  <text x="100" y="934" font-size="10" font-weight="700" letter-spacing="0.8" fill="#A09070">COSMETIC</text>
+  <text x="100" y="956" font-size="12" fill="#6B6560">Fix only if time allows.</text>
+  <text x="100" y="974" font-size="12" fill="#6B6560">Doesn't impact usability</text>
+  <text x="100" y="992" font-size="12" fill="#6B6560">in a meaningful way.</text>
+
+  <!-- SEV 2 ── Minor -->
+  <g clip-path="url(#cs2)">
+    <rect x="268" y="874" width="176" height="163" fill="#FEF9F0"/>
+    <rect x="268" y="1034" width="176" height="3" fill="#F2B970"/>
+  </g>
+  <rect x="268" y="874" width="176" height="163" rx="12" fill="none" stroke="#F0D8A8" stroke-width="1"/>
+  <text x="288" y="916" font-size="28" font-weight="800" fill="#C89040">2</text>
+  <text x="288" y="934" font-size="10" font-weight="700" letter-spacing="0.8" fill="#C89040">MINOR</text>
+  <text x="288" y="956" font-size="12" fill="#6B6560">Low priority. Users can</text>
+  <text x="288" y="974" font-size="12" fill="#6B6560">work around this but</text>
+  <text x="288" y="992" font-size="12" fill="#6B6560">experience is degraded.</text>
+
+  <!-- SEV 3 ── Major -->
+  <g clip-path="url(#cs3)">
+    <rect x="456" y="874" width="176" height="163" fill="#FEF5EE"/>
+    <rect x="456" y="1034" width="176" height="3" fill="#E8824A"/>
+  </g>
+  <rect x="456" y="874" width="176" height="163" rx="12" fill="none" stroke="#F0C898" stroke-width="1"/>
+  <text x="476" y="916" font-size="28" font-weight="800" fill="#D06830">3</text>
+  <text x="476" y="934" font-size="10" font-weight="700" letter-spacing="0.8" fill="#D06830">MAJOR</text>
+  <text x="476" y="956" font-size="12" fill="#6B6560">High priority. Important</text>
+  <text x="476" y="974" font-size="12" fill="#6B6560">to fix — significant</text>
+  <text x="476" y="992" font-size="12" fill="#6B6560">friction for many users.</text>
+
+  <!-- SEV 4 ── Catastrophic -->
+  <g clip-path="url(#cs4)">
+    <rect x="644" y="874" width="176" height="163" fill="#F5EDE9"/>
+    <rect x="644" y="1034" width="176" height="3" fill="#C8502A"/>
+  </g>
+  <rect x="644" y="874" width="176" height="163" rx="12" fill="none" stroke="#DEB5A4" stroke-width="1"/>
+  <text x="664" y="916" font-size="28" font-weight="800" fill="#C8502A">4</text>
+  <text x="664" y="934" font-size="10" font-weight="700" letter-spacing="0.8" fill="#C8502A">CATASTROPHIC</text>
+  <text x="664" y="956" font-size="12" fill="#6B6560">Fix immediately. Most</text>
+  <text x="664" y="974" font-size="12" fill="#6B6560">users cannot complete</text>
+  <text x="664" y="992" font-size="12" fill="#6B6560">basic tasks due to this.</text>
+
+  <!-- ════════════════════════════════════════
+       CARD 4 — METHODOLOGY
+  ════════════════════════════════════════ -->
+  <rect x="40" y="1105" width="820" height="360" rx="16" fill="#FFFFFF" stroke="#E8E5DF" stroke-width="1"/>
+
+  <text x="80" y="1146" font-size="11" font-weight="600" letter-spacing="1.2" fill="#9E9992">EVALUATION METHODOLOGY</text>
+
+  <!-- Row 1 — NNG framework -->
+  <rect x="80" y="1162" width="44" height="44" rx="10" fill="#1A1816"/>
+  <text x="102" y="1190" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">NNG</text>
+  <text x="140" y="1182" font-size="14" font-weight="600" fill="#1A1816">Nielsen Norman Group — 10 Usability Heuristics</text>
+  <text x="140" y="1200" font-size="12" fill="#6B6560">The gold-standard framework for expert usability evaluation. Each screen and</text>
+  <text x="140" y="1216" font-size="12" fill="#6B6560">interaction was reviewed against all ten heuristics, violations logged and rated.</text>
+
+  <line x1="80" y1="1240" x2="860" y2="1240" stroke="#E8E5DF" stroke-width="1"/>
+
+  <!-- Row 2 — Severity scale -->
+  <rect x="80" y="1256" width="44" height="44" rx="10" fill="#1A1816"/>
+  <text x="102" y="1284" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">1–4</text>
+  <text x="140" y="1276" font-size="14" font-weight="600" fill="#1A1816">Severity Scale 1 – 4</text>
+  <text x="140" y="1294" font-size="12" fill="#6B6560">Each problem was scored from 1 (cosmetic) to 4 (catastrophic) based on</text>
+  <text x="140" y="1310" font-size="12" fill="#6B6560">frequency, impact, and persistence — following NNG's standard rating criteria.</text>
+
+  <line x1="80" y1="1334" x2="860" y2="1334" stroke="#E8E5DF" stroke-width="1"/>
+
+  <!-- Row 3 — Single evaluator -->
+  <rect x="80" y="1350" width="44" height="44" rx="10" fill="#1A1816"/>
+  <text x="102" y="1378" font-size="13" font-weight="700" text-anchor="middle" fill="#FFFFFF">×1</text>
+  <text x="140" y="1370" font-size="14" font-weight="600" fill="#1A1816">Single Evaluator</text>
+  <text x="140" y="1388" font-size="12" fill="#6B6560">Conducted by one UX researcher without a formal research budget. NNG research</text>
+  <text x="140" y="1404" font-size="12" fill="#6B6560">shows a single evaluator catches ~35% of problems — 3–5 evaluators is standard.</text>
+
+  <!-- ════════════════════════════════════════
+       LIMITATION CALLOUT
+  ════════════════════════════════════════ -->
+  <rect x="40" y="1485" width="820" height="126" rx="12" fill="#F7F5F0" stroke="#E8E5DF" stroke-width="1"/>
+  <!-- Left accent bar (clipped to card corners) -->
+  <g clip-path="url(#clim)">
+    <rect x="40" y="1485" width="4" height="126" fill="#9E9992"/>
+  </g>
+
+  <!-- Icon box -->
+  <rect x="68" y="1503" width="36" height="36" rx="8" fill="#E8E5DF"/>
+  <!-- Warning symbol -->
+  <text x="86" y="1527" font-size="14" font-weight="700" text-anchor="middle" fill="#6B6560">!</text>
+
+  <!-- Limitation text -->
+  <text x="120" y="1520" font-size="13" font-weight="600" fill="#1A1816">Limitation — Individual Bias in Severity Ratings</text>
+  <text x="120" y="1540" font-size="12" fill="#6B6560">Because this evaluation was performed by a single researcher without a formal research budget, the severity</text>
+  <text x="120" y="1558" font-size="12" fill="#6B6560">ratings reflect one person's judgement and may carry individual bias. A multi-evaluator panel would</text>
+  <text x="120" y="1576" font-size="12" fill="#6B6560">increase reliability and uncover a broader range of issues.</text>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <text x="450" y="1640" font-size="11" fill="#9E9992" text-anchor="middle" letter-spacing="0.5">Panacea Biotec · Heuristic Evaluation · UX Case Study</text>
+
+</svg>

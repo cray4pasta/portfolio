@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerna Kashyap</title>
+  <meta name="description" content="Panacea Biotec was expanding into global markets and needed a rebrand — I redesigned their website, reducing the path to key information from 4 clicks to 1.">
+  <meta name="keywords" content="product designer, UX designer, Prerna Kashyap, Panacea Biotec, case study">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/panacea.html">
+  <meta property="og:title" content="Panacea Biotec — Prerna Kashyap | Product Designer">
+  <meta property="og:description" content="Panacea Biotec was expanding into global markets and needed a rebrand — I redesigned their website, reducing the path to key information from 4 clicks to 1.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Panacea Biotec — Prerna Kashyap | Product Designer">
+  <meta name="twitter:description" content="Panacea Biotec was expanding into global markets and needed a rebrand — I redesigned their website, reducing the path to key information from 4 clicks to 1.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* ─── FIGMA REDESIGN TOKENS ───
+       Page-scoped; overrides shared.css's .cs-v2 typography defaults for
+       this page only (loaded after shared.css, so these win the cascade).
+       Same hex values as copart.html/goodyhearts.html — shared Figma design system. */
+    :root {
+      --pb-primary: #2a2a2b;
+      --pb-body: #575757;
+      --pb-label: #b8b8b8;
+      --pb-card: #fafafa;
+      --pb-frame: #f3f3f3;
+      --pb-frame-border: #f2f2f2;
+    }
+
+    body { background: #fffffe; }
+
+    /* Nav hidden on case-study pages — Back (in the sidebar) covers
+       top-level navigation here. Kept in markup, not deleted, so it's a
+       one-line revert if that changes. */
+    body.cs-v2 nav { display: none; }
+
+    /* Starts at 84px (same as the homepage's nav-height + 20px gap) even
+       though nav is hidden here, so content lines up at the same vertical
+       position across pages. */
+    .home-wrap { margin-top: 84px; height: calc(100vh - 84px); }
+
+    /* ─── SIDEBAR ───
+       Same specificity as shared.css's .home-layout .sidebar (which sets
+       gap: 20px) — this wins since it loads after shared.css. Back stays
+       pinned to the top and the section nav to the bottom via
+       justify-content: space-between on the two children. */
+    .home-layout .sidebar { gap: 8px; justify-content: space-between; }
+
+    /* ─── PAGE HEADING (in main content, above the hero) ─── */
+    .pb-page-heading {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--pb-primary);
+      text-wrap: balance;
+      margin-bottom: 20px;
+    }
+
+    /* ─── PROJECT META ROW (Role/Team/Timeline/Type, in main content) ─── */
+    .pb-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
+    .pb-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .pb-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-label); }
+    .pb-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-primary); }
+
+    /* Active link slides right and darkens, matching the reference sidebar's
+       scroll-spy animation (color + transform, 0.2s each). */
+    .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cs-context-link {
+      color: var(--pb-body);
+      font-size: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      width: fit-content;
+      transform: translateX(0);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .cs-context-link:hover { color: var(--pb-primary); }
+    .cs-context-link.active { color: var(--pb-primary); transform: translateX(12px); }
+    /* Section nav relies on .home-right being a scroll container for its
+       scroll-spy; once the layout stacks (same breakpoint as the sidebar
+       collapse below), that stops being true, so hide it. */
+    @media (max-width: 1040px) {
+      .cs-context-nav { display: none; }
+    }
+
+    /* ─── MAIN COLUMN (blank canvas — sections go here) ───
+       shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
+       column is wider (~936px), so drop that cap for this page. */
+    .cs-v2 .cs-main { max-width: none; margin: 0; }
+    .cs-v2 .hero-img {
+      width: 100%;
+      height: 465px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-v2 .section-break {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      width: 100%;
+      max-width: 936px;
+      min-width: 0;
+      padding: 0;
+      border-bottom: none;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    /* Same specificity as shared.css's .cs-v2 .section-header (which sets
+       gap: 14px) — this wins since it loads after shared.css. */
+    .cs-v2 .section-header { gap: 8px; }
+    .cs-v2 .label { color: var(--pb-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--pb-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--pb-body); }
+    .cs-v2 .cs-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 120px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 0 140px 0 0;
+    }
+    /* Scale the 140px right padding down at the same breakpoints shared.css
+       already uses to shrink .home-layout's own padding. Left stays 0
+       (flush with the hero img/meta row) at every width. */
+    @media (max-width: 1040px) {
+      .cs-v2 .cs-content { padding-right: 70px; }
+    }
+    @media (max-width: 640px) {
+      .cs-v2 .cs-content { padding-right: 35px; }
+    }
+
+    .home-right { padding-top: 0; overflow-x: hidden; }
+    .cs-back-link {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--pb-body);
+      text-decoration: none;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+    .cs-back-link:hover { color: var(--pb-primary); }
+
+    /* ─── PROBLEM (old-homepage video + caption) ─── */
+    .pb-problem-media { display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%; }
+    .pb-video-frame { width: 100%; aspect-ratio: 1920 / 1080; border-radius: 4px; overflow: hidden; }
+    .pb-video-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pb-caption {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--pb-body);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ─── IMPACT (3 icon cards) ─── */
+    .impact-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .impact-card {
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      border-radius: 4px;
+      flex: 1;
+      height: 335px;
+      box-sizing: border-box;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .impact-icon { position: relative; overflow: hidden; flex-shrink: 0; }
+    .impact-icon img { position: absolute; display: block; max-width: none; }
+    .impact-icon.plain { overflow: visible; }
+    .impact-icon.plain img { position: static; width: 100%; height: 100%; object-fit: cover; max-width: 100%; }
+    .impact-text { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .impact-text.center { align-items: center; }
+    .impact-title { font-family: var(--font-sans); font-weight: 600; font-size: 20px; line-height: 24px; color: var(--pb-primary); }
+    .impact-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    /* ─── RESEARCH (3 numbered insight groups) ─── */
+    .section-break.gap-xl { gap: 120px; }
+    .pb-research-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .pb-insight-head { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .pb-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .pb-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); flex-shrink: 0; }
+    .pb-insight-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+    .pb-insight-body { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-body); }
+
+    .pb-persona-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
+    .pb-persona-card {
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      border-radius: 4px;
+      flex: 1;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pb-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+    .pb-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    .pb-heuristic-frame { background: var(--pb-card); border-radius: 4px; width: 100%; height: 318px; padding: 20px 47px 0; box-sizing: border-box; overflow: hidden; }
+    .pb-heuristic-frame video { width: 100%; height: 298px; object-fit: cover; display: block; border-radius: 4px; }
+    .pb-heuristic-row { display: flex; gap: 8px; align-items: stretch; width: 100%; }
+    .pb-heuristic-card {
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      border-radius: 4px;
+      flex: 1;
+      box-sizing: border-box;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+    .pb-heuristic-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+    .pb-heuristic-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    .pb-competitor-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .pb-competitor-card { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .pb-competitor-card img { width: 100%; height: 146px; border-radius: 4px; object-fit: cover; object-position: top; display: block; }
+    .pb-competitor-card .cap { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-body); text-align: center; width: 100%; }
+
+    /* ─── UPDATED IA (diagram + static segmented control) ─── */
+    .pb-ia-group { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
+    .pb-ia-image {
+      width: 100%;
+      aspect-ratio: 1646 / 584;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--pb-card);
+      position: relative;
+    }
+    .pb-ia-image img { display: block; position: absolute; left: 0; top: -2px; width: 100%; height: calc(100% + 4px); object-fit: cover; }
+    .pb-ia-toggle {
+      width: 240px;
+      height: 44px;
+      padding: 4px;
+      border-radius: 999px;
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+    .pb-ia-toggle .opt {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .pb-ia-toggle .opt.active {
+      background: var(--pb-primary);
+      color: #fffffe;
+      box-shadow: 0 1px 3px rgba(42, 42, 43, 0.18);
+    }
+    .pb-ia-toggle .opt:not(.active) { color: var(--pb-body); }
+    .pb-ia-toggle .opt:not(.active):hover { color: var(--pb-primary); }
+
+    /* ─── WHAT CHANGED? (before/after pill comparison) ─── */
+    .pb-changed-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .pb-changed-row-wrap { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .pb-changed-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-body); }
+    .pb-changed-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
+    .pb-changed-card { border-radius: 4px; padding: 20px; flex: 1; min-height: 88px; box-sizing: border-box; display: flex; align-items: center; }
+    .pb-changed-card.bad { background: #fef5f4; border: 1px solid #e50000; }
+    .pb-changed-card.good { background: #f1f4f2; border: 1px solid #1b6134; }
+    .pb-changed-card p { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    /* ─── STAKEHOLDER PUSHBACK (speech bubbles + face illustrations) ─── */
+    .pb-pushback-wrap { position: relative; width: 100%; height: 212px; }
+    .pb-bubble {
+      position: absolute;
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      padding: 24px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
+    .pb-bubble p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-bubble.a { left: 477.85px; top: 0; width: 242.148px; height: 127.059px; border-radius: 40px 40px 40px 0; }
+    .pb-bubble.b { left: 0; top: 22px; width: 226px; height: 120px; border-radius: 40px 40px 0 40px; }
+    .pb-face { position: absolute; display: block; }
+    .pb-face.face1 { left: 409.45px; top: 88px; width: 58.806px; height: 123.503px; }
+    .pb-face.face2 { left: 240px; top: 91.8px; width: 54.163px; height: 119.703px; }
+
+    /* ─── BI/AI IA SWAP (news → investor zone) ─── */
+    .pb-swap-row { display: flex; gap: 12px; align-items: center; justify-content: center; width: 100%; }
+    .pb-swap-frame { position: relative; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+    .pb-swap-frame img { position: absolute; display: block; max-width: none; }
+    .pb-swap-frame.bi { width: 210px; height: 314px; }
+    .pb-swap-frame.bi img { height: 115.29%; width: 205.71%; left: -52.86%; top: -7.64%; }
+    .pb-swap-frame.ai { width: 194px; height: 298px; }
+    .pb-swap-frame.ai img { height: 121.48%; width: 219.59%; left: -59.79%; top: -10.74%; }
+    .pb-swap-arrow { width: 54px; height: 20px; flex-shrink: 0; }
+    .pb-swap-arrow img { width: 100%; height: 100%; display: block; }
+
+    /* ─── STAKEHOLDER PRIORITIES CALLOUTS (confusion / what-I-did cards) ─── */
+    .pb-callout-stack { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .pb-callout-card {
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .pb-callout-label-row { display: flex; gap: 8px; align-items: center; width: 100%; }
+    .pb-callout-label-row img { width: 20px; height: 18px; flex-shrink: 0; display: block; }
+    .pb-callout-check { width: 20px; height: 20px; flex-shrink: 0; color: var(--pb-label); }
+    .pb-callout-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-label); white-space: nowrap; }
+    .pb-callout-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+
+    /* ─── DESIGN PRINCIPLES ─── */
+    .pb-principle-row { display: flex; gap: 12px; align-items: center; width: 100%; }
+    .pb-principle-card {
+      background: var(--pb-card);
+      border: 1px solid var(--pb-frame-border);
+      border-radius: 4px;
+      flex: 1;
+      height: 134px;
+      box-sizing: border-box;
+      padding: 36px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pb-principle-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); width: 100%; }
+
+    /* ─── DESIGNING AROUND CONSTRAINTS (button component video) ─── */
+    .pb-button-frame {
+      width: 100%;
+      height: 346px;
+      border-radius: 4px;
+      box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .pb-button-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ─── CHANGE COMPARISON (before/after screenshot pairs) ─── */
+    .pb-change-frame { background: var(--pb-card); padding: 20px; width: fit-content; max-width: 100%; box-sizing: border-box; display: flex; }
+    .pb-change-cols { display: flex; gap: 20px; align-items: flex-start; }
+    .pb-change-col { display: flex; flex-direction: column; gap: 8px; }
+    .pb-change-col.w1 { width: 326px; }
+    .pb-change-col.w2 { width: 322px; }
+    .pb-change-media { border: 1px solid var(--pb-frame-border); border-radius: 4px; overflow: hidden; }
+    .pb-change-media.h177 { height: 178px; width: 100%; }
+    .pb-change-media.h179 { height: 178px; width: 322px; }
+    .pb-change-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pb-change-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+    .pb-change-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    /* ─── CHANGE NO.2, PART A (unorg/org card comparison) ─── */
+    .pb-org-frame { background: var(--pb-card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
+    .pb-org-cols { display: flex; gap: 20px; width: 100%; }
+    .pb-org-col { display: flex; flex-direction: column; gap: 8px; }
+    .pb-org-col.fixed { width: 326px; flex-shrink: 0; }
+    .pb-org-col.flex { flex: 1; min-width: 0; }
+    .pb-org-media { border: 1px solid var(--pb-frame-border); border-radius: 4px; height: 265px; overflow: hidden; }
+    .pb-org-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ─── CHANGE NO.2, PART B (table/filters comparison) ─── */
+    .pb-table-frame { background: var(--pb-card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+    .pb-table-block { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .pb-table-video, .pb-table-img { border: 1px solid var(--pb-frame-border); border-radius: 4px; overflow: hidden; width: 100%; }
+    .pb-table-video { aspect-ratio: 668 / 375; background: var(--pb-card); }
+    .pb-table-img { aspect-ratio: 666 / 572; }
+    .pb-table-video video, .pb-table-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pb-table-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+    .pb-table-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 16px; }
+      .nav-clock { display: none; }
+      * { cursor: auto !important; }
+    }
+  </style>
+</head>
+<body class="cs-v2">
+
+  <!-- NAV -->
+  <div data-component="nav" data-variant="home"></div>
+  <script src="assets/nav.js"></script>
+
+  <!-- LAYOUT (split-scroll, same system as the homepage / copart.html) -->
+  <div class="home-wrap">
+   <div class="home-layout">
+
+    <!-- SIDEBAR (Figma case-study design) -->
+    <aside class="sidebar">
+      <a href="index.html" class="cs-back-link">Back</a>
+
+      <div class="cs-context-nav">
+        <a href="#section-context" class="cs-context-link">Context</a>
+        <a href="#section-problem" class="cs-context-link">Problem</a>
+        <a href="#section-impact" class="cs-context-link">Impact</a>
+        <a href="#section-research" class="cs-context-link">Research</a>
+        <a href="#section-design" class="cs-context-link">Design</a>
+        <a href="#section-reflection" class="cs-context-link">Reflection</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT (blank canvas — sections go here) -->
+    <section class="home-right">
+     <div class="cs-main">
+
+      <h1 class="pb-page-heading">Improved discoverability through a structural redesign</h1>
+
+      <div class="hero-img">
+        <video autoplay muted loop playsinline>
+          <source src="assets/Panacea video hero 2.webm" type="video/webm">
+          <source src="assets/Panacea video hero 2.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- PROJECT META (full-bleed, aligned with hero img above — not
+           inset by .cs-content's column padding) -->
+      <div class="pb-meta-row">
+        <div class="pb-meta-col">
+          <p class="pb-meta-label">Role</p>
+          <p class="pb-meta-value">UX Designer</p>
+        </div>
+        <div class="pb-meta-col">
+          <p class="pb-meta-label">Team</p>
+          <p class="pb-meta-value">1 UX Designer, 1 Graphic Designer, 2 Board Advisor</p>
+        </div>
+        <div class="pb-meta-col">
+          <p class="pb-meta-label">Timeline</p>
+          <p class="pb-meta-value">2 months</p>
+        </div>
+        <div class="pb-meta-col">
+          <p class="pb-meta-label">Type</p>
+          <p class="pb-meta-value">Client Project</p>
+        </div>
+      </div>
+
+      <div class="cs-content">
+
+        <!-- CONTEXT -->
+        <div class="section-break" id="section-context">
+          <div class="section-header">
+            <p class="label">Context</p>
+            <p class="section-heading">Panacea Biotec was expanding into Global Markets and wanted a rebrand.</p>
+            <p class="section-body">In response to their strategic expansion into international markets, I was tasked to redesign their landing page to reflect a modernized identity built for global partners and investors.</p>
+          </div>
+        </div>
+
+        <!-- PROBLEM -->
+        <div class="section-break" id="section-problem">
+          <div class="section-header">
+            <p class="label">Problem</p>
+            <p class="section-heading">The existing interface used outdated technology, lacked mobile responsiveness and did not match the rebrand of their visual identity.</p>
+          </div>
+          <div class="pb-problem-media">
+            <div class="pb-video-frame">
+              <video autoplay muted loop playsinline>
+                <source src="assets/panacea-problem.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="pb-caption">Old Panacea Biotec homepage</p>
+          </div>
+        </div>
+
+        <!-- IMPACT -->
+        <div class="section-break" id="section-impact">
+          <div class="section-header">
+            <p class="label">Impact</p>
+            <p class="section-heading">Summary of what I achieved.</p>
+          </div>
+          <div class="impact-row">
+            <div class="impact-card">
+              <div class="impact-icon" style="width:114px; height:115px;">
+                <img src="assets/impact 1.png" alt="Illustration symbolizing improved discoverability" style="height:216.37%; width:146.15%; left:-21.89%; top:-42.95%;">
+              </div>
+              <div class="impact-text">
+                <p class="impact-title">Improved Discoverability</p>
+                <p class="impact-body">Reduced the path to key pages like investor information from 4 clicks down to just 1.</p>
+              </div>
+            </div>
+            <div class="impact-card">
+              <div class="impact-icon plain" style="width:110px; height:111px;">
+                <img src="assets/impact 2.png" alt="Illustration symbolizing increased usability">
+              </div>
+              <div class="impact-text center">
+                <p class="impact-title">Increased usability by 75%</p>
+                <p class="impact-body">Redesigned the platform by introducing visual hierarchy and a design system.</p>
+              </div>
+            </div>
+            <div class="impact-card">
+              <div class="impact-icon" style="width:98px; height:111px;">
+                <img src="assets/impact 3.png" alt="Illustration symbolizing reduced cognitive load" style="height:130.48%; width:147.31%; left:-23.66%; top:-13.33%;">
+              </div>
+              <div class="impact-text center">
+                <p class="impact-title">Reduced cognitive load</p>
+                <p class="impact-body">Reorganized the IA and grouped similar elements for a more logical flow.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESEARCH -->
+        <div class="section-break gap-xl" id="section-research">
+          <div class="section-header">
+            <p class="label">Research</p>
+            <p class="section-heading">With no documentation or PRD to guide me I built my understanding by asking a lot of questions.</p>
+          </div>
+
+          <div class="pb-research-group">
+            <div class="pb-insight-head">
+              <div class="pb-insight-row">
+                <p class="pb-insight-num">01</p>
+                <p class="pb-insight-title">Who was I designing for?</p>
+              </div>
+              <p class="pb-insight-body">I talked to my stakeholders to understand who most frequently used this platform. I was designing for 3 different users with 3 different goals. Panacea Biotec's traffic was driven by investors, procurement officers, healthcare professionals and job seekers.</p>
+            </div>
+            <div class="pb-persona-row">
+              <div class="pb-persona-card">
+                <p class="t">Healthcare professionals</p>
+                <p class="b">They need fast access to clinical trial updates, new product releases and drug safety profiles</p>
+              </div>
+              <div class="pb-persona-card">
+                <p class="t">Investors &amp; Global Partners</p>
+                <p class="b">They want to track corporate governance, clinical milestones, and performance metrics.</p>
+              </div>
+              <div class="pb-persona-card">
+                <p class="t">Job seekers</p>
+                <p class="b">They want to learn about company culture, career opportunities, R&amp;D and manufacturing divisions and their recent updates.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-research-group">
+            <div class="pb-insight-head">
+              <div class="pb-insight-row">
+                <p class="pb-insight-num">02</p>
+                <p class="pb-insight-title">What was the current experience like?</p>
+              </div>
+              <p class="pb-insight-body">Since they did not have access to any user analytics I was not able to look at heatmaps/scroll depth. I conducted a heuristic evaluation of their platform to understand the experience for current users.</p>
+            </div>
+            <div class="pb-heuristic-frame">
+              <video autoplay muted loop playsinline>
+                <source src="assets/scrolling video pb.mov" type="video/mp4">
+              </video>
+            </div>
+            <div class="pb-heuristic-row">
+              <div class="pb-heuristic-card">
+                <p class="t">Recognition Rather Than Recall</p>
+                <p class="b">Hamburger menu - there is no information/pages visible upfront.</p>
+              </div>
+              <div class="pb-heuristic-card">
+                <p class="t">Consistency and standards</p>
+                <p class="b">"Read More" button is orange. The "News &amp; Updates" button is teal.</p>
+              </div>
+              <div class="pb-heuristic-card">
+                <p class="t">Match btw System &amp; Real World</p>
+                <p class="b">"Investor Zone", "Our company", "Our focus" in navbar are company jargon.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-research-group">
+            <div class="pb-insight-head">
+              <div class="pb-insight-row">
+                <p class="pb-insight-num">03</p>
+                <p class="pb-insight-title">Who were the competitors?</p>
+              </div>
+              <p class="pb-insight-body">I analysed the top 3 B2B pharmaceutical companies, mapping how they surfaced information, click depth to key pages, and how navigation guided users to relevant content.</p>
+            </div>
+            <div class="pb-competitor-row">
+              <div class="pb-competitor-card">
+                <img src="assets/Rectangle 219.png" alt="Biocon website homepage screenshot">
+                <p class="cap">Biocon</p>
+              </div>
+              <div class="pb-competitor-card">
+                <img src="assets/Rectangle 220.png" alt="Zydus website homepage screenshot">
+                <p class="cap">Zydus</p>
+              </div>
+              <div class="pb-competitor-card">
+                <img src="assets/Rectangle 221.png" alt="Dr. Reddy's website homepage screenshot">
+                <p class="cap">Dr. Reddy's</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAVIGATION FRICTION STAT -->
+        <div class="section-break" id="section-friction">
+          <div class="section-header">
+            <p class="section-heading">It took me 16 seconds to find product updates and news in most sites whereas in Panacea it took over 42s.</p>
+            <p class="section-body">This revealed a clear structural gap. I proposed a streamlined, "flat" navigation structure. I wanted to eliminate the ambiguity of the original menu labels and reduce the path to information for global users.</p>
+          </div>
+        </div>
+
+        <!-- UPDATED INFORMATION ARCHITECTURE -->
+        <div class="section-break" id="section-ia">
+          <div class="pb-ia-group">
+            <p class="section-heading" style="width:100%;">Updated information architecture</p>
+            <div class="pb-ia-image">
+              <img id="pb-ia-img" src="assets/After IA.png" alt="Diagram of the updated, flattened information architecture">
+            </div>
+            <div class="pb-ia-toggle">
+              <div class="opt active" data-ia="after">New IA</div>
+              <div class="opt" data-ia="before">Old IA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHAT CHANGED? -->
+        <div class="section-break" id="section-changed">
+          <div class="section-header">
+            <p class="section-heading">What changed?</p>
+          </div>
+          <div class="pb-changed-group">
+            <div class="pb-changed-row-wrap">
+              <p class="pb-changed-label">Before</p>
+              <div class="pb-changed-row">
+                <div class="pb-changed-card bad"><p>Buried hierarchy</p></div>
+                <div class="pb-changed-card bad"><p>2 navigating systems</p></div>
+                <div class="pb-changed-card bad"><p>3+ clicks to reach key info</p></div>
+              </div>
+            </div>
+            <div class="pb-changed-row-wrap">
+              <p class="pb-changed-label">After</p>
+              <div class="pb-changed-row">
+                <div class="pb-changed-card good"><p>Clear hierarchy</p></div>
+                <div class="pb-changed-card good"><p>Flat navigation</p></div>
+                <div class="pb-changed-card good"><p>1 click to reach key info</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAV CONDENSED STATEMENT + STAKEHOLDER PUSHBACK (20px apart, same section) -->
+        <div class="section-break" id="section-pushback">
+          <div class="section-header">
+            <p class="section-heading">The original nav bar had over 15 options. Based on my understanding of the most important information, I condensed the nav bar into 5 options.</p>
+          </div>
+          <div class="pb-pushback-wrap">
+            <div class="pb-bubble a"><p>But that would create the same problem we are trying to solve.</p></div>
+            <img class="pb-face face1" src="assets/Vector face1.svg" alt="">
+            <div class="pb-bubble b"><p>There is not enough information in the nav bar, add more details</p></div>
+            <img class="pb-face face2" src="assets/Vector face2.svg" alt="">
+          </div>
+        </div>
+
+        <!-- STAKEHOLDER PRIORITIES CALLOUTS -->
+        <div class="section-break" id="section-confusion">
+          <div class="pb-callout-stack">
+            <div class="pb-callout-card">
+              <div class="pb-callout-label-row">
+                <img src="assets/Icon confuse.svg" alt="">
+                <p class="pb-callout-label">My point of confusion</p>
+              </div>
+              <p class="pb-callout-body">Since a majority of the users look for news and recent updates of products and financials I prioritzed those sections but my stakeholders thought differently.</p>
+            </div>
+            <div class="pb-callout-card">
+              <div class="pb-callout-label-row">
+                <svg class="pb-callout-check" viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <p class="pb-callout-label">What I did</p>
+              </div>
+              <p class="pb-callout-body">I redirected the conversation, asking stakeholders why those pages mattered to them. That question reframed the discussion from how much to what matters.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BI/AI IA SWAP -->
+        <div class="section-break" id="section-investor-swap">
+          <div class="section-header">
+            <p class="section-heading">I replaced news with investors, a small change that aligned with both the user needs and the business needs.</p>
+          </div>
+          <div class="pb-swap-row">
+            <div class="pb-swap-frame bi">
+              <img src="assets/BI.png" alt="Before: Homepage nested under News, with News Centre buried further down">
+            </div>
+            <span class="pb-swap-arrow"><img src="assets/Arrow bi-ai.svg" alt=""></span>
+            <div class="pb-swap-frame ai">
+              <img src="assets/AI.png" alt="After: Homepage links directly to Investor Zone">
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN PRINCIPLES -->
+        <div class="section-break" id="section-design">
+          <div class="section-header">
+            <p class="section-heading">Based on the key findings from my research, I developed three design principles to ensure every design decision moved the company toward a global standard of trust.</p>
+          </div>
+          <div class="pb-principle-row">
+            <div class="pb-principle-card"><p>Information Needs to be Scannable</p></div>
+            <div class="pb-principle-card"><p>Building Trust Requires Consistency</p></div>
+            <div class="pb-principle-card"><p>The Website Needs to Tell a Story</p></div>
+          </div>
+        </div>
+
+        <!-- DESIGNING AROUND CONSTRAINTS -->
+        <div class="section-break" id="section-constraints">
+          <div class="section-header">
+            <p class="label">Designing around constraints</p>
+            <p class="section-heading">Designing without an established design system</p>
+            <p class="section-body">Panacea Biotec initiated a brand refresh but I had no existing design system to draw from. Given the strict two-month deadline, I prioritized the core redesign but created a few components to ensure visual consistency and a clean handoff to engineering.</p>
+          </div>
+          <div class="pb-button-frame">
+            <video autoplay muted loop playsinline>
+              <source src="assets/panacea-button.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <!-- CHANGE NO.1: RETURNING CONTROL -->
+        <div class="section-break" id="section-change-1">
+          <div class="section-header">
+            <p class="label">Change no.1</p>
+            <p class="section-heading">Returning control back to the user</p>
+          </div>
+          <div class="pb-change-frame">
+            <div class="pb-change-cols">
+              <div class="pb-change-col w1">
+                <div class="pb-change-media h177"><img src="assets/Change1 before.gif" alt="Before: auto-carousel with a promotional banner on the old homepage"></div>
+                <p class="pb-change-title">Before</p>
+                <p class="pb-change-desc">Less than 1% of the users actually interact with auto carousels. Important product and investor information was buried.</p>
+              </div>
+              <div class="pb-change-col w2">
+                <div class="pb-change-media h179"><img src="assets/Change1 after.png" alt="After: horizontal nav bar with a more relevant hero carousel"></div>
+                <p class="pb-change-title">After</p>
+                <p class="pb-change-desc">Replaced hamburger menu with horizontal nav bar accelerating user discovery and auto carousel with more relevant information for to drive attention.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHANGE NO.2: ORGANIZING CONTENT -->
+        <div class="section-break" id="section-change-2">
+          <div class="section-header">
+            <p class="label">Change no.2</p>
+            <p class="section-heading">Organizing content for better discoverability.</p>
+          </div>
+
+          <div class="pb-org-frame">
+            <div class="pb-org-cols">
+              <div class="pb-org-col fixed">
+                <div class="pb-org-media"><img src="assets/unorg.png" alt="Before: dense, high-contrast text blocks on the old products page"></div>
+                <p class="pb-change-title">Before</p>
+                <p class="pb-change-desc">The massive lines of text and high contrast color blocks made it hard to find any information and caused strain and increased cognitive load on the users.</p>
+              </div>
+              <div class="pb-org-col flex">
+                <div class="pb-org-media"><img src="assets/org.png" alt="After: tabbed sections with card-based layout and consistent buttons"></div>
+                <p class="pb-change-title">After</p>
+                <p class="pb-change-desc">Introduced tabs to separate content by audience for better retention, Cards instead of links for easier scannability of content. Consistent buttons for cleaner visuals.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pb-table-frame">
+            <div class="pb-table-block">
+              <div class="pb-table-video">
+                <video autoplay muted loop playsinline>
+                  <source src="assets/design change 3.mov" type="video/mp4">
+                </video>
+              </div>
+              <p class="pb-table-title">Before</p>
+              <p class="pb-table-desc">Excessive scrolling required to find drugs and dosage information. No filtering options.</p>
+            </div>
+            <div class="pb-table-block">
+              <div class="pb-table-img">
+                <img src="assets/Screenshot products table.png" alt="After: condition-based table filters with dosage icons and a search button">
+              </div>
+              <p class="pb-table-title">After</p>
+              <p class="pb-table-desc">Streamlined discovery with condition-based table filters, dosage icons to make identifying medication formats easy, and a search button to help users find information in one click.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="section-break" id="section-reflection">
+          <div class="section-header">
+            <p class="section-heading">The Designer Who Asks the Most Is the Most Prepared</p>
+            <p class="section-body">This was my first big UX design project, I held back from asking stakeholders too many questions because I was afraid of seeming underprepared. What this project taught me is the opposite is true. The designers who ask specific, informed questions are the ones who appear most confident because they understand the problem before touching a design tool.</p>
+          </div>
+          <div class="section-header">
+            <p class="section-heading">Questions are the work</p>
+            <p class="section-body">I approached this project with the instinct to show up with answers. What I didn't understand yet was that asking the right questions upfront is the actual design work. Designing without stakeholder clarity isn't initiative — it's assumption. And assumptions create rework. I had access to stakeholders throughout this project. I didn't use that access enough.</p>
+          </div>
+        </div>
+
+      </div><!-- /cs-content -->
+     </div><!-- /cs-main -->
+    </section><!-- /home-right -->
+   </div><!-- /home-layout -->
+  </div><!-- /home-wrap -->
+
+  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    // IA before/after toggle
+    (function(){
+      var img = document.getElementById('pb-ia-img');
+      var opts = document.querySelectorAll('.pb-ia-toggle .opt');
+      var srcs = { after: 'assets/After IA.png', before: 'assets/Before IA.png' };
+      var alts = {
+        after: 'Diagram of the updated, flattened information architecture',
+        before: 'Diagram of the original, deeply nested information architecture'
+      };
+      opts.forEach(function(opt){
+        opt.addEventListener('click', function(){
+          opts.forEach(function(o){ o.classList.remove('active'); });
+          opt.classList.add('active');
+          var key = opt.getAttribute('data-ia');
+          img.src = srcs[key];
+          img.alt = alts[key];
+        });
+      });
+    })();
+
+    const cursor = document.getElementById('cursor');
+    let raf;
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+  </script>
+
+<script src="assets/cursor-trail.js"></script>
+
+<!-- SIDEBAR NAV SCROLL-SPY -->
+<script>
+(function() {
+  var ids = ['section-context', 'section-problem', 'section-impact', 'section-research', 'section-design', 'section-reflection'];
+  var links = document.querySelectorAll('.cs-context-link');
+  var root = document.querySelector('.home-right');
+  var sections = ids.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+  if (!root || !sections.length || !links.length) return;
+
+  function setActive(id) {
+    links.forEach(function(l) {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+    });
+  }
+
+  var current = sections[0].id;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) current = entry.target.id;
+    });
+    setActive(current);
+  }, {
+    root: root,
+    rootMargin: '-15% 0px -70% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function(el) { observer.observe(el); });
+  setActive(current);
+})();
+</script>
+</body>
+</html>

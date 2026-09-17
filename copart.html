@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wpp7kemq95");
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerna Kashyap</title>
+  <meta name="description" content="Copart wants to grow their consumer platform, Cash for Cars — I'm redesigning the offer flow to improve price accuracy and reduce call dependency.">
+  <meta name="keywords" content="product designer, UX designer, Prerna Kashyap, CashForCars, Copart, case study">
+  <meta name="author" content="Prerna Kashyap">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prernakashyap.com/copart.html">
+  <meta property="og:title" content="CashForCars — Prerna Kashyap | Product Designer">
+  <meta property="og:description" content="Copart wants to grow their consumer platform, Cash for Cars — I'm redesigning the offer flow to improve price accuracy and reduce call dependency.">
+  <meta property="og:image" content="https://prernakashyap.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CashForCars — Prerna Kashyap | Product Designer">
+  <meta name="twitter:description" content="Copart wants to grow their consumer platform, Cash for Cars — I'm redesigning the offer flow to improve price accuracy and reduce call dependency.">
+  <meta name="twitter:image" content="https://prernakashyap.com/assets/og-image.png">
+
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X8PC6EMSNX');
+  </script>
+
+  <style>
+    /* ─── FIGMA REDESIGN TOKENS ───
+       Page-scoped; overrides shared.css's .cs-v2 typography defaults for
+       this page only (loaded after shared.css, so these win the cascade).
+       Same hex values as goodyhearts.html/panacea.html — shared Figma design system. */
+    :root {
+      --cf-primary: #2a2a2b;
+      --cf-body: #575757;
+      --cf-label: #b8b8b8;
+      --cf-card: #fafafa;
+      --cf-frame: #f3f3f3;
+      --cf-frame-border: #f2f2f2;
+    }
+
+    body { background: #fffffe; }
+
+    /* Nav hidden on case-study pages — Back (in the sidebar) covers
+       top-level navigation here. Kept in markup, not deleted, so it's a
+       one-line revert if that changes. */
+    body.cs-v2 nav { display: none; }
+
+    /* Starts at 84px (same as the homepage's nav-height + 20px gap) even
+       though nav is hidden here, so content lines up at the same vertical
+       position across pages. */
+    .home-wrap { margin-top: 84px; height: calc(100vh - 84px); }
+
+    /* ─── SIDEBAR ───
+       Same specificity as shared.css's .home-layout .sidebar (which sets
+       gap: 20px) — this wins since it loads after shared.css. Back stays
+       pinned to the top and the section nav to the bottom via
+       justify-content: space-between on the two children. */
+    .home-layout .sidebar { gap: 8px; justify-content: space-between; }
+
+    /* ─── PROJECT META ROW (Role/Team/Timeline/Type, in main content) ─── */
+    /* Same width/centering as .section-break below, so this row's edges
+       line up with every section's text and image content beneath it. */
+    .cf-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
+    .cf-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .cf-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-label); }
+    .cf-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-primary); }
+    .cf-page-heading {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--cf-primary);
+      text-wrap: balance;
+      margin-bottom: 20px;
+    }
+    /* Active link slides right and darkens, matching the reference sidebar's
+       scroll-spy animation (color + transform, 0.2s each). */
+    .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cs-context-link {
+      color: var(--cf-body);
+      font-size: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      width: fit-content;
+      transform: translateX(0);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .cs-context-link:hover { color: var(--cf-primary); }
+    .cs-context-link.active { color: var(--cf-primary); transform: translateX(12px); }
+    /* Section nav relies on .home-right being a scroll container for its
+       scroll-spy; once the layout stacks (same breakpoint as the sidebar
+       collapse below), that stops being true, so hide it — same call the
+       reference site makes for its own sidebar nav on small screens. */
+    @media (max-width: 1040px) {
+      .cs-context-nav { display: none; }
+    }
+
+    /* ─── MAIN COLUMN (blank canvas — sections go here) ───
+       shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
+       column is wider (~936px), so drop that cap for this page. */
+    .cs-v2 .cs-main { max-width: none; margin: 0; }
+    .cs-v2 .hero-img {
+      width: 100%;
+      height: 465px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-v2 .section-break {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      width: 100%;
+      max-width: 936px;
+      min-width: 0;
+      padding: 0;
+      border-bottom: none;
+    }
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    /* Same specificity as shared.css's .cs-v2 .section-header (which sets
+       gap: 14px) — this wins since it loads after shared.css. */
+    .cs-v2 .section-header { gap: 8px; }
+    .cs-v2 .label { color: var(--cf-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--cf-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--cf-body); }
+    .cs-v2 .cs-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 120px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 0 140px 0 0;
+    }
+    /* Scale the 140px right padding down at the same breakpoints shared.css
+       already uses to shrink .home-layout's own padding — otherwise 140px
+       eats too much of the viewport on narrow screens. Left stays 0 (flush
+       with the hero img/meta row) at every width. */
+    @media (max-width: 1040px) {
+      .cs-v2 .cs-content { padding-right: 70px; }
+    }
+    @media (max-width: 640px) {
+      .cs-v2 .cs-content { padding-right: 35px; }
+    }
+
+    .home-right { padding-top: 0; overflow-x: hidden; }
+    .cs-back-link {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--cf-body);
+      text-decoration: none;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+    .cs-back-link:hover { color: var(--cf-primary); }
+
+    /* ─── PROBLEM: subheading (Heading 2 SB — 16px medium) ─── */
+    .cf-subheading-sb { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); width: 100%; margin: 0; }
+
+    /* ─── PROBLEM: funnel bar chart ─── */
+    .cf-funnel-chart-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .cf-funnel-chart-title { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-body); white-space: nowrap; margin: 0; }
+    .cf-funnel-bars { display: flex; gap: 12px; align-items: flex-end; }
+    .cf-funnel-bar-col { display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; width: 100px; }
+    .cf-funnel-bar-label, .cf-funnel-bar-caption { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-body); text-align: center; width: 100%; margin: 0; }
+    .cf-funnel-bar { background: var(--cf-primary); border-radius: 4px; width: 99px; }
+
+    /* ─── PROBLEM: reason cards ─── */
+    .cf-reason-row { display: flex; gap: 19px; align-items: stretch; width: 100%; }
+    .cf-reason-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      flex: 1;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .cf-reason-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); text-align: left; margin: 0; }
+
+    /* ─── RESEARCH: NUMBERED INSIGHTS ─── */
+    .cf-insight-list { display: flex; flex-direction: column; gap: 40px; width: 100%; }
+    .cf-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .cf-insight-num { font-family: var(--font-sans); font-weight: 500; font-size: 16px; line-height: 24px; color: var(--cf-primary); flex-shrink: 0; white-space: nowrap; }
+    .cf-insight-body { display: flex; flex-direction: column; gap: 8px; width: 550px; max-width: 100%; }
+    .cf-insight-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); }
+    .cf-insight-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); }
+
+    /* phone mockup: bezel PNG overlaid on top of a cropped screenshot */
+    .cf-phone-frame { background: var(--cf-card); border: 1px solid var(--cf-frame-border); border-radius: 4px; width: 550px; max-width: 100%; height: 543px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .cf-phone-wrap { position: relative; width: 221px; height: 452px; flex-shrink: 0; }
+    .cf-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 2; }
+    .cf-phone-screen { position: absolute; overflow: hidden; z-index: 1; }
+    .cf-phone-screen img { position: absolute; display: block; max-width: none; }
+    .cf-phone-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); white-space: nowrap; }
+
+    .cf-screen-1 { left: 5.43%; right: 5.34%; top: 8px; border-radius: 23px; aspect-ratio: 439 / 970; }
+    .cf-screen-1 img { height: 98.18%; width: 100%; left: 0; top: 0; }
+
+    .cf-screen-2-top { left: 5.43%; right: 5.43%; top: 11px; height: 35px; border-radius: 17.5px 17.5px 0 0; }
+    .cf-screen-2-top img { height: 1220.24%; width: 100%; left: -0.25%; top: 1.31%; }
+    .cf-screen-2-mid { left: 5.43%; right: 5.43%; top: 46px; aspect-ratio: 830 / 1496; background: #fff; }
+    .cf-screen-2-mid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cf-screen-2-bottom { left: 5.43%; right: 5.43%; top: 401px; aspect-ratio: 197 / 43; border-radius: 0 0 21.5px 21.5px; }
+    .cf-screen-2-bottom img { height: 994.89%; width: 100.1%; left: 0; top: -895.4%; }
+
+    .cf-screen-3 { left: 12.5px; top: 11.5px; width: 197px; height: 427px; border-radius: 13px; }
+    .cf-screen-3 img { position: static; width: 100%; height: 100%; object-fit: cover; }
+
+    .cf-screen-4 { left: 5.43%; right: 4.98%; top: 11px; border-radius: 29px; aspect-ratio: 1180 / 2556; }
+    .cf-screen-4 video { position: static; width: 100%; height: 100%; object-fit: cover; }
+
+    .cf-screen-5 { left: 12px; top: 12.5px; width: 197px; height: 427px; border-radius: 26px; }
+    .cf-screen-5 img, .cf-screen-5 video { position: static; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ─── IMAGE UPLOAD: final prototype card ─── */
+    .cf-upload-proto-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .cf-upload-proto-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); text-align: center; width: 221px; margin: 0; }
+
+    /* ─── IMAGE UPLOAD: annotated stencil diagram ─── */
+    .cf-stencil-diagram-card { position: relative; width: 100%; max-width: 790px; height: 576px; background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
+    /* Fills to the column's right edge like the other cards, unlike the
+       offer-breakdown instance of this same card (explicitly excluded) —
+       scoped here rather than on the shared rule so that one is untouched.
+       Positions below are % of the original 790x576 box so the phone mockup
+       and annotations scale together instead of drifting off it. */
+    .cf-stencil-wide { max-width: none; }
+    .cf-stencil-wide .cf-stencil-phone-pos { left: 36.08%; top: 8.85%; width: 27.97%; height: 78.47%; }
+    /* Second instance (Design: Trust & Transparency), original box 827x576. */
+    .cf-stencil-offer-wide { max-width: none; }
+    .cf-stencil-offer-wide .cf-stencil-phone-pos { left: 36.67%; top: 10.86%; width: 26.72%; height: 78.47%; }
+    .cf-stencil-phone-pos { position: absolute; left: 285px; top: 51px; width: 221px; height: 452px; }
+    .cf-stencil-phone-pos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cf-stencil-label { position: absolute; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-primary); margin: 0; }
+    .cf-stencil-line { position: absolute; height: 1px; background: var(--cf-label); }
+    .cf-stencil-line::before { content: ''; position: absolute; width: 5px; height: 5px; margin-top: -2px; border-radius: 50%; background: var(--cf-label); }
+    .cf-stencil-line.dot-left::before { left: 0; }
+    .cf-stencil-line.dot-right::before { right: 0; }
+
+    /* ─── DESIGN: offer screen compare cards ─── */
+    .cf-offer-compare-row { display: flex; gap: 20px; align-items: center; width: 100%; flex-wrap: wrap; }
+    .cf-offer-compare-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      flex: 1;
+      min-width: 260px;
+      height: 576px;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .cf-offer-compare-card img.flat-shot { width: 220px; height: 452px; object-fit: cover; display: block; }
+    .cf-offer-compare-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); text-align: center; margin: 0; }
+
+    /* ─── DESIGN: offer-breakdown exploration rows ─── */
+    .cf-offer-explore-row { position: relative; width: 100%; max-width: 827px; height: 393px; }
+    .cf-offer-explore-box { position: absolute; left: 0; top: 0; width: 414px; height: 393px; background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
+    .cf-offer-explore-box > img { position: absolute; left: 24px; top: 17px; width: 368px; height: auto; object-fit: cover; }
+    .cf-offer-explore-caption { position: absolute; left: 434px; top: 273px; width: 393px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+    .cf-offer-explore-caption p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; margin: 0; }
+    .cf-offer-explore-caption .label { font-size: 14px; line-height: 20px; color: var(--cf-label); }
+    .cf-offer-explore-caption .title { color: var(--cf-primary); }
+    .cf-offer-explore-caption .body { color: var(--cf-body); }
+
+    /* ─── DESIGN: offer-breakdown card mockup (real UI, not screenshot) ─── */
+    .cf-offer-card-mock {
+      position: absolute; left: 23.88px; top: 129px; width: 366.23px; height: 136px;
+      background: #fffffe; border-radius: 6px; box-sizing: border-box;
+      padding: 16px 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .cf-offer-card-mock .row1 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .cf-offer-card-mock .row1 p { font-family: 'Inter', var(--font-sans); font-weight: 600; font-size: 16px; line-height: 22px; color: #2f333c; margin: 0; }
+    .cf-offer-card-mock .row1 img { width: 24px; height: 24px; }
+    .cf-offer-card-mock .line-item { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .cf-offer-card-mock .line-item p { font-family: 'Inter', var(--font-sans); font-weight: 500; font-size: 14px; line-height: 20px; color: #46525d; margin: 0; }
+    .cf-offer-card-mock .line-item .value { font-family: 'JetBrains Mono', monospace; }
+
+    /* ─── BUILDING BLOCKS: progress bar mockups ─── */
+    .cf-progressbar-row { display: flex; gap: 20px; align-items: flex-end; width: 100%; flex-wrap: wrap; }
+    .cf-progressbar-card { background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; width: 416px; max-width: 100%; height: 177px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .cf-progressbar-phone-top { position: absolute; left: 80px; top: 75px; width: 254px; height: 101px; background: #fffffe; border-radius: 40px 40px 0 0; }
+    .cf-progressbar-bezel-window { position: absolute; left: 67px; top: 65px; width: 280px; height: 165px; overflow: hidden; z-index: 1; }
+    .cf-progressbar-bezel-window img { position: absolute; left: 0; top: 0; width: 280px; height: 578px; max-width: none; }
+
+    /* ─── BUILDING BLOCKS: skeleton screens compare ─── */
+    .cf-skeleton-row { display: flex; gap: 20px; align-items: center; width: 100%; flex-wrap: wrap; }
+    .cf-skeleton-card { background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; flex: 1; min-width: 260px; height: 576px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .cf-skeleton-card img.flat-shot { width: 221px; height: 452px; object-fit: cover; display: block; }
+    .cf-skeleton-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); text-align: center; margin: 0; }
+    .cf-progressbar-track { position: absolute; top: 150px; height: 4px; background: #e2e5e9; }
+    .cf-progressbar-fill { position: absolute; top: 150px; height: 4px; background: #2059cc; }
+    .cf-progressbar-caption { display: flex; flex-direction: column; gap: 8px; width: 361px; max-width: 100%; }
+    .cf-progressbar-caption p { margin: 0; font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); }
+    .cf-progressbar-caption .title { color: var(--cf-primary); }
+    .cf-progressbar-caption .label { font-size: 14px; line-height: 20px; color: var(--cf-label); }
+
+    .cf-quote-card { background: #fffffe; border: 1px solid var(--cf-frame-border); border-radius: 8px; padding: 20px; width: 550px; max-width: 100%; box-sizing: border-box; }
+    .cf-quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: #000; }
+
+    /* ─── COMPANY LINK CARD (icon + name + external-link arrow + subtitle) ─── */
+    /* Matches Figma node 1307:3444 — no outer card framing, just the icon
+       box + text sitting directly on the page. */
+    .cf-company-card {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 12px;
+      width: fit-content;
+      max-width: 100%;
+      text-decoration: none;
+    }
+    .cf-company-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cf-company-icon svg { width: 42px; height: 42px; }
+    .cf-company-info { display: flex; flex-direction: column; justify-content: center; gap: 4px; height: 48px; }
+    .cf-company-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--cf-primary);
+    }
+    .cf-company-name svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .cf-company-sub { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-label); }
+
+    /* ─── DATA ANALYSIS: screenshot collage cards ───
+       Cards are flex:1 (fill the row, reaching the column's right edge like
+       every other row) instead of Figma's fixed 353.5px, which left a huge
+       gap on wide viewports. aspect-ratio keeps the 353.5:237 proportions,
+       and every inner element is positioned in % of that box (instead of
+       Figma's px) so the screenshots/blurs scale with the card instead of
+       needing a fixed card size. */
+    .cf-data-collage-row { display: flex; gap: 19px; align-items: center; width: 100%; flex-wrap: wrap; }
+    .cf-doc-card, .cf-chat-card {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      aspect-ratio: 353.5 / 237;
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .cf-doc-main-shot {
+      position: absolute; left: 7.07%; top: 33.76%;
+      width: 70.2%; height: 66.16%;
+      object-fit: cover;
+    }
+    .cf-doc-inset-shot {
+      position: absolute; left: 64.74%; top: 15.96%;
+      width: 30.85%; height: 56.77%;
+      border: 1px solid var(--cf-label);
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    .cf-doc-blur-1 {
+      position: absolute; left: 12.37%; top: 76.95%;
+      width: 48.52%; height: 21.52%;
+      background: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+      border-radius: 4px;
+    }
+    .cf-doc-blur-2 {
+      position: absolute; left: 66.76%; top: 28.69%;
+      width: 26.87%; height: 27.43%;
+      background: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+      border-radius: 4px;
+    }
+    .cf-chat-main-shot-wrap {
+      position: absolute; left: 11.17%; top: 26.58%;
+      width: 83.68%; height: 73.62%;
+      border-top-left-radius: 6px;
+      overflow: hidden;
+    }
+    .cf-chat-main-shot-wrap img {
+      position: absolute; left: -17.03%; top: -15%;
+      width: 176.03%; height: 173.85%;
+      max-width: none;
+    }
+    .cf-chat-blur {
+      position: absolute; left: 17.96%; top: 74.68%;
+      width: 76.94%; height: 25.32%;
+      background: rgba(21, 21, 21, 0.08);
+      backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+      border-radius: 4px;
+    }
+
+    /* ─── DATA ANALYSIS: arrow bullet list ─── */
+    .cf-arrow-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .cf-arrow-row { display: flex; gap: 12px; align-items: flex-start; }
+    .cf-arrow-row img { width: 11px; height: 9px; flex-shrink: 0; margin-top: 8px; }
+    .cf-arrow-row p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); width: 587px; max-width: 100%; margin: 0; }
+
+    /* ─── REFLECTION: two-column takeaways ─── */
+    .cf-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
+    .cf-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
+    .cf-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); margin: 0; }
+    .cf-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); margin: 0; }
+
+    /* ─── IMPACT: team screenshot with privacy blur redactions ───
+       Positions are % of the original 727x424 Figma frame so the redaction
+       boxes track the underlying screenshot regardless of rendered size. */
+    .cf-impact-shot { position: relative; width: 100%; aspect-ratio: 727 / 424; border-radius: 4px; overflow: hidden; }
+    .cf-impact-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cf-impact-blur { position: absolute; background: rgba(255, 255, 255, 0.13); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); border-radius: 4px; }
+    .cf-exploration .cf-arrow-row p { width: 778px; }
+
+    /* ─── DAMAGE QUESTION EXPLORATION (01) ─── */
+    .cf-wide-insight-body { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cf-damage-compare-row { display: flex; gap: 20px; align-items: center; width: 100%; flex-wrap: wrap; }
+    .cf-damage-compare-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      flex: 1;
+      min-width: 260px;
+      height: 576px;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .cf-damage-compare-card img.flat-shot { width: 221px; height: 452px; display: block; object-fit: cover; }
+    .cf-damage-compare-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); text-align: center; margin: 0; }
+
+    /* ─── EXPLORATION CARDS (two flat phone shots + arrow callout) ─── */
+    .cf-exploration { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+    .cf-exploration-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-label); margin: 0; }
+    .cf-exploration-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      width: 100%;
+      height: 576px;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 120px;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+    .cf-exploration-card img { width: 221px; height: 452px; object-fit: cover; flex-shrink: 0; }
+
+    /* ─── IMAGE UPLOAD: BEFORE/AFTER FLOW DIAGRAM ─── */
+    .cf-flow-card {
+      background: #fafafa;
+      border: 1px solid #f2f2f2;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .cf-flow-group { display: flex; flex-direction: column; gap: 20px; width: 728px; max-width: 100%; }
+    .cf-flow-section { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cf-flow-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: #000; margin: 0; }
+    .cf-flow-row { position: relative; width: 100%; }
+    .cf-flow-row.before { height: 61px; }
+    .cf-flow-row.after { height: 110px; }
+    .cf-flow-box {
+      position: absolute;
+      top: 0;
+      width: 135px;
+      height: 61px;
+      border-radius: 4px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 10px;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .cf-flow-box.light { background: #fffffe; border: 1px solid #f2f2f2; color: var(--cf-body); }
+    .cf-flow-box.dark { background: var(--cf-primary); border: 1px solid var(--cf-primary); color: #fffffe; }
+    .cf-flow-line { position: absolute; top: 30px; height: 1px; background: var(--cf-label); }
+    .cf-flow-line.dashed { background: none; border-top: 1px dashed var(--cf-label); }
+    .cf-flow-line-v { position: absolute; width: 1px; background: var(--cf-label); }
+    .cf-flow-tag { position: absolute; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; margin: 0; }
+    .cf-flow-tag.yes { color: #5eb173; }
+    .cf-flow-tag.no { color: #e50000; }
+
+    /* ─── USER FLOW: FUNNEL DIAGRAM (question reorder) ─── */
+    .cf-funnel-frame { background: var(--cf-card); border: 1px solid var(--cf-frame-border); border-radius: 4px; width: 587px; max-width: 100%; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .cf-funnel-arrow-wrap { width: 409px; max-width: 100%; display: flex; justify-content: flex-end; }
+    .cf-funnel-arrow-wrap img { width: 377px; max-width: 100%; display: block; }
+    .cf-funnel-boxes { display: flex; gap: 197px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+    .cf-funnel-box-wrap { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    .cf-funnel-box { background: #ffedf9; border: 1px solid #ff75cf; border-radius: 4px; width: 156px; height: 92px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 20px 32px; }
+    .cf-funnel-box p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); text-align: center; margin: 0; }
+    .cf-funnel-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); text-align: center; width: 156px; margin: 0; }
+
+    /* ─── USER FLOW: LIGHTBULB CALLOUT ─── */
+    .cf-lightbulb-card { background: var(--cf-card); border: 1px solid var(--cf-frame-border); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box; }
+    .cf-lightbulb-row { display: flex; gap: 12px; align-items: center; width: 100%; }
+    .cf-lightbulb-row img { width: 16px; height: 16px; flex-shrink: 0; }
+    .cf-lightbulb-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-label); }
+    .cf-lightbulb-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-primary); }
+    .cf-lightbulb-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--cf-body); }
+
+    /* ─── USER FLOW: PROS/CONS ─── */
+    .cf-proscons-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
+    .cf-proscons-card { border-radius: 8px; padding: 20px; flex: 1; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; }
+    .cf-proscons-card.pros { background: #f6f9f6; border: 1px solid #1b6134; }
+    .cf-proscons-card.cons { background: #fef5f4; border: 1px solid #e50000; }
+    .cf-proscons-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--cf-primary); width: 100%; margin: 0; }
+    .cf-proscons-card ul { margin: 0; padding-left: 21px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .cf-proscons-card li { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--cf-body); }
+
+    @media (max-width: 768px) {
+      .nav-links { gap: 16px; }
+      .nav-clock { display: none; }
+      .side-card { padding: 16px; }
+      * { cursor: auto !important; }
+    }
+  </style>
+</head>
+<body class="cs-v2">
+
+  <!-- NAV -->
+  <div data-component="nav" data-variant="home"></div>
+  <script src="assets/nav.js"></script>
+
+  <!-- LAYOUT (split-scroll, same system as the homepage / goodyhearts.html / panacea.html) -->
+  <div class="home-wrap">
+   <div class="home-layout">
+
+    <!-- SIDEBAR (Figma case-study design) -->
+    <aside class="sidebar">
+      <a href="index.html" class="cs-back-link">Back</a>
+
+      <div class="cs-context-nav">
+        <a href="#section-context" class="cs-context-link">Context</a>
+        <a href="#section-problem" class="cs-context-link">Problem</a>
+        <a href="#section-data" class="cs-context-link">Data analysis</a>
+        <a href="#section-pricing" class="cs-context-link">Improving the pricing accuracy</a>
+        <a href="#section-design" class="cs-context-link">Designing for trust and transparency</a>
+        <a href="#section-building-blocks" class="cs-context-link">Building blocks</a>
+        <a href="#section-impact" class="cs-context-link">Impact</a>
+        <a href="#section-reflection" class="cs-context-link">Reflection</a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT (blank canvas — sections go here) -->
+    <section class="home-right">
+     <div class="cs-main">
+
+      <h1 class="cf-page-heading">Building trust to drive vehicle acquisition.</h1>
+
+      <div class="hero-img">
+        <video autoplay muted loop playsinline>
+          <source src="assets/hero copart video 2.webm" type="video/webm">
+          <source src="assets/hero copart video 2.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <!-- PROJECT META (full-bleed, aligned with hero img above — not
+           inset by .cs-content's column padding) -->
+      <div class="cf-meta-row">
+        <div class="cf-meta-col">
+          <p class="cf-meta-label">Role</p>
+          <p class="cf-meta-value">Product Designer</p>
+        </div>
+        <div class="cf-meta-col">
+          <p class="cf-meta-label">Team</p>
+          <p class="cf-meta-value">2 Product Designers, 1 PM, 2 Researchers</p>
+        </div>
+        <div class="cf-meta-col">
+          <p class="cf-meta-label">Timeline</p>
+          <p class="cf-meta-value">Feb 26' - Aug 26'</p>
+        </div>
+        <div class="cf-meta-col">
+          <p class="cf-meta-label">Type</p>
+          <p class="cf-meta-value">Final capstone at UW MHCID</p>
+        </div>
+      </div>
+
+      <div class="cs-content">
+
+        <!-- CONTEXT -->
+        <div class="section-break" id="section-context">
+          <div class="section-header">
+            <p class="label">Context</p>
+            <p class="section-heading">Copart, an online vehicle auction platform for selling old/damaged vehicles, has 3 inventory channels, one of the major ones being Cash for Cars.</p>
+          </div>
+          <a href="https://cray4pasta.github.io/cfc-final-proto/prototype/vin.html" target="_blank" rel="noopener" class="cf-company-card">
+            <span class="cf-company-icon">
+              <svg viewBox="0 0 16 16" fill="#181717" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+              </svg>
+            </span>
+            <span class="cf-company-info">
+              <span class="cf-company-name">View github prototype
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="cf-company-sub">cray4pasta.github.io</span>
+            </span>
+          </a>
+        </div>
+
+        <!-- PROBLEM: BUSINESS PROBLEM -->
+        <div class="section-break" id="section-problem">
+          <div class="section-header">
+            <p class="label">Business Problem</p>
+            <p class="section-heading">Copart was not making enough profit through Cash for Cars — out of ~275k users who visited the site every month, only 10% actually sold their car.</p>
+          </div>
+
+          <div class="cf-funnel-chart-card">
+            <p class="cf-funnel-chart-title">Funnel data through Fullstory</p>
+            <div class="cf-funnel-bars">
+              <div class="cf-funnel-bar-col">
+                <p class="cf-funnel-bar-label">275,128 (100%)</p>
+                <div class="cf-funnel-bar" style="height: 111px;"></div>
+                <p class="cf-funnel-bar-caption">Users visiting</p>
+              </div>
+              <div class="cf-funnel-bar-col">
+                <p class="cf-funnel-bar-label">28,836 (10.4%)</p>
+                <div class="cf-funnel-bar" style="height: 12px;"></div>
+                <p class="cf-funnel-bar-caption">Actually buying</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="cf-subheading-sb">Existing research showed this was happening because of two major reasons.</p>
+
+          <div class="cf-reason-row">
+            <div class="cf-reason-card">
+              <p>3-6 calls were required to finalize one deal, which was frustrating for users and also raised operational costs.</p>
+            </div>
+            <div class="cf-reason-card">
+              <p>The pricing model could not accurately price expensive vehicles, leading to a poor conversion rate and lost leads.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROBLEM: USER PROBLEM -->
+        <!-- cs-content's gap is 120px; -80px here brings the space after
+             this section down to the requested 40px without touching the
+             shared gap used by every other section. -->
+        <div class="section-break cf-user-problem" id="section-user-problem" style="margin-bottom: -80px;">
+          <div class="section-header">
+            <p class="label">User problem</p>
+            <p class="section-heading">The flow lacked clarity, leading to confusion &amp; anxiety amongst users, making the final offer feel unreliable.</p>
+            <p class="section-body">I conducted 5 usability interviews with one other designer to validate the assumptions set by the team, pinpoint the exact moments of confusion during the entire journey, and identify what exactly triggers trust or distrust.</p>
+          </div>
+        </div>
+
+        <!-- RESEARCH: NUMBERED INSIGHTS -->
+        <div class="section-break cf-user-problem" id="section-research">
+          <div class="cf-insight-list">
+            <div class="cf-insight-row">
+              <p class="cf-insight-num">01</p>
+              <div class="cf-insight-body">
+                <p class="cf-insight-title">Users need clarity to trust the offer and proceed</p>
+                <p class="cf-insight-desc">The platform was missing important information that is crucial for sellers in feeling confident in moving ahead.</p>
+                <div class="cf-phone-frame">
+                  <div class="cf-phone-wrap">
+                    <div class="cf-phone-screen cf-screen-1"><img src="assets/IMG_1196 offer screen.png" alt="Old final offer screen"></div>
+                    <img class="cf-phone-bezel" src="assets/Phone bezel.png" alt="">
+                  </div>
+                  <p class="cf-phone-caption">old final offer screen</p>
+                </div>
+                <div class="cf-quote-card"><p>"Is this final? Will the offer change after verification, and when do I get paid?"</p></div>
+              </div>
+            </div>
+
+            <div class="cf-insight-row">
+              <p class="cf-insight-num">02</p>
+              <div class="cf-insight-body">
+                <p class="cf-insight-title">Lack of control leads to anxiety</p>
+                <p class="cf-insight-desc">Most of the questions in the flow were simply yes/no, which made the sellers confused and anxious about what details were taken into account to determine their car's value.</p>
+                <div class="cf-phone-frame">
+                  <div class="cf-phone-wrap">
+                    <div class="cf-phone-screen cf-screen-2-top"><img src="assets/IMG_1820 damage top bar.png" alt=""></div>
+                    <div class="cf-phone-screen cf-screen-2-mid">
+                      <video autoplay muted loop playsinline>
+                        <source src="assets/damage question screen.mov" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="cf-phone-screen cf-screen-2-bottom"><img src="assets/IMG_1196 damage bottom bar.png" alt=""></div>
+                    <img class="cf-phone-bezel" src="assets/Phone bezel.png" alt="">
+                  </div>
+                  <p class="cf-phone-caption">old damage question screen</p>
+                </div>
+                <div class="cf-quote-card"><p>"I replaced my side mirrors so they do not match — does that affect my offer?"</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DATA ANALYSIS -->
+        <div class="section-break cf-user-problem" id="section-data">
+          <div class="section-header">
+            <p class="label">Data analysis</p>
+            <p class="section-heading">Understanding the limitations of the pricing model.</p>
+            <p class="section-body">To suggest realistic solutions and improve the experience holistically, I wanted to understand the technical constraints I was dealing with and where I could push to improve the accuracy of the ML model.</p>
+          </div>
+
+          <div class="cf-data-collage-row">
+            <div class="cf-doc-card">
+              <img class="cf-doc-main-shot" src="assets/copart-pricing-doc-screenshot.png" alt="Pricing model PRD document">
+              <img class="cf-doc-inset-shot" src="assets/copart-pricing-doc-inset.png" alt="">
+              <div class="cf-doc-blur-1"></div>
+              <div class="cf-doc-blur-2"></div>
+            </div>
+            <div class="cf-chat-card">
+              <div class="cf-chat-main-shot-wrap">
+                <img src="assets/copart-claude-chat-screenshot.png" alt="Claude chat breaking down the pricing model">
+              </div>
+              <div class="cf-chat-blur"></div>
+            </div>
+          </div>
+
+          <p class="section-body">I collaborated with the product manager and data analyst over multiple meetings to get data on the model and used Claude as a partner to break it down into digestible terms for myself and my team.</p>
+
+          <div class="cf-arrow-list">
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>The more specific/granular the data, the less accurate the price.</p>
+            </div>
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Not more questions but better questions.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMPROVING THE PRICING ACCURACY -->
+        <!-- cs-content's gap is 120px; -80px here brings the space after
+             this section down to the requested 40px. -->
+        <div class="section-break cf-user-problem" id="section-pricing" style="margin-bottom: -80px;">
+          <div class="section-header">
+            <p class="label">Improving the pricing accuracy</p>
+            <p class="section-heading">Since updating the backend required high engineering effort, I designed solutions focusing on better inputs, working within the same limitations but still improving overall accuracy.</p>
+          </div>
+        </div>
+
+        <!-- DAMAGE QUESTION EXPLORATION -->
+        <!-- cs-content's gap is 120px; -80px here brings the space after
+             this section down to the requested 40px. -->
+        <div class="section-break cf-user-problem" style="margin-bottom: -80px;">
+          <div class="cf-insight-row">
+            <p class="cf-insight-num">01</p>
+            <div class="cf-wide-insight-body">
+              <p class="cf-insight-title">The extent of damage was the most important evaluation factor for the model, but also the one that lacked the most clarity.</p>
+              <p class="cf-insight-desc">Here is the after &amp; before of the damage question:</p>
+
+          <div class="cf-damage-compare-row">
+            <div class="cf-damage-compare-card">
+              <div class="cf-phone-wrap">
+                <div class="cf-phone-screen cf-screen-4">
+                  <video autoplay muted loop playsinline>
+                    <source src="assets/new damage screen.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <img class="cf-phone-bezel" src="assets/Phone bezel.png" alt="">
+              </div>
+              <p class="cf-damage-compare-caption">New damage question</p>
+            </div>
+            <div class="cf-damage-compare-card">
+              <div class="cf-phone-wrap">
+                <div class="cf-phone-screen cf-screen-2-top"><img src="assets/IMG_1820 damage top bar.png" alt=""></div>
+                <div class="cf-phone-screen cf-screen-2-mid">
+                  <video autoplay muted loop playsinline>
+                    <source src="assets/damage question screen.mov" type="video/mp4">
+                  </video>
+                </div>
+                <div class="cf-phone-screen cf-screen-2-bottom"><img src="assets/IMG_1196 damage bottom bar.png" alt=""></div>
+                <img class="cf-phone-bezel" src="assets/Phone bezel.png" alt="">
+              </div>
+              <p class="cf-damage-compare-caption">Old damage question</p>
+            </div>
+          </div>
+
+          <p class="section-body">This let the users have more control over their inputs and provided the model with enough data to accurately evaluate all kinds of vehicles, while requiring only minimal tech effort.</p>
+          <p class="section-body" style="margin-bottom: 32px;">But it wasn't easy getting here...</p>
+
+          <div class="cf-exploration">
+            <p class="cf-exploration-label">Exploration 1 - providing visual cues for extent of damage</p>
+            <div class="cf-exploration-card">
+              <img src="assets/copart-exploration1-a.png" alt="Select the option that most closely resembles your Honda's condition">
+              <img src="assets/copart-exploration1-b.png" alt="Select the area and severity of damage">
+            </div>
+            <div class="cf-arrow-row" style="margin-bottom: 32px;">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Too visually cluttered and not enough clarity on what each severity means. Such intense images might scare users into lying about their condition.</p>
+            </div>
+          </div>
+
+          <div class="cf-exploration">
+            <p class="cf-exploration-label">Exploration 2 - More specific, accurately point area of damage then select severity for each area</p>
+            <div class="cf-exploration-card">
+              <img src="assets/copart-exploration2-a.png" alt="Select the area of damage or skip for no credit card questions">
+              <img src="assets/copart-exploration2-b.png" alt="Select the severity of damage by area">
+            </div>
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>This gave users the highest level of control, allowing them to select different levels of severity for each area. It also gave the model more specific data, increasing the accuracy.</p>
+            </div>
+            <p class="section-body" style="margin-left: 23px; margin-bottom: 32px;">However, the model can only account for the primary/highest severity of damage, so this would mean more steps for no real value.</p>
+          </div>
+
+          <div class="cf-exploration">
+            <p class="cf-exploration-label">Solution - Select type of severity first and then area only for that kind of damage</p>
+            <div class="cf-exploration-card">
+              <img src="assets/copart-solution-a.png" alt="Select the severity of damage">
+              <img src="assets/copart-solution-b.png" alt="What parts of your car have moderate damage">
+            </div>
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>This solution balanced user effort &amp; satisfaction with the model's limitations. Using "cosmetic, moderate, or structural" as UX copy is more informative than "minor, moderate, or severe."</p>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMAGE UPLOAD ALTERNATIVE (02) -->
+        <div class="section-break cf-user-problem">
+          <div class="cf-insight-row">
+            <p class="cf-insight-num">02</p>
+            <div class="cf-wide-insight-body">
+              <p class="cf-insight-title">Introducing image upload as an alternative to the damage question</p>
+              <p class="cf-insight-desc">While adding the extent of damage definitely improved the accuracy, I knew there was room to push for a little more.</p>
+              <p class="cf-insight-desc" style="margin-bottom: 12px;">Image analysis had the highest accuracy for evaluating vehicle condition, and it was already being done in the journey, just at the end, for verification purposes. So I proposed adding it as an alternative to manually inputting the damage condition.</p>
+
+          <div class="cf-flow-card">
+            <div class="cf-flow-group">
+              <div class="cf-flow-section">
+                <p class="cf-flow-label">Before</p>
+                <div class="cf-flow-row before">
+                  <div class="cf-flow-box light" style="left:0;">Extent of damage</div>
+                  <div class="cf-flow-box light" style="left:159px;">Area of damage</div>
+                  <div class="cf-flow-line" style="left:135px; width:24px;"></div>
+                  <div class="cf-flow-line dashed" style="left:294px; width:140px;"></div>
+                  <div class="cf-flow-box light" style="left:434px;">Final offer</div>
+                  <div class="cf-flow-line" style="left:569px; width:24px;"></div>
+                  <div class="cf-flow-box dark" style="left:593px;">Image upload</div>
+                </div>
+              </div>
+              <div class="cf-flow-section">
+                <p class="cf-flow-label">After</p>
+                <div class="cf-flow-row after">
+                  <div class="cf-flow-box dark" style="left:0;">Image upload</div>
+                  <div class="cf-flow-line" style="left:135px; width:24px;"></div>
+                  <p class="cf-flow-tag no" style="left:137px; top:12px;">No</p>
+                  <div class="cf-flow-box light" style="left:159px;">Extent of damage</div>
+                  <div class="cf-flow-line" style="left:294px; width:24px;"></div>
+                  <div class="cf-flow-box light" style="left:318px;">Area of damage</div>
+                  <div class="cf-flow-line dashed" style="left:453px; width:140px;"></div>
+                  <div class="cf-flow-box light" style="left:593px;">Final offer</div>
+                  <div class="cf-flow-line-v" style="left:68px; top:61px; height:26px;"></div>
+                  <div class="cf-flow-line-v" style="left:661px; top:61px; height:26px;"></div>
+                  <div class="cf-flow-line" style="left:68px; top:87px; width:593px;"></div>
+                  <p class="cf-flow-tag yes" style="left:243px; top:87px;">Yes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="section-body" style="margin-top: 12px; margin-bottom: 12px;">Copart had not explored this yet because they were afraid of drop-offs; however, they did not think about adding it as an optional route instead of a mandatory step.</p>
+
+          <div class="cf-upload-proto-card" style="margin-bottom: 12px;">
+            <div class="cf-phone-wrap">
+              <div class="cf-phone-screen cf-screen-5">
+                <video autoplay muted loop playsinline>
+                  <source src="assets/copart-upload-prototype-video.webm" type="video/webm">
+                  <source src="assets/copart-upload-prototype-video.mp4" type="video/mp4">
+                </video>
+              </div>
+              <img class="cf-phone-bezel" src="assets/copart-upload-prototype-bezel.png" alt="">
+            </div>
+            <p class="cf-upload-proto-caption">Final image upload prototype</p>
+          </div>
+
+          <div class="cf-stencil-diagram-card cf-stencil-wide">
+            <div class="cf-stencil-phone-pos">
+              <img src="assets/copart-stencil-diagram.png" alt="Camera view with car outline stencil to guide photo capture">
+            </div>
+            <p class="cf-stencil-label" style="left:7.97%; top:50%; width:17.59%;">Stencil to guide users and prevent photo rejections later</p>
+            <div class="cf-stencil-line dot-left" style="left:26.33%; top:55.21%; width:8.73%;"></div>
+            <p class="cf-stencil-label" style="left:75.06%; top:26.91%; width:21.52%;">Actionable instructions to prevent confusion</p>
+            <div class="cf-stencil-line dot-right" style="left:64.81%; top:30.38%; width:8.73%;"></div>
+            <p class="cf-stencil-label" style="left:75.06%; top:60.42%; width:22.28%;">Red/yellow/green color change for visual feedback</p>
+            <div class="cf-stencil-line dot-right" style="left:64.81%; top:63.89%; width:8.73%;"></div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+            <p class="cf-subheading-sb">Design choice — only real-time photo upload</p>
+            <p class="section-body">I want to call out a design decision I made here that initially received some pushback. Having real-time upload as the only option meant a higher risk of drop-offs, since people sometimes like taking pictures of their car ahead of time and using them later.</p>
+            <p class="section-body">However, with the advancement of AI, it's a lot easier to manipulate images. Plus, with the limitations of the model, certain angles/lighting would make the images unusable. Since the idea behind having image upload within the flow was to increase pricing accuracy and reduce call dependency during verification, I was able to prove to the team that the pros here outweighed the cons.</p>
+          </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN: TRUST & TRANSPARENCY -->
+        <!-- cs-content's gap is 120px; -80px here brings the space after
+             this section down to the requested 40px. -->
+        <div class="section-break cf-user-problem" id="section-design" style="margin-bottom: -80px;">
+          <div class="section-header">
+            <p class="label">Designing for trust and transparency</p>
+            <p class="section-heading">Balancing transparency without overwhelming the user.</p>
+            <p class="section-body">The most frustrating point in the journey was the final offer page. Users were confused about next steps, and the offer wasn't convincing enough for them to actually go through with the lead. Here's how I redesigned it:</p>
+          </div>
+
+          <div class="cf-offer-compare-row">
+            <div class="cf-offer-compare-card">
+              <img class="flat-shot" src="assets/copart-new-final-offer.png" alt="New final offer screen">
+              <p class="cf-offer-compare-caption">New final offer screen</p>
+            </div>
+            <div class="cf-offer-compare-card">
+              <div class="cf-phone-wrap">
+                <div class="cf-phone-screen cf-screen-1"><img src="assets/IMG_1196 offer screen.png" alt="Old final offer screen"></div>
+                <img class="cf-phone-bezel" src="assets/Phone bezel.png" alt="">
+              </div>
+              <p class="cf-offer-compare-caption">Old final offer screen</p>
+            </div>
+          </div>
+
+          <div class="cf-stencil-diagram-card cf-stencil-offer-wide">
+            <div class="cf-stencil-phone-pos" style="left: 36.67%; top: 10.86%;">
+              <img src="assets/copart-new-final-offer.png" alt="New final offer screen with offer breakdown and next steps">
+            </div>
+            <p class="cf-stencil-label" style="left:4.93%; top:44.79%; width:20.31%;">Offer breakdown to build credibility and trust in the offer</p>
+            <div class="cf-stencil-line dot-left" style="left:27.44%; top:50%; width:8.34%;"></div>
+            <p class="cf-stencil-label" style="left:11.43%; top:65.97%; width:14.75%;">Next steps to reduce uncertainty.</p>
+            <div class="cf-stencil-line dot-left" style="left:27.80%; top:69.44%; width:8.34%;"></div>
+            <p class="cf-stencil-label" style="left:73.03%; top:52.08%; width:24.91%;">Communicates deadline clearly. Neutral language to foster control rather than urgency.</p>
+            <div class="cf-stencil-line dot-right" style="left:63.3%; top:55.56%; width:8.34%;"></div>
+          </div>
+        </div>
+
+        <!-- OFFER BREAKDOWN EXPLORATIONS -->
+        <div class="section-break cf-user-problem">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <p class="cf-subheading-sb">Offer breakdown is a new feature that I designed.</p>
+            <p class="section-body">Copart received a lot of calls asking if there was room for haggling or even questioning the fairness of the offer. During my tests, one of the most common questions asked by participants was how Copart calculates the number — they lacked confidence in the offer.</p>
+            <p class="section-body">Showing users how the offer is determined would not only build integrity and trust in the company but also reduce the number of calls received. Here are a few explorations I tried:</p>
+          </div>
+
+          <div class="cf-offer-explore-row">
+            <div class="cf-offer-explore-box">
+              <div class="cf-offer-card-mock">
+                <div class="row1">
+                  <p>How was this estimated</p>
+                  <img src="assets/copart-arrow-chevron.svg" alt="">
+                </div>
+                <div class="line-item"><p>Market value</p><p class="value">$1600.00</p></div>
+                <div class="line-item"><p>Mileage adjustment</p><p class="value">$300.00</p></div>
+                <div class="line-item"><p>Repainting cost</p><p class="value">$50.00</p></div>
+              </div>
+            </div>
+            <div class="cf-offer-explore-caption">
+              <p class="title">Offer breakdown displayed as a card</p>
+              <p class="body">Too much information — it would have led to more calls, so I quickly ruled this one out.</p>
+            </div>
+          </div>
+
+          <div class="cf-offer-explore-row">
+            <div class="cf-offer-explore-box">
+              <img src="assets/copart-price-range-modal.png" alt="Modal showing how this was calculated with an estimated price range" style="height: 359px;">
+            </div>
+            <div class="cf-offer-explore-caption">
+              <p class="title">Modal with estimated price range</p>
+              <p class="body">Could have led to gamification, with users editing their answers based on changes in the price range.</p>
+            </div>
+          </div>
+
+          <div class="cf-offer-explore-row">
+            <div class="cf-offer-explore-box">
+              <img src="assets/copart-offer-calc-modal.png" alt="Modal showing how we determined your offer" style="height: 340px; top: 27px;">
+            </div>
+            <div class="cf-offer-explore-caption" style="top: 244px;">
+              <p class="label">Solution</p>
+              <p class="title">Modal displaying how the offer is calculated</p>
+              <p class="body">Just enough explanation to justify the offer and reduce support calls.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUILDING BLOCKS -->
+        <!-- cs-content's gap is 120px; -80px here brings the space after
+             this section down to the requested 40px. -->
+        <div class="section-break cf-user-problem" id="section-building-blocks" style="margin-bottom: -80px;">
+          <div class="section-header">
+            <p class="label">Building blocks</p>
+            <p class="section-heading">Small changes I made that led to big impacts.</p>
+          </div>
+        </div>
+
+        <!-- 01: CHOOSING THE RIGHT PROGRESS BAR -->
+        <div class="section-break cf-user-problem" style="margin-bottom: -80px;">
+          <div class="cf-insight-row">
+            <p class="cf-insight-num">01</p>
+            <div class="cf-wide-insight-body">
+              <p class="cf-insight-title">Choosing the right progress bar</p>
+
+          <div class="cf-progressbar-row" style="margin-bottom: 12px;">
+            <div class="cf-progressbar-card">
+              <div class="cf-progressbar-phone-top"></div>
+              <div class="cf-progressbar-track" style="left:80px; width:253px;"></div>
+              <div class="cf-progressbar-fill" style="left:80px; width:184px;"></div>
+              <div class="cf-progressbar-bezel-window"><img src="assets/copart-progressbar-phone-bezel.png" alt=""></div>
+            </div>
+            <div class="cf-progressbar-caption">
+              <p class="title">Linear progress bar</p>
+              <p>Pros: Clean &amp; simple, less cognitive load</p>
+              <p>Cons: Very vague, does not clearly indicate how many steps remain</p>
+            </div>
+          </div>
+
+          <div class="cf-progressbar-row" style="margin-bottom: 12px;">
+            <div class="cf-progressbar-card">
+              <div class="cf-progressbar-phone-top"></div>
+              <div class="cf-progressbar-track" style="left:80px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:113px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:146px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:179px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:212px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:245px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:278px; width:29px;"></div>
+              <div class="cf-progressbar-track" style="left:302px; width:29px;"></div>
+              <div class="cf-progressbar-fill" style="left:80px; width:29px;"></div>
+              <div class="cf-progressbar-bezel-window"><img src="assets/copart-progressbar-phone-bezel.png" alt=""></div>
+            </div>
+            <div class="cf-progressbar-caption">
+              <p class="title">Segmented progress bar</p>
+              <p>Pros: Immediately communicates how many questions remain</p>
+              <p>Cons: Too visually cluttered &amp; intimidating, can overwhelm users into dropping off</p>
+            </div>
+          </div>
+
+          <div class="cf-progressbar-row">
+            <div class="cf-progressbar-card">
+              <div class="cf-progressbar-phone-top"></div>
+              <div class="cf-progressbar-track" style="left:82px; width:59.25px;"></div>
+              <div class="cf-progressbar-track" style="left:145.25px; width:59.25px;"></div>
+              <div class="cf-progressbar-track" style="left:208.5px; width:59.25px;"></div>
+              <div class="cf-progressbar-track" style="left:271.75px; width:59.25px;"></div>
+              <div class="cf-progressbar-fill" style="left:80px; width:61px;"></div>
+              <div class="cf-progressbar-fill" style="left:145px; width:61px;"></div>
+              <div class="cf-progressbar-bezel-window"><img src="assets/copart-progressbar-phone-bezel.png" alt=""></div>
+            </div>
+            <div class="cf-progressbar-caption">
+              <p class="label">Solution</p>
+              <p class="title">Sectional progress bar</p>
+              <p>Groups questions into sections, making a long task manageable. Sub-questions can expand/contract without disrupting the progress bar.</p>
+            </div>
+          </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02: ADDING SKELETON SCREENS -->
+        <div class="section-break cf-user-problem" style="margin-bottom: -80px;">
+          <div class="cf-insight-row">
+            <p class="cf-insight-num">02</p>
+            <div class="cf-wide-insight-body">
+              <p class="cf-insight-title">Adding skeleton screens</p>
+
+          <div class="cf-skeleton-row">
+            <div class="cf-skeleton-card">
+              <img class="flat-shot" src="assets/copart-skeleton-after.png" alt="After: skeleton loading screen">
+              <p class="cf-skeleton-caption">After</p>
+            </div>
+            <div class="cf-skeleton-card">
+              <div class="cf-phone-wrap">
+                <div class="cf-phone-screen cf-screen-2-top"><img src="assets/IMG_1820 damage top bar.png" alt=""></div>
+                <div class="cf-phone-screen cf-screen-2-mid"></div>
+                <div class="cf-phone-screen cf-screen-2-bottom"><img src="assets/IMG_1196 damage bottom bar.png" alt=""></div>
+                <img class="cf-phone-bezel" src="assets/Phone bezel.png" alt="">
+              </div>
+              <p class="cf-skeleton-caption">Before</p>
+            </div>
+          </div>
+
+          <p class="section-body" style="margin-top: 12px;">63% of users who saw the blank loading screen dropped off, and this was also the top source for dead clicks. I designed skeleton screens so each element can load individually and also reassure the user that progress is happening in the background.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03: REMOVING CTAS -->
+        <!-- cs-content's gap is 120px; -40px here brings the space after
+             this section down to the requested 80px. -->
+        <div class="section-break cf-user-problem" style="margin-bottom: -40px;">
+          <div class="cf-insight-row">
+            <p class="cf-insight-num">03</p>
+            <div class="cf-wide-insight-body">
+              <p class="cf-insight-title">Removing CTAs</p>
+
+          <div class="cf-skeleton-row">
+            <div class="cf-skeleton-card">
+              <img class="flat-shot" src="assets/copart-cta-after.png" alt="After: thank you screen with go back to homepage CTA">
+              <p class="cf-skeleton-caption">After</p>
+            </div>
+            <div class="cf-skeleton-card">
+              <img class="flat-shot" src="assets/copart-cta-before.png" alt="Before: thank you screen with request call CTA">
+              <p class="cf-skeleton-caption">Before</p>
+            </div>
+          </div>
+
+          <p class="section-body" style="margin-top: 12px;">Because Copart didn't accept cars with existing loans, having two 'Request Call' CTAs on the exit screen created unnecessary operational costs and user friction. I replaced them with a direct 'Return to Homepage' CTA to streamline the exit path.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- IMPACT -->
+        <div class="section-break cf-user-problem" id="section-impact">
+          <div class="section-header">
+            <p class="label">Impact</p>
+            <p class="section-body" style="color: var(--cf-primary);">Our work was highly praised by the Copart leadership and product teams, and most of our designs are currently under A/B testing.</p>
+            <p class="section-body">Here is a snapshot from our final presentation with the entire Copart design team:</p>
+          </div>
+
+          <div class="cf-impact-shot">
+            <img src="assets/copart-impact-team-screenshot.png" alt="Screenshot of a video call presenting the redesign to the Copart design team">
+            <div class="cf-impact-blur" style="left: 54.06%; top: 7.78%; width: 16.51%; height: 15.33%;"></div>
+            <div class="cf-impact-blur" style="left: 27.37%; top: 76.65%; width: 16.51%; height: 15.33%;"></div>
+            <div class="cf-impact-blur" style="left: 18.30%; top: 7.78%; width: 34.52%; height: 32.78%;"></div>
+            <div class="cf-impact-blur" style="left: 0%; top: 35.38%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 0%; top: 52.36%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 18.30%; top: 52.36%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 18.30%; top: 69.34%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 35.63%; top: 69.34%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 53.51%; top: 52.36%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 72.63%; top: 52.36%; width: 13.34%; height: 5.19%;"></div>
+            <div class="cf-impact-blur" style="left: 53.51%; top: 69.34%; width: 13.34%; height: 5.19%;"></div>
+          </div>
+
+          <p class="section-body" style="color: var(--cf-primary); margin-top: 24px;">Other measurable wins</p>
+          <div class="cf-arrow-list">
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Eliminated dead-end 'Request Call' CTAs for ineligible vehicles, reducing unnecessary operational costs and call center volume.</p>
+            </div>
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Resolved dead clicks on loading screens and reduced rage clicks by 6% by redesigning title verification and mileage input fields.</p>
+            </div>
+            <div class="cf-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Improved pricing model accuracy by 47% through the introduction of image upload.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- REFLECTION -->
+        <div class="section-break cf-user-problem" id="section-reflection">
+          <div class="section-header">
+            <p class="label">Reflection</p>
+            <p class="section-heading">My key takeaways.</p>
+          </div>
+
+          <div class="cf-reflection-row">
+            <div class="cf-reflection-col">
+              <p class="title">Data comes in handy at crossroads</p>
+              <p class="body">It's inevitable to have varying opinions during a project, but if you have data to back up your argument, it becomes easier to find alignment and keep the project moving.</p>
+            </div>
+            <div class="cf-reflection-col">
+              <p class="title">Design won't always be perfect and that's okay</p>
+              <p class="body">Technology always has constraints; my role is to bridge that gap by designing in a way that users never feel the limitations of our underlying tech.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cs-content -->
+     </div><!-- /cs-main -->
+    </section><!-- /home-right -->
+   </div><!-- /home-layout -->
+  </div><!-- /home-wrap -->
+
+  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    let raf;
+    document.addEventListener('mousemove', (e) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+    });
+  </script>
+
+<script src="assets/cursor-trail.js"></script>
+
+<!-- SIDEBAR NAV SCROLL-SPY -->
+<script>
+(function() {
+  var ids = ['section-context', 'section-problem', 'section-data', 'section-pricing', 'section-design', 'section-building-blocks', 'section-impact', 'section-reflection'];
+  var links = document.querySelectorAll('.cs-context-link');
+  var root = document.querySelector('.home-right');
+  var sections = ids.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+  if (!root || !sections.length || !links.length) return;
+
+  function setActive(id) {
+    links.forEach(function(l) {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+    });
+  }
+
+  var current = sections[0].id;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) current = entry.target.id;
+    });
+    setActive(current);
+  }, {
+    root: root,
+    rootMargin: '-15% 0px -70% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(function(el) { observer.observe(el); });
+  setActive(current);
+})();
+</script>
+</body>
+</html>

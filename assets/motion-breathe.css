@@ -1,0 +1,103 @@
+/* ──────────────────────────────────────────────────────────────
+   Motion C — "Breathe"
+   Homepage motion layer for prernakashyap.com
+   Drop in after the page's own stylesheet.
+
+   Character: slow, settled, always-slightly-alive.
+   Entrance = opacity + a 1.5% scale bloom (never a slide).
+   Hover    = the hovered thing stays put; everything else recedes.
+   Ambient  = very slow drift / float / halo pulse, never looping fast.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+  --mo-dur: 1100ms;                              /* entrance duration  */
+  --mo-step: 60ms;                               /* stagger per index   */
+  --mo-ease: cubic-bezier(0.33, 1, 0.68, 1);     /* primary ease-out    */
+  --mo-overshoot: cubic-bezier(0.34, 1.4, 0.64, 1); /* dots / pops      */
+  --mo-accent: #7d1201;
+}
+
+/* ── 1. Entrance ───────────────────────────────────────────────
+   Add data-mo="<index>" to each element that should stagger in.
+   JS adds .mo-in to <html> one frame after load. */
+
+[data-mo] {
+  opacity: 0;
+  transform: scale(0.985);
+  transition:
+    opacity var(--mo-dur) var(--mo-ease),
+    transform var(--mo-dur) var(--mo-ease);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-step));
+  will-change: opacity, transform;
+}
+.mo-in [data-mo] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Recommended indices (set via --mo-i, see JS):
+   logo 0 · nav links 1–4 · photo 2 · h1 3 · body copy 4
+   · CTA 5 · cards 5,6,7,8                                      */
+
+/* ── 2. Nav hover: same rolling-text reveal as the CTA ──────────
+   Nav links use the shared .roll-cta / .roll-viewport / .roll-char
+   markup (built by assets/cta-roll.js, styled in shared.css) — the
+   exact mechanism the "Let's grab boba" CTA uses, just scoped to the
+   nav's own 24px line-height via shared.css's `.mo-nav-link
+   .roll-viewport { --roll-lh: 24px }` override so nothing shifts.
+   Text color stays fixed on hover/focus — the roll is the only cue. */
+
+.mo-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ── 3. Work cards: hover reveals the title only ────────────────
+   On hover: the label fades in and the card's own script pauses its
+   video (see index.html). No sibling dimming, no media zoom. */
+
+/* Hover label: fade + 4px rise, no bounce */
+.proj-hover-box {
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.5s var(--mo-ease),
+    transform 0.6s var(--mo-ease);
+}
+.proj-card:hover .proj-hover-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 4. Card media wrapper (no ambient motion) ──────────────────
+   JS still wraps each <img>/<video> in <div class="mo-drift"> so the
+   media keeps a positioned parent, but it no longer animates — card
+   thumbnails should only change on hover (title in, video paused). */
+
+.mo-drift {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── 5. CTA: the arrow breathes instead of underlining ───────── */
+
+.home-intro-cta svg {
+  animation: mo-float 3.6s ease-in-out infinite;
+}
+@keyframes mo-float {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(2px, -3px); }
+}
+/* Breathe deliberately has NO underline sweep on the CTA —
+   the float is the only affordance. */
+
+/* ── 6. Accessibility ─────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-mo] { opacity: 1; transform: none; }
+}

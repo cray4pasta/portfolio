@@ -642,6 +642,75 @@ footer {
   }
 }
 
+/* ─── ROLLING-TEXT HOVER (assets/cta-roll.js builds the markup) ───
+   Reusable rolling-text reveal: the "Let's grab boba" CTA on any page,
+   and the nav links (Work/Fun/About/Resume), share this exact
+   mechanism. Mark the outer <a> with .roll-cta and its label <span>
+   with .roll-cta-label; cta-roll.js splits the label into two
+   identical stacked rows of per-character spans (the second row
+   aria-hidden, one line-height below the first) and this CSS drives
+   the reveal: every character shares one hover/focus/active trigger
+   but animates on its own transition-delay, so the label rolls up
+   letter by letter, the second row arriving as the first exits. Pure
+   transform, no JS listeners or rAF — cta-roll.js only runs once at
+   load to build the markup, nothing left to clean up.
+
+   --roll-lh sets the roll distance (= the label's own line-height, so
+   the two rows swap exactly and nothing else shifts). Defaults to the
+   CTA's 32px; nav links override it to their own 24px line-height. */
+.roll-cta.home-intro-cta:hover,
+.roll-cta.home-intro-cta:focus-visible,
+.roll-cta.fun2-cta:hover,
+.roll-cta.fun2-cta:focus-visible {
+  opacity: 1;
+}
+
+.roll-viewport {
+  --roll-lh: 32px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: var(--roll-lh);
+  line-height: var(--roll-lh);
+  vertical-align: middle;
+}
+.mo-nav-link .roll-viewport {
+  --roll-lh: 24px;
+}
+.roll-row {
+  display: flex;
+}
+.roll-row--duplicate {
+  position: absolute;
+  top: var(--roll-lh);
+  left: 0;
+  width: 100%;
+}
+.roll-char {
+  display: inline-block;
+  white-space: pre; /* keep spaces at their natural width, never collapsed */
+  transform: translateY(0);
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--ci, 0) * 25ms);
+}
+.roll-cta:hover .roll-char,
+.roll-cta:focus-visible .roll-char,
+.roll-cta:active .roll-char {
+  transform: translateY(calc(-1 * var(--roll-lh, 32px)));
+}
+
+/* Touch: hover doesn't reliably fire, so :active (the tap itself) is
+   the trigger — drop the per-character stagger there so it reads as
+   an immediate tap response instead of trickling in after the finger
+   has already lifted. */
+@media (hover: none) {
+  .roll-char { transition-delay: 0ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll-char { transition: none; }
+}
+
 /* ─── RESPONSIVE (shared nav/footer chrome only) ─── */
 @media (max-width: 768px) {
   nav { height: auto; padding: 16px 20px; }

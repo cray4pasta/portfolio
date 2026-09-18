@@ -120,6 +120,7 @@
       margin-bottom: 40px;
     }
     .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-img video { transform: scale(1.5); }
     .cs-v2 .section-break {
       display: flex;
       flex-direction: column;
@@ -248,6 +249,12 @@
     .li-final-img { width: 100%; aspect-ratio: 720 / 371; border-radius: 4px; overflow: hidden; }
     .li-final-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+    /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
+    .li-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
+    .li-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
+    .li-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-primary); margin: 0; }
+    .li-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); margin: 0; }
+
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }
       .nav-clock { display: none; }
@@ -286,7 +293,8 @@
 
       <div class="hero-img">
         <video autoplay muted loop playsinline>
-          <source src="assets/li maybe hero hp.mov" type="video/mp4">
+          <source src="assets/linkedin-hero-new-2.webm" type="video/webm">
+          <source src="assets/linkedin-hero-new-2.mp4" type="video/mp4">
         </video>
       </div>
 
@@ -489,8 +497,14 @@
         <div class="section-break" id="section-reflection">
           <div class="section-header">
             <p class="label">Reflection</p>
-            <p class="section-heading">Designing and prototyping in 1 hour meant compromising on visuals.</p>
-            <p class="section-body">Come back again and I might have changed some things up :p</p>
+            <p class="section-heading">My key takeaways.</p>
+          </div>
+
+          <div class="li-reflection-row">
+            <div class="li-reflection-col">
+              <p class="title">Designing and prototyping in 1 hour meant compromising on visuals.</p>
+              <p class="body">Come back again and I might have changed some things up :p</p>
+            </div>
           </div>
         </div>
 

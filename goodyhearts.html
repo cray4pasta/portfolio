@@ -119,6 +119,7 @@
       margin-bottom: 40px;
     }
     .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-img video { object-position: center 67%; }
     .cs-v2 .section-break {
       display: flex;
       flex-direction: column;
@@ -181,8 +182,7 @@
       background: var(--gh-card);
       border: 1px solid var(--gh-frame-border);
       border-radius: 4px;
-      width: 720px;
-      max-width: 100%;
+      width: 100%;
       height: 583px;
       display: flex;
       align-items: center;
@@ -225,13 +225,12 @@
 
     /* ─── USABILITY TESTING (numbered insights + annotated UT screenshots) ─── */
     .ut-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-    .ut-stack { display: flex; flex-direction: column; gap: 12px; width: 700px; max-width: 100%; }
+    .ut-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .ut-frame {
       background: var(--gh-card);
       border: 1px solid var(--gh-frame-border);
       border-radius: 4px;
       width: 100%;
-      max-width: 700px;
       flex-shrink: 0;
       position: relative;
       overflow: hidden;
@@ -263,8 +262,7 @@
       background: var(--gh-card);
       border: 1px solid var(--gh-frame-border);
       border-radius: 4px;
-      width: 700px;
-      max-width: 100%;
+      width: 100%;
       height: 433px;
       flex-shrink: 0;
       position: relative;
@@ -274,8 +272,7 @@
       position: absolute;
       left: 29px;
       top: 31px;
-      width: 639px;
-      max-width: calc(100% - 58px);
+      width: calc(100% - 58px);
       height: 401px;
       object-fit: cover;
       border-radius: 4px;
@@ -322,7 +319,7 @@
     .quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); }
 
     /* ─── CENTERED MEDIA (CA image) ─── */
-    .ca-img { width: 610px; height: 528px; max-width: 100%; margin: 0 auto; }
+    .ca-img { width: 100%; height: 528px; }
     .ca-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ─── HMW / PIVOT ─── */
@@ -549,6 +546,12 @@
     }
     .cs-back-link:hover { color: var(--gh-primary); }
 
+    /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
+    .gh-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
+    .gh-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
+    .gh-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-primary); margin: 0; }
+    .gh-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); margin: 0; }
+
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }
       .nav-clock { display: none; }
@@ -587,7 +590,7 @@
 
       <div class="hero-img">
         <video autoplay muted loop playsinline>
-          <source src="assets/goodyhearts case study video.mov" type="video/mp4">
+          <source src="assets/goodyhearts-hero-new-2.mov" type="video/mp4">
         </video>
       </div>
 
@@ -979,12 +982,19 @@
         <!-- REFLECTION -->
         <div class="section-break" id="section-reflection">
           <div class="section-header">
-            <p class="section-heading">Working with AI requires a LOT of patience</p>
-            <p class="section-body">Because we had to design and launch this product on a brutally fast timeline, I initially turned to Claude to create wireframes which led to generic outputs, what did work was using it as a design review partner bec AI is really good at catching patterns/auditing. It taught me that you have to constantly experiment with AI workflows to figure out what actually accelerates your unique process and what just hinders it.</p>
+            <p class="label">Reflection</p>
+            <p class="section-heading">My key takeaways.</p>
           </div>
-          <div class="section-header">
-            <p class="section-heading">Human connection is essential</p>
-            <p class="section-body">Stepping away from the screen to watch real people interact with our product was such an amazing experience. Seeing them connect with the non-profit's cause and buy the stickers filled me to so much joy. It reminded me that we are building tools that impact real human communities.</p>
+
+          <div class="gh-reflection-row">
+            <div class="gh-reflection-col">
+              <p class="title">Working with AI requires a LOT of patience</p>
+              <p class="body">Because we had to design and launch this product on a brutally fast timeline, I initially turned to Claude to create wireframes which led to generic outputs, what did work was using it as a design review partner bec AI is really good at catching patterns/auditing. It taught me that you have to constantly experiment with AI workflows to figure out what actually accelerates your unique process and what just hinders it.</p>
+            </div>
+            <div class="gh-reflection-col">
+              <p class="title">Human connection is essential</p>
+              <p class="body">Stepping away from the screen to watch real people interact with our product was such an amazing experience. Seeing them connect with the non-profit's cause and buy the stickers filled me to so much joy. It reminded me that we are building tools that impact real human communities.</p>
+            </div>
           </div>
         </div>
 

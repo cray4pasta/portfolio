@@ -399,14 +399,11 @@
     .pb-button-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ─── CHANGE COMPARISON (before/after screenshot pairs) ─── */
-    .pb-change-frame { background: var(--pb-card); padding: 20px; width: fit-content; max-width: 100%; box-sizing: border-box; display: flex; }
-    .pb-change-cols { display: flex; gap: 20px; align-items: flex-start; }
-    .pb-change-col { display: flex; flex-direction: column; gap: 8px; }
-    .pb-change-col.w1 { width: 326px; }
-    .pb-change-col.w2 { width: 322px; }
+    .pb-change-frame { background: var(--pb-card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
+    .pb-change-cols { display: flex; gap: 20px; align-items: flex-start; width: 100%; }
+    .pb-change-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
     .pb-change-media { border: 1px solid var(--pb-frame-border); border-radius: 4px; overflow: hidden; }
-    .pb-change-media.h177 { height: 178px; width: 100%; }
-    .pb-change-media.h179 { height: 178px; width: 322px; }
+    .pb-change-media.h177, .pb-change-media.h179 { height: 178px; width: 100%; }
     .pb-change-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pb-change-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
     .pb-change-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
@@ -429,6 +426,12 @@
     .pb-table-video video, .pb-table-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pb-table-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
     .pb-table-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+
+    /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
+    .pb-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
+    .pb-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
+    .pb-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-primary); margin: 0; }
+    .pb-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); margin: 0; }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }
@@ -469,8 +472,8 @@
 
       <div class="hero-img">
         <video autoplay muted loop playsinline>
-          <source src="assets/Panacea video hero 2.webm" type="video/webm">
-          <source src="assets/Panacea video hero 2.mp4" type="video/mp4">
+          <source src="assets/Panacea video hero 3.webm" type="video/webm">
+          <source src="assets/Panacea video hero 3.mp4" type="video/mp4">
         </video>
       </div>
 
@@ -833,12 +836,19 @@
         <!-- REFLECTION -->
         <div class="section-break" id="section-reflection">
           <div class="section-header">
-            <p class="section-heading">The Designer Who Asks the Most Is the Most Prepared</p>
-            <p class="section-body">This was my first big UX design project, I held back from asking stakeholders too many questions because I was afraid of seeming underprepared. What this project taught me is the opposite is true. The designers who ask specific, informed questions are the ones who appear most confident because they understand the problem before touching a design tool.</p>
+            <p class="label">Reflection</p>
+            <p class="section-heading">My key takeaways.</p>
           </div>
-          <div class="section-header">
-            <p class="section-heading">Questions are the work</p>
-            <p class="section-body">I approached this project with the instinct to show up with answers. What I didn't understand yet was that asking the right questions upfront is the actual design work. Designing without stakeholder clarity isn't initiative — it's assumption. And assumptions create rework. I had access to stakeholders throughout this project. I didn't use that access enough.</p>
+
+          <div class="pb-reflection-row">
+            <div class="pb-reflection-col">
+              <p class="title">The Designer Who Asks the Most Is the Most Prepared</p>
+              <p class="body">This was my first big UX design project, I held back from asking stakeholders too many questions because I was afraid of seeming underprepared. What this project taught me is the opposite is true. The designers who ask specific, informed questions are the ones who appear most confident because they understand the problem before touching a design tool.</p>
+            </div>
+            <div class="pb-reflection-col">
+              <p class="title">Questions are the work</p>
+              <p class="body">I approached this project with the instinct to show up with answers. What I didn't understand yet was that asking the right questions upfront is the actual design work. Designing without stakeholder clarity isn't initiative — it's assumption. And assumptions create rework. I had access to stakeholders throughout this project. I didn't use that access enough.</p>
+            </div>
           </div>
         </div>
 

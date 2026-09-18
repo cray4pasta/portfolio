@@ -21,21 +21,32 @@
     const page = (window.location.pathname.split('/').pop() || 'index').replace(/\.html$/, '');
     const nonWorkPages = ['fun', 'ai-workflow', 'about'];
     const activeLink = nonWorkPages.includes(page) ? page : 'work';
-    const activeClass = (name) => (activeLink === name ? ' class="active"' : '');
+    // mo-nav-link always applies (Motion "Breathe" hover: color shift +
+    // the same rolling-text reveal as the "Let's grab boba" CTA, via
+    // .roll-cta — see assets/cta-roll.js and the .roll-* rules in
+    // shared.css); .active is kept for pages that don't load
+    // motion-breathe.css, and aria-current lets Breathe's CSS keep the
+    // active link's hover color muted instead of accent.
+    const linkClass = (name) => `mo-nav-link roll-cta${activeLink === name ? ' active' : ''}`;
+    const ariaCurrent = (name) => (activeLink === name ? ' aria-current="page"' : '');
+
+    // cta-roll.js finds every .roll-cta-label at load and splits its text
+    // into the two-row rolling markup — same helper the CTA uses.
+    const label = (text) => `<span class="roll-cta-label">${text}</span>`;
 
     // AI workflow link temporarily removed from nav — page still exists at
     // ai-workflow.html, just not linked from here. Restore the line below
-    // (<a href="ai-workflow.html"${activeClass('ai-workflow')}>AI workflow</a>) to bring it back.
+    // (<a href="ai-workflow.html" class="${linkClass('ai-workflow')}" data-mo="3"${ariaCurrent('ai-workflow')}>${label('AI workflow')}</a>) to bring it back.
     el.outerHTML = `
   <nav${isHome ? ' class="home-nav"' : ''}>
     <div class="nav-inner">
-      <div class="nav-logo">${logo}</div>
+      <div class="nav-logo" data-mo="0">${logo}</div>
       <div class="nav-links">
-        <a href="${workHref}"${activeClass('work')}>Work</a>
-        <a href="fun.html"${activeClass('fun')}>Fun</a>
-        <a href="about.html"${activeClass('about')}>About</a>
+        <a href="${workHref}" class="${linkClass('work')}" data-mo="1"${ariaCurrent('work')}>${label('Work')}</a>
+        <a href="fun.html" class="${linkClass('fun')}" data-mo="2"${ariaCurrent('fun')}>${label('Fun')}</a>
+        <a href="about.html" class="${linkClass('about')}" data-mo="3"${ariaCurrent('about')}>${label('About')}</a>
       </div>
-      <a class="nav-clock" href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a class="nav-clock mo-nav-link roll-cta" href="assets/resume.pdf" target="_blank" rel="noopener" data-mo="4">${label('Resume')}</a>
     </div>
   </nav>`;
   });

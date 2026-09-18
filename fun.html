@@ -46,12 +46,15 @@
 
     .fun2-wrap {
       margin-top: 20px;
-      padding: 0 40px 172px;
+      height: calc(100vh - 64px - 20px);
+      overflow: hidden;
     }
     .fun2-row {
       display: flex;
-      align-items: flex-start;
+      align-items: stretch;
       gap: 20px;
+      height: 100%;
+      padding: 0 40px;
     }
 
     /* ─── LEFT: INTRO CARD ─── */
@@ -61,7 +64,14 @@
       gap: 20px;
       width: 349px;
       flex-shrink: 0;
+      height: 100%;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0 0 40px;
     }
+    .fun2-left::-webkit-scrollbar { display: none; }
     .fun2-photo {
       width: 100%;
       height: 364px;
@@ -128,7 +138,14 @@
       gap: 20px;
       flex: 1;
       min-width: 0;
+      height: 100%;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0 0 40px;
     }
+    .fun2-grid::-webkit-scrollbar { display: none; }
     .fun2-col {
       display: flex;
       flex-direction: column;
@@ -165,12 +182,61 @@
     .fun2-cell-print  { aspect-ratio: 203 / 243; }
     .fun2-cell-adobe  { aspect-ratio: 203 / 271; }
 
+    /* ─── HOVER GLASS OVERLAY (same treatment as homepage project cards) ─── */
+    .fun2-glass {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0);
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1), -webkit-backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .fun2-cell:hover .fun2-glass {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .fun2-hover-box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .fun2-hover-title {
+      display: block;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+    }
+    .fun2-cell:hover .fun2-hover-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ─── RESPONSIVE ─── */
+    /* Below 1040px the columns stack, so the split-scroll (each column
+       capped to viewport height with its own scrollbar) no longer makes
+       sense — flatten back to normal document flow, same as the desktop
+       columns' behavior before this was split-scroll. */
     @media (max-width: 1040px) {
-      .fun2-row { flex-direction: column; }
-      .fun2-left { width: 100%; flex-direction: row; }
+      .fun2-wrap { height: auto; overflow: visible; padding: 0 40px 172px; }
+      .fun2-row { flex-direction: column; height: auto; padding: 0; }
+      .fun2-left { width: 100%; flex-direction: row; height: auto; overflow-y: visible; padding: 0; }
       .fun2-photo { width: 349px; }
-      .fun2-grid { width: 100%; }
+      .fun2-grid { width: 100%; height: auto; overflow-y: visible; padding: 0; }
     }
     @media (max-width: 768px) {
       .fun2-wrap { padding: 0 24px 96px; }
@@ -216,12 +282,20 @@
               <source src="assets/mini golf.webm" type="video/webm">
               <source src="assets/mini golf.mov" type="video/mp4">
             </video>
+            <div class="fun2-glass"></div>
+            <div class="fun2-hover-box">
+              <span class="fun2-hover-title">Light interaction for marine inspired mini golf</span>
+            </div>
           </div>
           <div class="fun2-cell fun2-cell-fruit">
             <video autoplay muted loop playsinline preload="none">
               <source src="assets/fruit game.webm" type="video/webm">
               <source src="assets/fruit game.mov" type="video/mp4">
             </video>
+            <div class="fun2-glass"></div>
+            <div class="fun2-hover-box">
+              <span class="fun2-hover-title">Fruit Ninja made using MediaPipe</span>
+            </div>
           </div>
         </div>
 
@@ -231,12 +305,20 @@
               <source src="assets/weekly recap.webm" type="video/webm">
               <source src="assets/weekly recap.mp4" type="video/mp4">
             </video>
+            <div class="fun2-glass"></div>
+            <div class="fun2-hover-box">
+              <span class="fun2-hover-title">Social media post for MHCID</span>
+            </div>
           </div>
           <div class="fun2-cell fun2-cell-screen">
             <video autoplay muted loop playsinline preload="none">
               <source src="assets/screen recording.webm" type="video/webm">
               <source src="assets/screen recording.mov" type="video/mp4">
             </video>
+            <div class="fun2-glass"></div>
+            <div class="fun2-hover-box">
+              <span class="fun2-hover-title">Playing with different textures on images — built using Claude</span>
+            </div>
           </div>
         </div>
 
@@ -246,12 +328,20 @@
               <source src="assets/3d print.webm" type="video/webm">
               <source src="assets/3d print.MOV" type="video/mp4">
             </video>
+            <div class="fun2-glass"></div>
+            <div class="fun2-hover-box">
+              <span class="fun2-hover-title">3D printed light, built with CPX</span>
+            </div>
           </div>
           <div class="fun2-cell fun2-cell-adobe">
             <video autoplay muted loop playsinline preload="none">
               <source src="assets/adobe walk.webm" type="video/webm">
               <source src="assets/adobe walk.mp4" type="video/mp4">
             </video>
+            <div class="fun2-glass"></div>
+            <div class="fun2-hover-box">
+              <span class="fun2-hover-title">Social media post for MHCID</span>
+            </div>
           </div>
         </div>
       </div>
@@ -286,6 +376,13 @@
     });
   </script>
 
+<!-- Lenis disabled: the two fun2 columns scroll independently now (each
+     its own overflow-y), not the window. Lenis smooths window-level
+     scrolling by default and doesn't know about those nested containers
+     without extra config, so enabling it here hijacks scroll input away
+     from them — same reasoning as index.html. Leaving it out until it's
+     set up with Lenis's wrapper/content options pointed at each column. -->
+<!--
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
   const lenis = window.lenis = new Lenis({ duration: 1.1, smoothWheel: true });
@@ -295,6 +392,7 @@
   }
   requestAnimationFrame(lenisRaf);
 </script>
+-->
 
 <!-- PHOTO COLOR REVEAL — same effect as the homepage hero: paints the color
      photo in the cursor's path over the B&W one, fading each painted spot

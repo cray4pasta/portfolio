@@ -41,14 +41,6 @@
     /* ─── FIGMA REDESIGN TOKENS ───
        Page-scoped; overrides shared.css's .cs-v2 typography defaults for
        this page only (loaded after shared.css, so these win the cascade). */
-    :root {
-      --gh-primary: #2a2a2b;
-      --gh-body: #575757;
-      --gh-label: #b8b8b8;
-      --gh-card: #fafafa;
-      --gh-frame: #f3f3f3;
-      --gh-frame-border: #f2f2f2;
-    }
 
     body { background: #fffffe; }
 
@@ -75,7 +67,7 @@
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
       text-wrap: balance;
       margin-bottom: 20px;
     }
@@ -83,14 +75,14 @@
     /* ─── PROJECT META ROW (Role/Team/Timeline/Build, in main content) ─── */
     .gh-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
     .gh-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .gh-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gh-label); }
-    .gh-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gh-primary); }
+    .gh-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
+    .gh-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); }
 
     /* Active link slides right and darkens, matching the reference sidebar's
        scroll-spy animation (color + transform, 0.2s each). */
     .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .cs-context-link {
-      color: var(--gh-body);
+      color: var(--text-body);
       font-size: 12px;
       text-transform: uppercase;
       text-decoration: none;
@@ -98,8 +90,8 @@
       transform: translateX(0);
       transition: color 0.2s, transform 0.2s;
     }
-    .cs-context-link:hover { color: var(--gh-primary); }
-    .cs-context-link.active { color: var(--gh-primary); transform: translateX(12px); }
+    .cs-context-link:hover { color: var(--text); }
+    .cs-context-link.active { color: var(--text); transform: translateX(12px); }
     /* Section nav relies on .home-right being a scroll container for its
        scroll-spy; once the layout stacks (same breakpoint as the sidebar
        collapse below), that stops being true, so hide it. */
@@ -140,9 +132,9 @@
     /* Same specificity as shared.css's .cs-v2 .section-header (which sets
        gap: 14px) — this wins since it loads after shared.css. */
     .cs-v2 .section-header { gap: 8px; }
-    .cs-v2 .label { color: var(--gh-label); font-weight: 300; font-size: 14px; line-height: 20px; }
-    .cs-v2 .section-heading { font-weight: 400; color: var(--gh-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
-    .cs-v2 .section-body { font-weight: 400; color: var(--gh-body); }
+    .cs-v2 .label { color: var(--text-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--text); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--text-body); }
     .cs-v2 .cs-content {
       display: flex;
       flex-direction: column;
@@ -172,15 +164,15 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--gh-body);
+      color: var(--text-body);
       text-align: center;
       width: 100%;
     }
 
     /* ─── FRAME BOX (video/screen-mockup placeholders) ─── */
     .frame-box {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 100%;
       height: 583px;
@@ -201,8 +193,8 @@
 
     /* ─── DESIGN 03 (cropped screen "peeks" with captions) ─── */
     .small-things-frame {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 100%;
       height: 433px;
@@ -227,8 +219,8 @@
     .ut-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .ut-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .ut-frame {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 100%;
       flex-shrink: 0;
@@ -253,14 +245,14 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
       white-space: nowrap;
     }
 
     /* ─── AI EXPERIMENTS ─── */
     .ai-exp-frame {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 100%;
       height: 433px;
@@ -283,7 +275,7 @@
       display: flex;
       gap: 12px;
       align-items: flex-start;
-      background: var(--gh-card);
+      background: var(--card);
       border-radius: 4px;
       padding: 20px;
       width: 100%;
@@ -294,7 +286,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
       margin-bottom: 8px;
     }
     .icon-row .icon-body {
@@ -302,21 +294,21 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-body);
+      color: var(--text-body);
     }
 
     /* ─── QUOTE GRID (2×2) ─── */
     .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
     .quote-card {
-      background: var(--gh-card);
+      background: var(--card);
       border-radius: 4px;
       padding: 20px;
       display: flex;
       gap: 8px;
       align-items: center;
     }
-    .quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--gh-frame-border); flex-shrink: 0; }
-    .quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); }
+    .quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--frame-border); flex-shrink: 0; }
+    .quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── CENTERED MEDIA (CA image) ─── */
     .ca-img { width: 100%; height: 528px; }
@@ -342,7 +334,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-body);
+      color: var(--text-body);
       margin-bottom: 12px;
     }
     .pivot-card .b {
@@ -350,7 +342,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-body);
+      color: var(--text-body);
     }
 
     /* ─── BEFORE/AFTER FLOW ─── */
@@ -360,7 +352,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
     }
     .flow-row { display: flex; align-items: center; width: 100%; }
     .flow-card {
@@ -368,8 +360,8 @@
       height: 96px;
       flex-shrink: 0;
       box-sizing: border-box;
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -380,7 +372,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-body);
+      color: var(--text-body);
     }
     .flow-arrow { width: 21px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
     .flow-arrow img { width: 21px; height: auto; display: block; }
@@ -405,7 +397,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
       flex-shrink: 0;
     }
     .insight-text { display: flex; flex-direction: column; gap: 12px; width: 100%; }
@@ -414,21 +406,21 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
     }
     .insight-text .b {
       font-family: var(--font-sans);
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-body);
+      color: var(--text-body);
     }
 
     /* ─── DESIGN PRINCIPLES ─── */
     .principle-row { display: flex; gap: 24px; align-items: center; width: 100%; }
     .principle-card {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 224px;
       height: 96px;
@@ -452,8 +444,8 @@
     .design-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .design-cards-row { display: flex; gap: 8px; width: 100%; }
     .design-card {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 234px;
       flex: 1;
@@ -465,14 +457,14 @@
       gap: 8px;
     }
     .design-card.tall { height: 212px; }
-    .design-card .lbl { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gh-body); }
-    .design-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--gh-primary); }
-    .design-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); }
+    .design-card .lbl { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
+    .design-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .design-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     .iteration-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .iteration-frame {
-      background: var(--gh-card);
-      border: 1px solid var(--gh-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 100%;
       height: 583px;
@@ -488,7 +480,7 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
       white-space: nowrap;
     }
     .iteration-frame img.it-phone { position: absolute; top: 48px; width: 237px; height: 485px; object-fit: cover; }
@@ -500,10 +492,10 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--gh-primary);
+      color: var(--text);
       flex-shrink: 0;
     }
-    .callout-line { position: relative; height: 1px; background: var(--gh-primary); flex-shrink: 0; }
+    .callout-line { position: relative; height: 1px; background: var(--text); flex-shrink: 0; }
     .callout-line::after {
       content: '';
       position: absolute;
@@ -511,7 +503,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--gh-primary);
+      background: var(--text);
       transform: translateY(-50%);
     }
     .callout-line.dot-start::after { left: -3px; }
@@ -539,18 +531,18 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--gh-body);
+      color: var(--text-body);
       text-decoration: none;
       width: fit-content;
       transition: color 0.2s;
     }
-    .cs-back-link:hover { color: var(--gh-primary); }
+    .cs-back-link:hover { color: var(--text); }
 
     /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
     .gh-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
     .gh-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
-    .gh-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-primary); margin: 0; }
-    .gh-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gh-body); margin: 0; }
+    .gh-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); margin: 0; }
+    .gh-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }

@@ -19,6 +19,11 @@
 
 /* ─── Tokens ─── */
 :root {
+  /* Gray scale (from Figma) */
+  --gray-300:    #4D4D4D;
+  --gray-200:    #767676;
+  --gray-100:    #B8B8B8;
+
   --bg:          #FFFFFF;
   --text:        #2a2a2b;
   --text2:       #666767;
@@ -29,6 +34,12 @@
   --border-card: #dddddd;
   --purple:      #6a5acd;
   --accent:      #7d1201;
+  /* Case-study palette (was duplicated per page as --cf-/--gh-/--li-/--pb-) */
+  --text-body:    #575757;
+  --text-label:   var(--gray-100);
+  --card:         #fafafa;
+  --frame:        #f3f3f3;
+  --frame-border: #f2f2f2;
   --font-serif:  'Geist', sans-serif;
   --font-sans:   'Geist', sans-serif;
   --ease-soft:   cubic-bezier(0.23, 1, 0.32, 1);

@@ -42,14 +42,6 @@
        Page-scoped; overrides shared.css's .cs-v2 typography defaults for
        this page only (loaded after shared.css, so these win the cascade).
        Same hex values as copart.html/goodyhearts.html — shared Figma design system. */
-    :root {
-      --pb-primary: #2a2a2b;
-      --pb-body: #575757;
-      --pb-label: #b8b8b8;
-      --pb-card: #fafafa;
-      --pb-frame: #f3f3f3;
-      --pb-frame-border: #f2f2f2;
-    }
 
     body { background: #fffffe; }
 
@@ -76,7 +68,7 @@
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--pb-primary);
+      color: var(--text);
       text-wrap: balance;
       margin-bottom: 20px;
     }
@@ -84,14 +76,14 @@
     /* ─── PROJECT META ROW (Role/Team/Timeline/Type, in main content) ─── */
     .pb-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
     .pb-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .pb-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-label); }
-    .pb-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-primary); }
+    .pb-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
+    .pb-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); }
 
     /* Active link slides right and darkens, matching the reference sidebar's
        scroll-spy animation (color + transform, 0.2s each). */
     .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .cs-context-link {
-      color: var(--pb-body);
+      color: var(--text-body);
       font-size: 12px;
       text-transform: uppercase;
       text-decoration: none;
@@ -99,8 +91,8 @@
       transform: translateX(0);
       transition: color 0.2s, transform 0.2s;
     }
-    .cs-context-link:hover { color: var(--pb-primary); }
-    .cs-context-link.active { color: var(--pb-primary); transform: translateX(12px); }
+    .cs-context-link:hover { color: var(--text); }
+    .cs-context-link.active { color: var(--text); transform: translateX(12px); }
     /* Section nav relies on .home-right being a scroll container for its
        scroll-spy; once the layout stacks (same breakpoint as the sidebar
        collapse below), that stops being true, so hide it. */
@@ -140,9 +132,9 @@
     /* Same specificity as shared.css's .cs-v2 .section-header (which sets
        gap: 14px) — this wins since it loads after shared.css. */
     .cs-v2 .section-header { gap: 8px; }
-    .cs-v2 .label { color: var(--pb-label); font-weight: 300; font-size: 14px; line-height: 20px; }
-    .cs-v2 .section-heading { font-weight: 400; color: var(--pb-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
-    .cs-v2 .section-body { font-weight: 400; color: var(--pb-body); }
+    .cs-v2 .label { color: var(--text-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--text); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--text-body); }
     .cs-v2 .cs-content {
       display: flex;
       flex-direction: column;
@@ -174,12 +166,12 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--pb-body);
+      color: var(--text-body);
       text-decoration: none;
       width: fit-content;
       transition: color 0.2s;
     }
-    .cs-back-link:hover { color: var(--pb-primary); }
+    .cs-back-link:hover { color: var(--text); }
 
     /* ─── PROBLEM (old-homepage video + caption) ─── */
     .pb-problem-media { display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%; }
@@ -190,7 +182,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--pb-body);
+      color: var(--text-body);
       text-align: center;
       width: 100%;
     }
@@ -198,8 +190,8 @@
     /* ─── IMPACT (3 icon cards) ─── */
     .impact-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
     .impact-card {
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       flex: 1;
       height: 335px;
@@ -217,22 +209,22 @@
     .impact-icon.plain img { position: static; width: 100%; height: 100%; object-fit: cover; max-width: 100%; }
     .impact-text { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .impact-text.center { align-items: center; }
-    .impact-title { font-family: var(--font-sans); font-weight: 600; font-size: 20px; line-height: 24px; color: var(--pb-primary); }
-    .impact-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .impact-title { font-family: var(--font-sans); font-weight: 600; font-size: 20px; line-height: 24px; color: var(--text); }
+    .impact-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── RESEARCH (3 numbered insight groups) ─── */
     .section-break.gap-xl { gap: 120px; }
     .pb-research-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .pb-insight-head { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .pb-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
-    .pb-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); flex-shrink: 0; }
-    .pb-insight-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
-    .pb-insight-body { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-body); }
+    .pb-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); flex-shrink: 0; }
+    .pb-insight-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .pb-insight-body { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
 
     .pb-persona-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
     .pb-persona-card {
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       flex: 1;
       box-sizing: border-box;
@@ -241,15 +233,15 @@
       flex-direction: column;
       gap: 8px;
     }
-    .pb-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
-    .pb-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .pb-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
-    .pb-heuristic-frame { background: var(--pb-card); border-radius: 4px; width: 100%; height: 318px; padding: 20px 47px 0; box-sizing: border-box; overflow: hidden; }
+    .pb-heuristic-frame { background: var(--card); border-radius: 4px; width: 100%; height: 318px; padding: 20px 47px 0; box-sizing: border-box; overflow: hidden; }
     .pb-heuristic-frame video { width: 100%; height: 298px; object-fit: cover; display: block; border-radius: 4px; }
     .pb-heuristic-row { display: flex; gap: 8px; align-items: stretch; width: 100%; }
     .pb-heuristic-card {
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       flex: 1;
       box-sizing: border-box;
@@ -259,13 +251,13 @@
       justify-content: center;
       gap: 12px;
     }
-    .pb-heuristic-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
-    .pb-heuristic-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-heuristic-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .pb-heuristic-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     .pb-competitor-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
     .pb-competitor-card { display: flex; flex-direction: column; gap: 4px; flex: 1; }
     .pb-competitor-card img { width: 100%; height: 146px; border-radius: 4px; object-fit: cover; object-position: top; display: block; }
-    .pb-competitor-card .cap { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-body); text-align: center; width: 100%; }
+    .pb-competitor-card .cap { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); text-align: center; width: 100%; }
 
     /* ─── UPDATED IA (diagram + static segmented control) ─── */
     .pb-ia-group { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
@@ -275,7 +267,7 @@
       border-radius: 4px;
       overflow: hidden;
       flex-shrink: 0;
-      background: var(--pb-card);
+      background: var(--card);
       position: relative;
     }
     .pb-ia-image img { display: block; position: absolute; left: 0; top: -2px; width: 100%; height: calc(100% + 4px); object-fit: cover; }
@@ -284,8 +276,8 @@
       height: 44px;
       padding: 4px;
       border-radius: 999px;
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       display: flex;
       gap: 4px;
       flex-shrink: 0;
@@ -306,35 +298,35 @@
       transition: background 0.2s ease, color 0.2s ease;
     }
     .pb-ia-toggle .opt.active {
-      background: var(--pb-primary);
+      background: var(--text);
       color: #fffffe;
       box-shadow: 0 1px 3px rgba(42, 42, 43, 0.18);
     }
-    .pb-ia-toggle .opt:not(.active) { color: var(--pb-body); }
-    .pb-ia-toggle .opt:not(.active):hover { color: var(--pb-primary); }
+    .pb-ia-toggle .opt:not(.active) { color: var(--text-body); }
+    .pb-ia-toggle .opt:not(.active):hover { color: var(--text); }
 
     /* ─── WHAT CHANGED? (before/after pill comparison) ─── */
     .pb-changed-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .pb-changed-row-wrap { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .pb-changed-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-body); }
+    .pb-changed-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
     .pb-changed-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
     .pb-changed-card { border-radius: 4px; padding: 20px; flex: 1; min-height: 88px; box-sizing: border-box; display: flex; align-items: center; }
     .pb-changed-card.bad { background: #fef5f4; border: 1px solid #e50000; }
     .pb-changed-card.good { background: #f1f4f2; border: 1px solid #1b6134; }
-    .pb-changed-card p { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-changed-card p { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── STAKEHOLDER PUSHBACK (speech bubbles + face illustrations) ─── */
     .pb-pushback-wrap { position: relative; width: 100%; height: 212px; }
     .pb-bubble {
       position: absolute;
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       padding: 24px;
       box-sizing: border-box;
       display: flex;
       align-items: center;
     }
-    .pb-bubble p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-bubble p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
     .pb-bubble.a { left: 477.85px; top: 0; width: 242.148px; height: 127.059px; border-radius: 40px 40px 40px 0; }
     .pb-bubble.b { left: 0; top: 22px; width: 226px; height: 120px; border-radius: 40px 40px 0 40px; }
     .pb-face { position: absolute; display: block; }
@@ -355,8 +347,8 @@
     /* ─── STAKEHOLDER PRIORITIES CALLOUTS (confusion / what-I-did cards) ─── */
     .pb-callout-stack { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .pb-callout-card {
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       padding: 20px;
       display: flex;
@@ -367,15 +359,15 @@
     }
     .pb-callout-label-row { display: flex; gap: 8px; align-items: center; width: 100%; }
     .pb-callout-label-row img { width: 20px; height: 18px; flex-shrink: 0; display: block; }
-    .pb-callout-check { width: 20px; height: 20px; flex-shrink: 0; color: var(--pb-label); }
-    .pb-callout-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--pb-label); white-space: nowrap; }
-    .pb-callout-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
+    .pb-callout-check { width: 20px; height: 20px; flex-shrink: 0; color: var(--text-label); }
+    .pb-callout-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); white-space: nowrap; }
+    .pb-callout-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); }
 
     /* ─── DESIGN PRINCIPLES ─── */
     .pb-principle-row { display: flex; gap: 12px; align-items: center; width: 100%; }
     .pb-principle-card {
-      background: var(--pb-card);
-      border: 1px solid var(--pb-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       flex: 1;
       height: 134px;
@@ -385,7 +377,7 @@
       align-items: center;
       justify-content: center;
     }
-    .pb-principle-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); width: 100%; }
+    .pb-principle-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); width: 100%; }
 
     /* ─── DESIGNING AROUND CONSTRAINTS (button component video) ─── */
     .pb-button-frame {
@@ -399,39 +391,39 @@
     .pb-button-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ─── CHANGE COMPARISON (before/after screenshot pairs) ─── */
-    .pb-change-frame { background: var(--pb-card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
+    .pb-change-frame { background: var(--card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
     .pb-change-cols { display: flex; gap: 20px; align-items: flex-start; width: 100%; }
     .pb-change-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
-    .pb-change-media { border: 1px solid var(--pb-frame-border); border-radius: 4px; overflow: hidden; }
+    .pb-change-media { border: 1px solid var(--frame-border); border-radius: 4px; overflow: hidden; }
     .pb-change-media.h177, .pb-change-media.h179 { height: 178px; width: 100%; }
     .pb-change-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .pb-change-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
-    .pb-change-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-change-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .pb-change-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── CHANGE NO.2, PART A (unorg/org card comparison) ─── */
-    .pb-org-frame { background: var(--pb-card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
+    .pb-org-frame { background: var(--card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
     .pb-org-cols { display: flex; gap: 20px; width: 100%; }
     .pb-org-col { display: flex; flex-direction: column; gap: 8px; }
     .pb-org-col.fixed { width: 326px; flex-shrink: 0; }
     .pb-org-col.flex { flex: 1; min-width: 0; }
-    .pb-org-media { border: 1px solid var(--pb-frame-border); border-radius: 4px; height: 265px; overflow: hidden; }
+    .pb-org-media { border: 1px solid var(--frame-border); border-radius: 4px; height: 265px; overflow: hidden; }
     .pb-org-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ─── CHANGE NO.2, PART B (table/filters comparison) ─── */
-    .pb-table-frame { background: var(--pb-card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+    .pb-table-frame { background: var(--card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px; align-items: center; }
     .pb-table-block { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .pb-table-video, .pb-table-img { border: 1px solid var(--pb-frame-border); border-radius: 4px; overflow: hidden; width: 100%; }
-    .pb-table-video { aspect-ratio: 668 / 375; background: var(--pb-card); }
+    .pb-table-video, .pb-table-img { border: 1px solid var(--frame-border); border-radius: 4px; overflow: hidden; width: 100%; }
+    .pb-table-video { aspect-ratio: 668 / 375; background: var(--card); }
     .pb-table-img { aspect-ratio: 666 / 572; }
     .pb-table-video video, .pb-table-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .pb-table-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--pb-primary); }
-    .pb-table-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); }
+    .pb-table-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .pb-table-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
     .pb-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
     .pb-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
-    .pb-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-primary); margin: 0; }
-    .pb-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--pb-body); margin: 0; }
+    .pb-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); margin: 0; }
+    .pb-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }

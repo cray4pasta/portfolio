@@ -42,14 +42,6 @@
        Page-scoped; overrides shared.css's .cs-v2 typography defaults for
        this page only (loaded after shared.css, so these win the cascade).
        Same hex values as copart.html/goodyhearts.html/panacea.html — shared Figma design system. */
-    :root {
-      --li-primary: #2a2a2b;
-      --li-body: #575757;
-      --li-label: #b8b8b8;
-      --li-card: #fafafa;
-      --li-frame: #f3f3f3;
-      --li-frame-border: #f2f2f2;
-    }
 
     body { background: #fffffe; }
 
@@ -76,7 +68,7 @@
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--li-primary);
+      color: var(--text);
       text-wrap: balance;
       margin-bottom: 20px;
     }
@@ -84,14 +76,14 @@
     /* ─── PROJECT META ROW (Role/Team/Timeline/Type, in main content) ─── */
     .li-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
     .li-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .li-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--li-label); }
-    .li-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--li-primary); }
+    .li-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
+    .li-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); }
 
     /* Active link slides right and darkens, matching the reference sidebar's
        scroll-spy animation (color + transform, 0.2s each). */
     .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .cs-context-link {
-      color: var(--li-body);
+      color: var(--text-body);
       font-size: 12px;
       text-transform: uppercase;
       text-decoration: none;
@@ -99,8 +91,8 @@
       transform: translateX(0);
       transition: color 0.2s, transform 0.2s;
     }
-    .cs-context-link:hover { color: var(--li-primary); }
-    .cs-context-link.active { color: var(--li-primary); transform: translateX(12px); }
+    .cs-context-link:hover { color: var(--text); }
+    .cs-context-link.active { color: var(--text); transform: translateX(12px); }
     /* Section nav relies on .home-right being a scroll container for its
        scroll-spy; once the layout stacks (same breakpoint as the sidebar
        collapse below), that stops being true, so hide it. */
@@ -141,9 +133,9 @@
     /* Same specificity as shared.css's .cs-v2 .section-header (which sets
        gap: 14px) — this wins since it loads after shared.css. */
     .cs-v2 .section-header { gap: 8px; }
-    .cs-v2 .label { color: var(--li-label); font-weight: 300; font-size: 14px; line-height: 20px; }
-    .cs-v2 .section-heading { font-weight: 400; color: var(--li-primary); letter-spacing: 0; font-size: 20px; line-height: 24px; }
-    .cs-v2 .section-body { font-weight: 400; color: var(--li-body); }
+    .cs-v2 .label { color: var(--text-label); font-weight: 300; font-size: 14px; line-height: 20px; }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--text); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--text-body); }
     .cs-v2 .cs-content {
       display: flex;
       flex-direction: column;
@@ -175,51 +167,51 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--li-body);
+      color: var(--text-body);
       text-decoration: none;
       width: fit-content;
       transition: color 0.2s;
     }
-    .cs-back-link:hover { color: var(--li-primary); }
+    .cs-back-link:hover { color: var(--text); }
 
     /* ─── PROBLEM: STAT BOX ─── */
     .li-stat-box { background: #fffbf1; border: 1px solid #ffb200; border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 40px; align-items: flex-start; width: 100%; box-sizing: border-box; }
-    .li-stat-box .caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+    .li-stat-box .caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
     .li-stat-number-group { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-    .li-stat-number { font-family: var(--font-sans); font-weight: 600; font-size: 38px; line-height: 44px; color: var(--li-primary); }
-    .li-stat-source { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--li-label); }
+    .li-stat-number { font-family: var(--font-sans); font-weight: 600; font-size: 38px; line-height: 44px; color: var(--text); }
+    .li-stat-source { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
 
     /* ─── RESEARCH: QUOTE GRID (2x2) ─── */
     .li-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%; }
-    .li-quote-card { background: var(--li-card); border-radius: 4px; padding: 20px; display: flex; gap: 8px; align-items: center; }
-    .li-quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--li-frame-border); flex-shrink: 0; }
-    .li-quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+    .li-quote-card { background: var(--card); border-radius: 4px; padding: 20px; display: flex; gap: 8px; align-items: center; }
+    .li-quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--frame-border); flex-shrink: 0; }
+    .li-quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── RESEARCH: SCREENSHOT CARD ─── */
     .li-screenshot-card { background: #fffffe; border-radius: 4px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .li-screenshot-frame { width: 100%; aspect-ratio: 720 / 311; border-radius: 4px; overflow: hidden; position: relative; }
     .li-screenshot-frame img { position: absolute; display: block; max-width: none; height: 159.51%; width: 100%; left: 0; top: -0.01%; }
-    .li-screenshot-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+    .li-screenshot-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── PROBLEM 2: PERSONAS ─── */
     .li-persona-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-    .li-persona-card { background: var(--li-card); border: 1px solid var(--li-frame-border); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box; }
-    .li-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--li-primary); }
-    .li-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+    .li-persona-card { background: var(--card); border: 1px solid var(--frame-border); border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box; }
+    .li-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .li-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── NUMBERED INSIGHTS (why the noise exists) ─── */
     .li-insight-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .li-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
-    .li-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--li-primary); flex-shrink: 0; white-space: nowrap; }
+    .li-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); flex-shrink: 0; white-space: nowrap; }
     .li-insight-text { display: flex; flex-direction: column; gap: 12px; width: 587px; max-width: 100%; }
-    .li-insight-text .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--li-primary); }
-    .li-insight-text .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); }
+    .li-insight-text .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
+    .li-insight-text .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
 
     /* ─── SOLUTION: PHONE MOCKUP ROWS WITH ANNOTATIONS ─── */
     .li-solution-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .li-solution-frame {
-      background: var(--li-card);
-      border: 1px solid var(--li-frame-border);
+      background: var(--card);
+      border: 1px solid var(--frame-border);
       border-radius: 4px;
       width: 100%;
       height: 543px;
@@ -235,8 +227,8 @@
     .li-solution-annotation.left { padding-top: 200px; }
     .li-solution-annotation.right { padding-top: 40px; }
     .li-solution-annotation p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: #000; margin: 0; }
-    .li-solution-line { width: 35px; height: 1px; background: var(--li-primary); flex-shrink: 0; position: relative; }
-    .li-solution-line::after { content: ''; position: absolute; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--li-primary); transform: translateY(-50%); }
+    .li-solution-line { width: 35px; height: 1px; background: var(--text); flex-shrink: 0; position: relative; }
+    .li-solution-line::after { content: ''; position: absolute; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--text); transform: translateY(-50%); }
     .li-solution-line.dot-end::after { right: -3px; }
     .li-solution-line.dot-start::after { left: -3px; }
 
@@ -252,8 +244,8 @@
     /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
     .li-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
     .li-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
-    .li-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-primary); margin: 0; }
-    .li-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--li-body); margin: 0; }
+    .li-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); margin: 0; }
+    .li-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }

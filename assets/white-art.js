@@ -3,7 +3,7 @@
    the letters leaves a pale opal oil sheen that drifts and fades.
    Usage: <canvas class="white-art" data-name="Prerna Kashyap"></canvas>
    The canvas sizes itself: the ink spans the canvas width minus --art-inset
-   on each side, the tallest glyph starts --art-top below whatever precedes
+   on each side (capped at --art-width if set, centred), the tallest glyph starts --art-top below whatever precedes
    the canvas, and layout ends at the ink's bottom edge (see index.html). */
 (() => {
   const cv = document.querySelector('canvas.white-art');
@@ -248,13 +248,14 @@
     const cs = getComputedStyle(cv);
     const inset = parseFloat(cs.getPropertyValue('--art-inset')) || 40;
     const topGap = parseFloat(cs.getPropertyValue('--art-top')) || 120;
-    const inkW = Math.max(1, cssW - inset*2);
+    const maxW = parseFloat(cs.getPropertyValue('--art-width')) || Infinity;
+    const inkW = Math.max(1, Math.min(maxW, cssW - inset*2));
     const fs = inkW/ink.width;
     const ascent = ink.ascent*fs, descent = ink.descent*fs;
     // Room around the ink for the cast shadow and oil. The top can't exceed
     // the gap above, or the canvas would overlap whatever sits there.
     const pad = Math.max(24, fs*.22), padTop = Math.min(topGap, pad);
-    layoutBox = { cssW, fs, padTop, ascent, inkW, left: inset - ink.left*fs };
+    layoutBox = { cssW, fs, padTop, ascent, inkW, left: (cssW - inkW)/2 - ink.left*fs };
     cv.style.height = Math.round(padTop + pad + ascent + descent) + 'px';
     cv.style.marginTop = (topGap - padTop) + 'px';
     // Pull following content up so layout ends at the ink's bottom edge.

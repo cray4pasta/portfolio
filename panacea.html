@@ -850,7 +850,6 @@
    </div><!-- /home-layout -->
   </div><!-- /home-wrap -->
 
-  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
 
   <script>
     // IA before/after toggle
@@ -873,15 +872,6 @@
       });
     })();
 
-    const cursor = document.getElementById('cursor');
-    let raf;
-    document.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    });
   </script>
 
 <script src="assets/cursor-trail.js"></script>

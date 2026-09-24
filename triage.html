@@ -289,10 +289,10 @@
       border-radius: 8px;
       transform: scale(0.95);
       transition: transform 0.25s ease;
-      cursor: none !important;
+      cursor: zoom-out !important;
     }
     #lightbox.active img { transform: scale(1); }
-    .lb-zoom { cursor: none !important; pointer-events: auto !important; position: relative; z-index: 1; }
+    .lb-zoom { cursor: zoom-in !important; pointer-events: auto !important; position: relative; z-index: 1; }
   </style>
 </head>
 <body class="cs-v2">
@@ -545,18 +545,8 @@
   <div id="lightbox">
     <img id="lb-img" src="" alt="">
   </div>
-  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
 
   <script>
-    const cursor = document.getElementById('cursor');
-    let raf;
-    document.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    });
 
     // Lightbox
     (() => {
@@ -596,5 +586,6 @@
 
 
   </script>
+<script src="assets/cursor-trail.js"></script>
 </body>
 </html>

@@ -219,17 +219,8 @@
     </div>
   </div>
 
-  <div id="cursor"><img src="assets/custom cursor.svg" alt=""></div>
   <script>
-    const cursor = document.getElementById('cursor');
     let raf;
-    document.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    });
   </script>
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>

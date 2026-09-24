@@ -90,24 +90,6 @@
       z-index: 1;
     }
 
-    /* ─── CURSOR ─── */
-    #cursor {
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      width: auto;
-      height: auto;
-    }
-    #cursor #cursor-icon {
-      width: 22px;
-      height: auto;
-      display: block;
-      transform: rotate(-15deg);
-    }
-    @media (max-width: 768px) {
-      #cursor { display: none; }
-    }
   </style>
 </head>
 <body>
@@ -155,10 +137,8 @@
     </div>
   </div>
 
-  <div id="cursor"><img id="cursor-icon" src="assets/custom cursor.svg" alt=""></div>
 
   <script>
-    const cursor = document.getElementById('cursor');
     let raf;
 
     // Fade in images once loaded, instead of popping in instantly
@@ -168,13 +148,6 @@
       else el.addEventListener('load', markLoaded, { once: true });
     });
 
-    document.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    });
   </script>
 
   <!-- HERO COLOR REVEAL — same effect as the homepage hero: paints the

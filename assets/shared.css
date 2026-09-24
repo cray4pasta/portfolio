@@ -23,6 +23,7 @@
   --gray-300:    #4D4D4D;
   --gray-200:    #767676;
   --gray-100:    #B8B8B8;
+  --gray-50:     #FAFAFA;
 
   --bg:          #FFFFFF;
   --text:        #2a2a2b;
@@ -37,7 +38,7 @@
   /* Case-study palette (was duplicated per page as --cf-/--gh-/--li-/--pb-) */
   --text-body:    #575757;
   --text-label:   var(--gray-100);
-  --card:         #fafafa;
+  --card:         var(--gray-50);
   --frame:        #f3f3f3;
   --frame-border: #f2f2f2;
   --font-serif:  'Geist', sans-serif;
@@ -50,7 +51,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  cursor: none !important;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -89,11 +89,11 @@ nav {
 }
 .nav-logo, .nav-logo a {
   font-family: var(--font-sans);
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.01em;
-  color: var(--text);
+  color: var(--gray-300);
   text-decoration: none;
   display: block;
 }
@@ -105,25 +105,25 @@ nav {
 .nav-links a {
   font-family: var(--font-sans);
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 24px;
-  color: var(--text);
+  color: var(--gray-300);
   text-decoration: none;
   transition: color 0.25s ease;
 }
 .nav-links a:hover,
-.nav-links a.active { color: #b8b8b8; }
+.nav-links a.active { color: var(--gray-100); }
 .nav-clock {
   font-family: var(--font-sans);
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 24px;
-  color: var(--text);
+  color: var(--gray-300);
   white-space: nowrap;
   text-decoration: none;
   transition: color 0.25s ease;
 }
-.nav-clock:hover { color: #b8b8b8; }
+.nav-clock:hover { color: var(--gray-100); }
 
 /* ─── FOOTER (shared chrome; each page still sets its own footer margin-top/position for layout) ─── */
 footer {
@@ -171,22 +171,6 @@ footer {
   transition: color 0.25s ease;
 }
 .footer-links a:hover { color: var(--text-muted); }
-
-/* ─── CURSOR (baseline shell; index.html extends this with a hover-label pill) ─── */
-#cursor {
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  width: 20px;
-  height: auto;
-}
-#cursor img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transform: rotate(-15deg);
-}
 
 /* ─── PAGE LAYOUT (fixed bio sidebar + content column) ───
    Used by index.html and any page opting into the sidebar
@@ -729,5 +713,4 @@ footer {
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
   .footer-heading { font-size: 32px; line-height: 40px; }
   .footer-links a { font-size: 16px; }
-  #cursor { display: none; }
 }

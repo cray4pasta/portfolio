@@ -349,11 +349,8 @@
     </div>
   </div>
 
-  <div id="cursor"><img id="cursor-icon" src="assets/custom cursor.svg" alt=""></div>
 
   <script>
-    const cursor = document.getElementById('cursor');
-    let cursorRaf;
 
     // Fade in media once loaded, instead of popping in instantly
     document.querySelectorAll('.fun2-photo img, .fun2-cell img, .fun2-cell video').forEach(el => {
@@ -367,13 +364,6 @@
       }
     });
 
-    document.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(cursorRaf);
-      cursorRaf = requestAnimationFrame(() => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    });
   </script>
 
 <!-- Lenis disabled: the two fun2 columns scroll independently now (each

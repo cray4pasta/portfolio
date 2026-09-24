@@ -39,27 +39,56 @@
   </script>
 
   <style>
-    /* Split-scroll nav/layout system (.home-nav, .home-wrap, .home-layout,
-       .sidebar, .home-photo/.home-intro/.home-intro-cta, .home-right) lives
-       in shared.css so index.html and about.html stay in sync. */
-    /* Homepage-only: add a 20px gap below the sticky nav. Scoped here (not
-       shared.css) so about.html keeps the flush 0px gap. Height is reduced
-       by the same 20px so .home-wrap still ends exactly at the viewport
-       bottom instead of overflowing it. */
-    .home-wrap { margin-top: 20px; height: calc(100vh - 64px - 20px); }
-
-    .home-grid-row {
-      display: flex;
-      gap: 20px;
-      width: 100%;
+    /* Name art: only the letters of "Prerna Kashyap" are in this font file. */
+    @font-face {
+      font-family: 'PP Editorial Old Art';
+      src: url('Fonts/PP Editorial Old/PPEditorialOld-Regular-name.woff2') format('woff2');
+      font-weight: 400; font-style: normal; font-display: block;
     }
+
+    /* The canvas sizes its own height and margins (assets/white-art.js)
+       so the tallest letter sits --art-top below the intro text, and the ink spans
+       the page width minus --art-inset on each side, centred. */
+    .white-art {
+      --art-top: 40px;
+      --art-inset: 40px;
+      display: block;
+      width: 100%;
+      touch-action: pan-y;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    .white-art.ready { opacity: 1; }
+    /* With the intro text hidden, the name keeps its 120px gap below the nav. */
+    .home-lede[hidden] + .white-art { --art-top: 120px; }
+
+    .home-lede {
+      position: relative;
+      margin: 120px 40px 0;
+      max-width: max(320px, calc(100% - 840px));
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 20px;
+      color: var(--gray-300);
+      text-wrap: pretty;
+    }
+
+    /* ─── WORK ROW ─── Copart and Panacea at the Figma frame's 712:508
+       widths, 20px apart. The row's height follows Copart's 712×376 frame. */
+    .home-work {
+      display: grid;
+      grid-template-columns: minmax(0, 712fr) minmax(0, 508fr);
+      gap: 20px;
+      margin: 120px 40px 0;
+      padding-bottom: 120px;
+    }
+    .home-work .proj-card:first-child { aspect-ratio: 712 / 376; }
 
     /* ─── PROJECT CARDS ─── */
     .proj-card {
       border-radius: 4px;
-      flex: 1;
       min-width: 0;
-      height: 364px;
       display: flex;
       text-decoration: none;
       color: inherit;
@@ -70,6 +99,7 @@
       width: 100%;
       height: 100%;
       border-radius: 4px;
+      border: 0.4px solid var(--gray-50);
       overflow: hidden;
       background: #e8e8e8;
       flex-shrink: 0;
@@ -94,7 +124,9 @@
       background: linear-gradient(180deg, rgba(246, 246, 246, 0.3) 0%, rgba(144, 144, 144, 0) 100%);
     }
     .proj-media.thumb-goody video { object-position: center 20%; transform: scale(1.03); transform-origin: center 20%; }
-    .proj-media.thumb-copart video { transform: scale(1.44); }
+    /* Copart: flat color placeholder instead of the hero video. */
+    .proj-media.thumb-copart { background: #E9F4FF; }
+    .proj-media.thumb-copart::after { display: none; }
     .proj-media.thumb-panacea video { transform: scale(1.05); }
     .proj-media.thumb-linkedin video { object-position: center bottom; transform: scale(2.16); }
 
@@ -180,11 +212,9 @@
       white-space: nowrap;
     }
 
-    /* ─── RESPONSIVE ─── */
     @media (max-width: 640px) {
-      .home-grid-row { flex-direction: column; }
-      .proj-card { width: 100%; height: auto; }
-      .proj-media { height: 260px; }
+      .home-work { grid-template-columns: 1fr; }
+      .home-work .proj-card { aspect-ratio: 712 / 376; }
     }
 
     /* ─── FOCUS ─── */
@@ -193,95 +223,31 @@
       border-radius: 10px;
     }
 
-    /* Overrides shared.css's default hero crop with a 20%-less-zoomed
-       framing for this page's photo. .hero-color-trail below must keep
-       the exact same position/width/height so the color reveal lines up
-       pixel-for-pixel with the B&W photo underneath it. */
-    .home-photo img {
-      top: -4.47%;
-      height: 109.11%;
-    }
-    .hero-color-trail {
+    .visually-hidden {
       position: absolute;
-      left: 0;
-      top: -4.47%;
-      width: 100%;
-      height: 109.11%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .uw-logo {
-      display: inline-block;
-      width: 16.51px;
-      height: 11.28px;
-      vertical-align: -1px;
-    }
-
-    /* ─── LINK PREVIEW CARD (UW logo hover) ─── */
-    .uw-link-wrap {
-      position: relative;
-      display: inline-block;
-    }
-    .link-preview-card {
-      position: absolute;
-      top: 50%;
-      left: calc(100% + 10px);
-      transform: translateY(-50%) translateX(-4px);
-      width: 220px;
-      border-radius: 12px;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0;
       overflow: hidden;
-      background: var(--bg);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      text-decoration: none;
-      z-index: 50;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
-    .uw-link-wrap:hover .link-preview-card {
-      opacity: 1;
-      transform: translateY(-50%) translateX(0);
-      pointer-events: auto;
-    }
-    .link-preview-card img {
-      display: block;
-      width: 100%;
-      height: 130px;
-      object-fit: cover;
-    }
-    .link-preview-title {
-      display: block;
-      padding: 10px 12px;
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 18px;
+
+    /* Without WebGL, show the name as plain type instead of a blank space. */
+    .no-white-art .white-art { display: none; }
+    .no-white-art .home-lede { margin-top: 40px; }
+    .no-white-art .home-name {
+      position: static;
+      width: auto; height: auto; margin: 120px 40px 0;
+      clip: auto; overflow: visible; white-space: normal;
+      font: 400 clamp(48px, 12vw, 188px)/1 'PP Editorial Old Art', 'Times New Roman', serif;
+      letter-spacing: -0.07em;
       color: var(--text);
     }
 
-    /* ─── CURSOR ─── */
-    #cursor {
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      width: auto;
-      height: auto;
+    @media (prefers-reduced-motion: reduce) {
+      .white-art { transition: none; }
     }
-    #cursor #cursor-icon {
-      width: 22px;
-      height: auto;
-      display: block;
-      transform: rotate(-15deg);
-    }
-
-    /* Must come after the unconditional #cursor rule above so it wins
-       the cascade tie and actually hides the cursor on touch. */
-    @media (max-width: 768px) {
-      #cursor { display: none; }
-    }
-
   </style>
 </head>
 <body>
@@ -290,109 +256,40 @@
   <div data-component="nav" data-variant="home" data-logo-link="false" data-work-href="#work"></div>
   <script src="assets/nav.js"></script>
 
-  <div class="home-wrap">
-    <div class="home-layout">
-
-      <!-- SIDEBAR -->
-      <aside class="sidebar">
-        <div class="home-photo" data-mo="2">
-          <img src="assets/heroimgbw.png" alt="Prerna Kashyap">
-          <canvas class="hero-color-trail" aria-hidden="true"></canvas>
-        </div>
-
-        <div class="home-intro">
-          <h1 class="home-intro-title" data-mo="3">Adding intentionality to products and AI through strategy & design.</h1>
-          <p class="home-intro-body" data-mo="4">Using my expertise in CX & UX to create experiences that build trust and drive retention across consumer apps and B2B SaaS. MS HCI from <span class="uw-link-wrap"><a href="https://mhcid.washington.edu" target="_blank" rel="noopener"><img class="uw-logo" src="assets/uw-logo.png" alt="University of Washington"></a><a class="link-preview-card" href="https://mhcid.washington.edu" target="_blank" rel="noopener"><img src="assets/mhcid-preview.jpg" alt=""><span class="link-preview-title">MHCI+D — Human-Computer Interaction + Design at UW</span></a></span>. Currently based in Seattle, WA.</p>
-          <a href="mailto:prernakashyap1610@yahoo.com" class="home-intro-cta roll-cta" data-mo="5">
-            <span class="home-intro-cta-text roll-cta-label">Let's grab boba</span>
+  <main>
+    <h1 class="home-name visually-hidden">Prerna Kashyap</h1>
+    <p class="home-lede" hidden>Using my expertise across design, strategy &amp; CX to create experiences that build trust and emotional safety.</p>
+    <canvas class="white-art" data-name="Prerna Kashyap" aria-hidden="true"></canvas>
+    <section class="home-work" id="work" aria-label="Selected work">
+      <!-- Copart -->
+      <a href="copart.html" class="proj-card" data-mo="5">
+        <div class="proj-media thumb-copart">
+          <div class="proj-glass"></div>
+          <div class="proj-hover-box">
+            <span class="proj-hover-title">Building trust to drive vehicle acquisition</span>
             <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
-          </a>
+          </div>
         </div>
-      </aside>
+      </a>
 
-      <!-- RIGHT COLUMN — WORK -->
-      <section class="home-right" id="work">
-
-        <div class="home-grid-row">
-          <!-- Copart -->
-          <a href="copart.html" class="proj-card" data-mo="5">
-            <div class="proj-media thumb-copart">
-              <video autoplay muted loop playsinline preload="metadata" id="copart-video">
-                <source src="assets/hero copart video blue.webm" type="video/webm">
-                <source src="assets/hero copart video blue.mp4" type="video/mp4">
-              </video>
-              <div class="proj-glass"></div>
-              <div class="proj-hover-box">
-                <span class="proj-hover-title">Building trust to drive vehicle acquisition</span>
-                <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
-              </div>
-            </div>
-          </a>
-
-          <!-- Panacea -->
-          <a href="panacea.html" class="proj-card" data-mo="6">
-            <div class="proj-media thumb-panacea">
-              <video autoplay muted loop playsinline preload="none">
-                <source src="assets/Panacea video hero 3.webm" type="video/webm">
-                <source src="assets/Panacea video hero 3.mp4" type="video/mp4">
-              </video>
-              <div class="proj-glass"></div>
-              <div class="proj-hover-box">
-                <span class="proj-hover-title">Improving discoverability through IA redesign.</span>
-                <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
-              </div>
-            </div>
-          </a>
+      <!-- Panacea -->
+      <a href="panacea.html" class="proj-card" data-mo="6">
+        <div class="proj-media thumb-panacea">
+          <video autoplay muted loop playsinline preload="none">
+            <source src="assets/Panacea video hero 3.webm" type="video/webm">
+            <source src="assets/Panacea video hero 3.mp4" type="video/mp4">
+          </video>
+          <div class="proj-glass"></div>
+          <div class="proj-hover-box">
+            <span class="proj-hover-title">Improving discoverability through IA redesign.</span>
+            <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
+          </div>
         </div>
-
-        <div class="home-grid-row">
-          <!-- Goody Hearts -->
-          <a href="goodyhearts.html" class="proj-card" data-mo="7">
-            <div class="proj-media thumb-goody">
-              <video autoplay muted loop playsinline preload="none">
-                <source src="assets/goodyhearts-hero-new-2.mov" type="video/mp4">
-              </video>
-              <div class="proj-glass"></div>
-              <div class="proj-hover-box">
-                <span class="proj-hover-title">Helping artists contribute to social impact</span>
-                <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
-              </div>
-            </div>
-          </a>
-
-          <!-- LinkedIn -->
-          <a href="linkedin.html" class="proj-card" data-mo="8">
-            <div class="proj-media thumb-linkedin">
-              <video autoplay muted loop playsinline preload="none">
-                <source src="assets/linkedin-hero-new-2.webm" type="video/webm">
-                <source src="assets/linkedin-hero-new-2.mp4" type="video/mp4">
-              </video>
-              <div class="proj-glass"></div>
-              <div class="proj-hover-box">
-                <span class="proj-hover-title">Reimagining LinkedIn to Foster Intentional Scrolling</span>
-                <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
-              </div>
-            </div>
-          </a>
-        </div>
-
-      </section>
-
-    </div>
-  </div>
-
-  <div id="cursor"><img id="cursor-icon" src="assets/custom cursor.svg" alt=""></div>
+      </a>
+    </section>
+  </main>
 
   <script>
-    const cursor = document.getElementById('cursor');
-    let raf;
-
-    // Speed up Copart video
-    const copartVideo = document.getElementById('copart-video');
-    if (copartVideo) {
-      copartVideo.addEventListener('loadedmetadata', () => { copartVideo.playbackRate = 1.75; });
-    }
-
     // Pause each card's video on hover (title box takes over instead)
     document.querySelectorAll('.proj-card').forEach(card => {
       const video = card.querySelector('video');
@@ -402,161 +299,14 @@
     });
 
     // Fade in card media once loaded, instead of popping in instantly
-    document.querySelectorAll('.proj-media img, .proj-media video, .home-photo img').forEach(el => {
+    document.querySelectorAll('.proj-media video').forEach(el => {
       const markLoaded = () => el.classList.add('media-loaded');
-      if (el.tagName === 'IMG') {
-        if (el.complete && el.naturalWidth > 0) markLoaded();
-        else el.addEventListener('load', markLoaded, { once: true });
-      } else {
-        if (el.readyState >= 2) markLoaded();
-        else el.addEventListener('loadeddata', markLoaded, { once: true });
-      }
+      if (el.readyState >= 2) markLoaded();
+      else el.addEventListener('loadeddata', markLoaded, { once: true });
     });
-
-    document.addEventListener('mousemove', (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
-      });
-    });
-
-
   </script>
 
-  <!-- HERO COLOR REVEAL — paints the color photo in the cursor's path over
-       the B&W one, fading each painted spot back to B&W after a few seconds. -->
-  <script>
-  (function() {
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var container = document.querySelector('.home-photo');
-    var canvas = container && container.querySelector('.hero-color-trail');
-    if (!container || !canvas || reduceMotion) return;
-
-    var ctx = canvas.getContext('2d');
-    var brush = document.createElement('canvas');
-    var brushCtx = brush.getContext('2d');
-
-    var colorImg = new Image();
-    colorImg.src = 'assets/heroimgcolor.png';
-
-    var BRUSH_SIZE = 34;       // triangle brush size, px
-    var FADE_PER_FRAME = 0.02; // ~2.5s for a stroke to fully fade at 60fps
-
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var w = 0, h = 0;
-    var lastX = null, lastY = null;
-
-    function resize() {
-      var rect = canvas.getBoundingClientRect();
-      w = rect.width;
-      h = rect.height;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      brush.width = w * dpr;
-      brush.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      brushCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    // Replicates CSS object-fit: cover so the color image lines up with
-    // the B&W one pixel-for-pixel (both boxes share the same crop values).
-    function drawCover(context, img, cw, ch) {
-      var scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-      var dw = img.naturalWidth * scale;
-      var dh = img.naturalHeight * scale;
-      context.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
-    }
-
-    // Stamps a triangular brush tip at (x, y), pointing in the direction
-    // of travel (angle), like an arrowhead-shaped nib.
-    function drawTriangle(x, y, angle) {
-      var tipLen = BRUSH_SIZE * 0.6;
-      var backLen = BRUSH_SIZE * 0.4;
-      var halfBase = BRUSH_SIZE * 0.5;
-      var tipX = x + tipLen * Math.cos(angle);
-      var tipY = y + tipLen * Math.sin(angle);
-      var baseX = x - backLen * Math.cos(angle);
-      var baseY = y - backLen * Math.sin(angle);
-      var perp = angle + Math.PI / 2;
-
-      brushCtx.beginPath();
-      brushCtx.moveTo(tipX, tipY);
-      brushCtx.lineTo(baseX + halfBase * Math.cos(perp), baseY + halfBase * Math.sin(perp));
-      brushCtx.lineTo(baseX - halfBase * Math.cos(perp), baseY - halfBase * Math.sin(perp));
-      brushCtx.closePath();
-      brushCtx.fill();
-    }
-
-    // Paints a row of triangular stamps from the last cursor position to
-    // the new one (not just a single stamp) so fast movement still traces
-    // a continuous path instead of leaving gaps.
-    function paintSegment(x0, y0, x1, y1) {
-      if (!colorImg.complete) return;
-
-      var dx = x1 - x0, dy = y1 - y0;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      var angle = Math.atan2(dy, dx);
-      var steps = Math.max(1, Math.ceil(dist / 4));
-
-      brushCtx.clearRect(0, 0, w, h);
-      brushCtx.globalCompositeOperation = 'source-over';
-      brushCtx.fillStyle = '#fff';
-      for (var i = 0; i <= steps; i++) {
-        var t = i / steps;
-        drawTriangle(x0 + dx * t, y0 + dy * t, angle);
-      }
-
-      brushCtx.globalCompositeOperation = 'source-in';
-      drawCover(brushCtx, colorImg, w, h);
-
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.drawImage(brush, 0, 0, w, h);
-    }
-
-    container.addEventListener('mousemove', function(e) {
-      var rect = canvas.getBoundingClientRect();
-      var x = e.clientX - rect.left;
-      var y = e.clientY - rect.top;
-      if (lastX !== null) paintSegment(lastX, lastY, x, y);
-      lastX = x;
-      lastY = y;
-    });
-    container.addEventListener('mouseleave', function() {
-      lastX = null;
-      lastY = null;
-    });
-
-    function render() {
-      // Fade whatever's already painted, revealing B&W underneath.
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0,0,0,' + FADE_PER_FRAME + ')';
-      ctx.fillRect(0, 0, w, h);
-      requestAnimationFrame(render);
-    }
-    requestAnimationFrame(render);
-  })();
-  </script>
-
-<!-- Lenis disabled: this page's real scroll container is the nested
-     .home-right column (its own overflow-y), not the window. Lenis smooths
-     window-level scrolling by default and doesn't know about that nested
-     container without extra config, so enabling it here hijacks scroll
-     input away from .home-right. Leaving it out until it's set up with
-     Lenis's wrapper/content options pointed at .home-right specifically. -->
-<!--
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-  const lenis = window.lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-  function lenisRaf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(lenisRaf);
-  }
-  requestAnimationFrame(lenisRaf);
-</script>
--->
+<script src="assets/white-art.js"></script>
 <script src="assets/cursor-trail.js"></script>
 <script src="assets/motion-breathe.js" defer></script>
 <script src="assets/cta-roll.js" defer></script>

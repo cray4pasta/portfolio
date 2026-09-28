@@ -43,8 +43,8 @@
    Nav links use the shared .roll-cta / .roll-viewport / .roll-char
    markup (built by assets/cta-roll.js, styled in shared.css) — the
    exact mechanism the "Let's grab boba" CTA uses, just scoped to the
-   nav's own 24px line-height via shared.css's `.mo-nav-link
-   .roll-viewport { --roll-lh: 24px }` override so nothing shifts.
+   nav's own 26px line-height via shared.css's `.mo-nav-link
+   .roll-viewport { --roll-lh: 26px }` override so nothing shifts.
    Text color stays fixed on hover/focus — the roll is the only cue. */
 
 .mo-nav-link {

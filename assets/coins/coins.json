@@ -1,0 +1,253 @@
+[
+  {
+    "place": "Singapore",
+    "numistaId": 1674,
+    "metal": "#c8cbcf",
+    "title": "10 Cents (ribbon downwards)",
+    "numistaUrl": "https://en.numista.com/1674",
+    "front": "assets/coins/singapore-front.jpg",
+    "back": "assets/coins/singapore-back.jpg",
+    "credits": [
+      {
+        "by": "Joseph Kunnappally",
+        "url": null,
+        "license": null
+      },
+      {
+        "by": "Joseph Kunnappally",
+        "url": null,
+        "license": null
+      }
+    ]
+  },
+  {
+    "place": "Thailand",
+    "numistaId": 10004,
+    "metal": "#d9dbde",
+    "title": "1 Satang - Rama IX",
+    "numistaUrl": "https://en.numista.com/10004",
+    "front": "assets/coins/thailand-front.jpg",
+    "back": "assets/coins/thailand-back.jpg",
+    "credits": [
+      {
+        "by": "gef",
+        "url": null,
+        "license": null
+      },
+      {
+        "by": "gef",
+        "url": null,
+        "license": null
+      }
+    ]
+  },
+  {
+    "numistaId": 4039,
+    "place": "United Kingdom",
+    "metal": "#c07a4f",
+    "title": "2 Pence - Elizabeth II (4th portrait; Royal Shield)",
+    "numistaUrl": "https://en.numista.com/4039",
+    "front": "assets/coins/united-kingdom-4039-front.jpg",
+    "back": "assets/coins/united-kingdom-4039-back.jpg",
+    "credits": [
+      {
+        "by": "Monéphil",
+        "url": null,
+        "license": "CC BY-NC"
+      },
+      {
+        "by": "Monéphil",
+        "url": null,
+        "license": "CC BY-NC"
+      }
+    ]
+  },
+  {
+    "numistaId": 3510,
+    "place": "France",
+    "title": "10 Euro Cents (2nd map)",
+    "numistaUrl": "https://en.numista.com/3510",
+    "front": "assets/coins/france-3510-front.jpg",
+    "back": "assets/coins/france-3510-back.jpg",
+    "credits": [
+      {
+        "by": "Mike Bentley",
+        "url": null,
+        "license": "CC BY-NC"
+      },
+      {
+        "by": "Mike Bentley",
+        "url": null,
+        "license": "CC BY-NC"
+      }
+    ]
+  },
+  {
+    "numistaId": 7855,
+    "place": "South Korea",
+    "title": "5 Won",
+    "numistaUrl": "https://en.numista.com/7855",
+    "front": "assets/coins/south-korea-7855-front.jpg",
+    "back": "assets/coins/south-korea-7855-back.jpg",
+    "credits": [
+      {
+        "by": "gdch6ng",
+        "url": null,
+        "license": "CC BY-NC-SA"
+      },
+      {
+        "by": "gdch6ng",
+        "url": null,
+        "license": "CC BY-NC-SA"
+      }
+    ]
+  },
+  {
+    "numistaId": 83271,
+    "place": "United States",
+    "metal": "#c8cbcf",
+    "title": "¼ Dollar \"Washington Quarter\" (Kisatchie National Forest, Louisiana - Silver Proof)",
+    "numistaUrl": "https://en.numista.com/83271",
+    "front": "assets/coins/united-states-83271-front.jpg",
+    "back": "assets/coins/united-states-83271-back.jpg",
+    "credits": [
+      {
+        "by": "Sujit",
+        "url": null,
+        "license": null
+      },
+      {
+        "by": "Sujit",
+        "url": null,
+        "license": null
+      }
+    ]
+  },
+  {
+    "numistaId": 1582,
+    "place": "Hong Kong",
+    "metal": "#c8cbcf",
+    "title": "2 Dollars",
+    "numistaUrl": "https://en.numista.com/1582",
+    "front": "assets/coins/hong-kong-1582-front.jpg",
+    "back": "assets/coins/hong-kong-1582-back.jpg",
+    "credits": [
+      {
+        "by": "eRBe56",
+        "url": null,
+        "license": null
+      },
+      {
+        "by": "eRBe56",
+        "url": null,
+        "license": null
+      }
+    ],
+    "shape": "Scalloped (with 12 notches)"
+  },
+  {
+    "numistaId": 23737,
+    "place": "Malaysia",
+    "title": "50 Sen",
+    "numistaUrl": "https://en.numista.com/23737",
+    "front": "assets/coins/malaysia-23737-front.jpg",
+    "back": "assets/coins/malaysia-23737-back.jpg",
+    "shape": "Spanish flower",
+    "credits": [
+      {
+        "by": "nalaberong",
+        "url": null,
+        "license": null
+      },
+      {
+        "by": "nalaberong",
+        "url": null,
+        "license": null
+      }
+    ]
+  },
+  {
+    "numistaId": 58567,
+    "place": "Vatican City",
+    "metal": "#c07a4f",
+    "title": "1 Euro Cent - Francis",
+    "numistaUrl": "https://en.numista.com/58567",
+    "front": "assets/coins/vatican-city-58567-front.jpg",
+    "back": "assets/coins/vatican-city-58567-back.jpg",
+    "credits": [
+      {
+        "by": "Mike Bentley",
+        "url": null,
+        "license": "CC BY-NC"
+      },
+      {
+        "by": "Mike Bentley",
+        "url": null,
+        "license": "CC BY-NC"
+      }
+    ]
+  },
+  {
+    "numistaId": 131,
+    "place": "Italy",
+    "metal": "#c07a4f",
+    "title": "5 Euro Cents",
+    "numistaUrl": "https://en.numista.com/131",
+    "front": "assets/coins/italy-131-front.jpg",
+    "back": "assets/coins/italy-131-back.jpg",
+    "credits": [
+      {
+        "by": "Mike Bentley",
+        "url": null,
+        "license": "CC BY-NC"
+      },
+      {
+        "by": "Mike Bentley",
+        "url": null,
+        "license": "CC BY-NC"
+      }
+    ]
+  },
+  {
+    "numistaId": 68022,
+    "place": "United Arab Emirates",
+    "metal": "#c8cbcf",
+    "title": "25 Fils (magnetic)",
+    "numistaUrl": "https://en.numista.com/68022",
+    "front": "assets/coins/united-arab-emirates-68022-front.jpg",
+    "back": "assets/coins/united-arab-emirates-68022-back.jpg",
+    "credits": [
+      {
+        "by": "NumisCorner",
+        "url": "https://www.numiscorner.com/",
+        "license": null
+      },
+      {
+        "by": "NumisCorner",
+        "url": "https://www.numiscorner.com/",
+        "license": null
+      }
+    ]
+  },
+  {
+    "numistaId": 5680,
+    "place": "India",
+    "metal": "#c8cbcf",
+    "title": "1 Rupee (Loknayak Jayaprakash Narayan)",
+    "numistaUrl": "https://en.numista.com/5680",
+    "front": "assets/coins/india-5680-front.jpg",
+    "back": "assets/coins/india-5680-back.jpg",
+    "credits": [
+      {
+        "by": "Joseph Kunnappally",
+        "url": null,
+        "license": null
+      },
+      {
+        "by": "Joseph Kunnappally",
+        "url": null,
+        "license": null
+      }
+    ]
+  }
+]

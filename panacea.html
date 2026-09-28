@@ -68,7 +68,7 @@
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       text-wrap: balance;
       margin-bottom: 20px;
     }
@@ -77,13 +77,13 @@
     .pb-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
     .pb-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .pb-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
-    .pb-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); }
+    .pb-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-400); }
 
     /* Active link slides right and darkens, matching the reference sidebar's
        scroll-spy animation (color + transform, 0.2s each). */
     .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .cs-context-link {
-      color: var(--text-body);
+      color: var(--gray-300);
       font-size: 12px;
       text-transform: uppercase;
       text-decoration: none;
@@ -91,8 +91,8 @@
       transform: translateX(0);
       transition: color 0.2s, transform 0.2s;
     }
-    .cs-context-link:hover { color: var(--text); }
-    .cs-context-link.active { color: var(--text); transform: translateX(12px); }
+    .cs-context-link:hover { color: var(--gray-400); }
+    .cs-context-link.active { color: var(--gray-400); transform: translateX(12px); }
     /* Section nav relies on .home-right being a scroll container for its
        scroll-spy; once the layout stacks (same breakpoint as the sidebar
        collapse below), that stops being true, so hide it. */
@@ -104,12 +104,28 @@
        shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
        column is wider (~936px), so drop that cap for this page. */
     .cs-v2 .cs-main { max-width: none; margin: 0; }
+    /* Same width as the sections below: .cs-content's right padding
+       (140 / 70 / 35px by breakpoint) and .section-break's 936px cap. */
+    /* Height follows the hero video's own shape (1554×908) so none of it
+       is cropped. */
     .cs-v2 .hero-img {
-      width: 100%;
-      height: 465px;
+      width: calc(100% - 140px);
+      max-width: 936px;
+      aspect-ratio: 1554 / 908;
+      position: relative;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 40px;
+    }
+    /* #f6f6f6 card stroke, drawn inside the edge as an overlay so the
+       video keeps its exact size. */
+    .cs-v2 .hero-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px #f6f6f6;
+      pointer-events: none;
     }
     .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .cs-v2 .section-break {
@@ -133,13 +149,13 @@
        gap: 14px) — this wins since it loads after shared.css. */
     .cs-v2 .section-header { gap: 8px; }
     .cs-v2 .label { color: var(--text-label); font-weight: 300; font-size: 14px; line-height: 20px; }
-    .cs-v2 .section-heading { font-weight: 400; color: var(--text); letter-spacing: 0; font-size: 20px; line-height: 24px; }
-    .cs-v2 .section-body { font-weight: 400; color: var(--text-body); }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--gray-400); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--gray-300); }
     .cs-v2 .cs-content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 120px;
+      gap: 80px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
@@ -150,9 +166,11 @@
        (flush with the hero img/meta row) at every width. */
     @media (max-width: 1040px) {
       .cs-v2 .cs-content { padding-right: 70px; }
+      .cs-v2 .hero-img { width: calc(100% - 70px); }
     }
     @media (max-width: 640px) {
       .cs-v2 .cs-content { padding-right: 35px; }
+      .cs-v2 .hero-img { width: calc(100% - 35px); }
     }
 
     .home-right { padding-top: 0; overflow-x: hidden; }
@@ -166,65 +184,54 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--text-body);
+      color: var(--gray-300);
       text-decoration: none;
       width: fit-content;
       transition: color 0.2s;
     }
-    .cs-back-link:hover { color: var(--text); }
+    .cs-back-link:hover { color: var(--gray-400); }
 
     /* ─── PROBLEM (old-homepage video + caption) ─── */
     .pb-problem-media { display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%; }
-    .pb-video-frame { width: 100%; aspect-ratio: 1920 / 1080; border-radius: 4px; overflow: hidden; }
+    .pb-video-frame { width: 100%; aspect-ratio: 1920 / 1080; border: 1px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
     .pb-video-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pb-caption {
       font-family: var(--font-sans);
       font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--text-body);
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--gray-400);
       text-align: center;
       width: 100%;
+      margin: 0;
     }
 
-    /* ─── IMPACT (3 icon cards) ─── */
-    .impact-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
-    .impact-card {
-      background: var(--card);
-      border: 1px solid var(--frame-border);
-      border-radius: 4px;
-      flex: 1;
-      height: 335px;
-      box-sizing: border-box;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-    }
-    .impact-icon { position: relative; overflow: hidden; flex-shrink: 0; }
-    .impact-icon img { position: absolute; display: block; max-width: none; }
-    .impact-icon.plain { overflow: visible; }
-    .impact-icon.plain img { position: static; width: 100%; height: 100%; object-fit: cover; max-width: 100%; }
-    .impact-text { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .impact-text.center { align-items: center; }
-    .impact-title { font-family: var(--font-sans); font-weight: 600; font-size: 20px; line-height: 24px; color: var(--text); }
-    .impact-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    /* ─── IMPACT: arrow list (mirrors copart.html's .cf-arrow-*) ─── */
+    .pb-arrow-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    .pb-arrow-row { display: flex; gap: 12px; align-items: flex-start; }
+    .pb-arrow-row img { width: 11px; height: 9px; flex-shrink: 0; margin-top: 8px; }
+    .pb-arrow-row p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); width: 587px; max-width: 100%; margin: 0; }
 
     /* ─── RESEARCH (3 numbered insight groups) ─── */
-    .section-break.gap-xl { gap: 120px; }
-    .pb-research-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-    .pb-insight-head { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .pb-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
-    .pb-insight-num { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); flex-shrink: 0; }
-    .pb-insight-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
-    .pb-insight-body { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
+    .section-break.gap-xl { gap: 20px; }  /* 20px between numbered groups */
+    .section-break.gap-xl > .section-header { margin-bottom: 20px; } /* 40px heading → first group */
+    /* Number in col 1; title, body and media share col 2 so media aligns with the text */
+    .pb-research-group { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; row-gap: 20px; width: 100%; }
+    .pb-research-group > * { grid-column: 2; }
+    .pb-research-group > .pb-insight-head { display: contents; }
+    .pb-research-group .pb-insight-num { grid-column: 1; }
+    /* Matches copart.html's .cf-insight-* treatment */
+    .pb-insight-head { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+    .pb-insight-num { font-family: var(--font-sans); font-weight: 500; font-size: 16px; line-height: 24px; color: var(--gray-400); flex-shrink: 0; white-space: nowrap; }
+    .pb-insight-text { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .pb-insight-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .pb-insight-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
+    .pb-persona-video { width: 100%; border: 1px solid #f6f6f6; border-radius: 4px; overflow: hidden; box-sizing: border-box; }
     .pb-persona-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
     .pb-persona-card {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       flex: 1;
       box-sizing: border-box;
@@ -233,31 +240,40 @@
       flex-direction: column;
       gap: 8px;
     }
-    .pb-persona-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
-    .pb-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .pb-persona-card .t { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .pb-persona-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
-    .pb-heuristic-frame { background: var(--card); border-radius: 4px; width: 100%; height: 318px; padding: 20px 47px 0; box-sizing: border-box; overflow: hidden; }
+    .pb-heuristic-frame { background: var(--card); border: 1px solid #f6f6f6; border-radius: 4px; width: 100%; height: 318px; padding: 20px 47px 0; box-sizing: border-box; overflow: hidden; }
     .pb-heuristic-frame video { width: 100%; height: 298px; object-fit: cover; display: block; border-radius: 4px; }
-    .pb-heuristic-row { display: flex; gap: 8px; align-items: stretch; width: 100%; }
+    .pb-heuristic-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
     .pb-heuristic-card {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       flex: 1;
       box-sizing: border-box;
-      padding: 16px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      gap: 8px;
+    }
+    .pb-heuristic-card .t { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .pb-heuristic-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
+
+    .pb-competitor-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
+    .pb-competitor-card {
+      background: var(--card);
+      border: 1px solid #f6f6f6;
+      border-radius: 4px;
+      flex: 1;
+      box-sizing: border-box;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
     }
-    .pb-heuristic-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
-    .pb-heuristic-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
-
-    .pb-competitor-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
-    .pb-competitor-card { display: flex; flex-direction: column; gap: 4px; flex: 1; }
     .pb-competitor-card img { width: 100%; height: 146px; border-radius: 4px; object-fit: cover; object-position: top; display: block; }
-    .pb-competitor-card .cap { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); text-align: center; width: 100%; }
+    .pb-competitor-card .cap { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); text-align: center; width: 100%; margin: 0; }
 
     /* ─── UPDATED IA (diagram + static segmented control) ─── */
     .pb-ia-group { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; }
@@ -268,6 +284,8 @@
       overflow: hidden;
       flex-shrink: 0;
       background: var(--card);
+      border: 1px solid #f6f6f6;
+      box-sizing: border-box;
       position: relative;
     }
     .pb-ia-image img { display: block; position: absolute; left: 0; top: -2px; width: 100%; height: calc(100% + 4px); object-fit: cover; }
@@ -277,7 +295,7 @@
       padding: 4px;
       border-radius: 999px;
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       display: flex;
       gap: 4px;
       flex-shrink: 0;
@@ -290,7 +308,7 @@
       justify-content: center;
       border-radius: 999px;
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 400;
       font-size: 14px;
       line-height: 20px;
       letter-spacing: 0.01em;
@@ -302,31 +320,31 @@
       color: #fffffe;
       box-shadow: 0 1px 3px rgba(42, 42, 43, 0.18);
     }
-    .pb-ia-toggle .opt:not(.active) { color: var(--text-body); }
-    .pb-ia-toggle .opt:not(.active):hover { color: var(--text); }
+    .pb-ia-toggle .opt:not(.active) { color: var(--gray-300); }
+    .pb-ia-toggle .opt:not(.active):hover { color: var(--gray-400); }
 
     /* ─── WHAT CHANGED? (before/after pill comparison) ─── */
     .pb-changed-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .pb-changed-row-wrap { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .pb-changed-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
+    .pb-changed-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
     .pb-changed-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
     .pb-changed-card { border-radius: 4px; padding: 20px; flex: 1; min-height: 88px; box-sizing: border-box; display: flex; align-items: center; }
-    .pb-changed-card.bad { background: #fef5f4; border: 1px solid #e50000; }
-    .pb-changed-card.good { background: #f1f4f2; border: 1px solid #1b6134; }
-    .pb-changed-card p { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .pb-changed-card.bad,
+    .pb-changed-card.good { background: var(--card); border: 1px solid #f6f6f6; }
+    .pb-changed-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     /* ─── STAKEHOLDER PUSHBACK (speech bubbles + face illustrations) ─── */
     .pb-pushback-wrap { position: relative; width: 100%; height: 212px; }
     .pb-bubble {
       position: absolute;
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       padding: 24px;
       box-sizing: border-box;
       display: flex;
       align-items: center;
     }
-    .pb-bubble p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .pb-bubble p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
     .pb-bubble.a { left: 477.85px; top: 0; width: 242.148px; height: 127.059px; border-radius: 40px 40px 40px 0; }
     .pb-bubble.b { left: 0; top: 22px; width: 226px; height: 120px; border-radius: 40px 40px 0 40px; }
     .pb-face { position: absolute; display: block; }
@@ -335,7 +353,7 @@
 
     /* ─── BI/AI IA SWAP (news → investor zone) ─── */
     .pb-swap-row { display: flex; gap: 12px; align-items: center; justify-content: center; width: 100%; }
-    .pb-swap-frame { position: relative; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+    .pb-swap-frame { position: relative; border: 1px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; overflow: hidden; flex-shrink: 0; }
     .pb-swap-frame img { position: absolute; display: block; max-width: none; }
     .pb-swap-frame.bi { width: 210px; height: 314px; }
     .pb-swap-frame.bi img { height: 115.29%; width: 205.71%; left: -52.86%; top: -7.64%; }
@@ -348,7 +366,7 @@
     .pb-callout-stack { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .pb-callout-card {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       padding: 20px;
       display: flex;
@@ -361,13 +379,13 @@
     .pb-callout-label-row img { width: 20px; height: 18px; flex-shrink: 0; display: block; }
     .pb-callout-check { width: 20px; height: 20px; flex-shrink: 0; color: var(--text-label); }
     .pb-callout-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); white-space: nowrap; }
-    .pb-callout-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); }
+    .pb-callout-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
 
     /* ─── DESIGN PRINCIPLES ─── */
     .pb-principle-row { display: flex; gap: 12px; align-items: center; width: 100%; }
     .pb-principle-card {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       flex: 1;
       height: 134px;
@@ -377,53 +395,54 @@
       align-items: center;
       justify-content: center;
     }
-    .pb-principle-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); width: 100%; }
+    .pb-principle-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); width: 100%; }
 
     /* ─── DESIGNING AROUND CONSTRAINTS (button component video) ─── */
     .pb-button-frame {
       width: 100%;
       height: 346px;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
-      box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.05);
+      box-sizing: border-box;
       overflow: hidden;
       flex-shrink: 0;
     }
     .pb-button-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ─── CHANGE COMPARISON (before/after screenshot pairs) ─── */
-    .pb-change-frame { background: var(--card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
+    .pb-change-frame { background: var(--card); border: 1px solid #f6f6f6; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
     .pb-change-cols { display: flex; gap: 20px; align-items: flex-start; width: 100%; }
     .pb-change-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; }
-    .pb-change-media { border: 1px solid var(--frame-border); border-radius: 4px; overflow: hidden; }
+    .pb-change-media { border: 1px solid #f6f6f6; border-radius: 4px; overflow: hidden; }
     .pb-change-media.h177, .pb-change-media.h179 { height: 178px; width: 100%; }
     .pb-change-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .pb-change-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
-    .pb-change-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .pb-change-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .pb-change-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     /* ─── CHANGE NO.2, PART A (unorg/org card comparison) ─── */
-    .pb-org-frame { background: var(--card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
+    .pb-org-frame { background: var(--card); border: 1px solid #f6f6f6; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; display: flex; }
     .pb-org-cols { display: flex; gap: 20px; width: 100%; }
     .pb-org-col { display: flex; flex-direction: column; gap: 8px; }
     .pb-org-col.fixed { width: 326px; flex-shrink: 0; }
     .pb-org-col.flex { flex: 1; min-width: 0; }
-    .pb-org-media { border: 1px solid var(--frame-border); border-radius: 4px; height: 265px; overflow: hidden; }
+    .pb-org-media { border: 1px solid #f6f6f6; border-radius: 4px; height: 265px; overflow: hidden; }
     .pb-org-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* ─── CHANGE NO.2, PART B (table/filters comparison) ─── */
-    .pb-table-frame { background: var(--card); padding: 20px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+    .pb-table-frame { background: var(--card); border: 1px solid #f6f6f6; border-radius: 4px; padding: 20px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 40px; align-items: center; }
     .pb-table-block { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .pb-table-video, .pb-table-img { border: 1px solid var(--frame-border); border-radius: 4px; overflow: hidden; width: 100%; }
+    .pb-table-video, .pb-table-img { border: 1px solid #f6f6f6; border-radius: 4px; overflow: hidden; width: 100%; }
     .pb-table-video { aspect-ratio: 668 / 375; background: var(--card); }
     .pb-table-img { aspect-ratio: 666 / 572; }
     .pb-table-video video, .pb-table-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .pb-table-title { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
-    .pb-table-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .pb-table-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .pb-table-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
     .pb-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
     .pb-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
-    .pb-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); margin: 0; }
-    .pb-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }
+    .pb-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); margin: 0; }
+    .pb-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); margin: 0; }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }
@@ -439,7 +458,7 @@
   <script src="assets/nav.js"></script>
 
   <!-- LAYOUT (split-scroll, same system as the homepage / copart.html) -->
-  <div class="home-wrap">
+  <div class="home-wrap split-stage">
    <div class="home-layout">
 
     <!-- SIDEBAR (Figma case-study design) -->
@@ -463,10 +482,7 @@
       <h1 class="pb-page-heading">Improved discoverability through a structural redesign</h1>
 
       <div class="hero-img">
-        <video autoplay muted loop playsinline>
-          <source src="assets/Panacea video hero 3.webm" type="video/webm">
-          <source src="assets/Panacea video hero 3.mp4" type="video/mp4">
-        </video>
+        <video src="assets/panacea-casestudy.mp4" autoplay muted loop playsinline></video>
       </div>
 
       <!-- PROJECT META (full-bleed, aligned with hero img above — not
@@ -505,7 +521,7 @@
         <div class="section-break" id="section-problem">
           <div class="section-header">
             <p class="label">Problem</p>
-            <p class="section-heading">The existing interface used outdated technology, lacked mobile responsiveness and did not match the rebrand of their visual identity.</p>
+            <p class="section-heading">The existing interface was outdated, lacked mobile responsiveness and did not match the rebrand of their visual identity.</p>
           </div>
           <div class="pb-problem-media">
             <div class="pb-video-frame">
@@ -517,39 +533,24 @@
           </div>
         </div>
 
-        <!-- IMPACT -->
+        <!-- IMPACT (same layout as copart.html's: lead line + arrow list) -->
         <div class="section-break" id="section-impact">
           <div class="section-header">
             <p class="label">Impact</p>
-            <p class="section-heading">Summary of what I achieved.</p>
+            <p class="section-body" style="color: var(--gray-400);">Summary of what I achieved.</p>
           </div>
-          <div class="impact-row">
-            <div class="impact-card">
-              <div class="impact-icon" style="width:114px; height:115px;">
-                <img src="assets/impact 1.png" alt="Illustration symbolizing improved discoverability" style="height:216.37%; width:146.15%; left:-21.89%; top:-42.95%;">
-              </div>
-              <div class="impact-text">
-                <p class="impact-title">Improved Discoverability</p>
-                <p class="impact-body">Reduced the path to key pages like investor information from 4 clicks down to just 1.</p>
-              </div>
+          <div class="pb-arrow-list">
+            <div class="pb-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Improved discoverability, cutting the path to key pages like investor information from 4 clicks down to just 1.</p>
             </div>
-            <div class="impact-card">
-              <div class="impact-icon plain" style="width:110px; height:111px;">
-                <img src="assets/impact 2.png" alt="Illustration symbolizing increased usability">
-              </div>
-              <div class="impact-text center">
-                <p class="impact-title">Increased usability by 75%</p>
-                <p class="impact-body">Redesigned the platform by introducing visual hierarchy and a design system.</p>
-              </div>
+            <div class="pb-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Increased usability by 75% by redesigning the platform with clear visual hierarchy and a design system.</p>
             </div>
-            <div class="impact-card">
-              <div class="impact-icon" style="width:98px; height:111px;">
-                <img src="assets/impact 3.png" alt="Illustration symbolizing reduced cognitive load" style="height:130.48%; width:147.31%; left:-23.66%; top:-13.33%;">
-              </div>
-              <div class="impact-text center">
-                <p class="impact-title">Reduced cognitive load</p>
-                <p class="impact-body">Reorganized the IA and grouped similar elements for a more logical flow.</p>
-              </div>
+            <div class="pb-arrow-row">
+              <img src="assets/copart-arrow-icon.svg" alt="">
+              <p>Reduced cognitive load by reorganizing the IA and grouping similar elements into a more logical flow.</p>
             </div>
           </div>
         </div>
@@ -563,35 +564,24 @@
 
           <div class="pb-research-group">
             <div class="pb-insight-head">
-              <div class="pb-insight-row">
-                <p class="pb-insight-num">01</p>
+              <p class="pb-insight-num">01</p>
+              <div class="pb-insight-text">
                 <p class="pb-insight-title">Who was I designing for?</p>
+                <p class="pb-insight-body">I talked to my stakeholders to understand who most frequently used this platform. I was designing for 3 different users with 3 different goals. Panacea Biotec's traffic was driven by investors, procurement officers, healthcare professionals and job seekers.</p>
               </div>
-              <p class="pb-insight-body">I talked to my stakeholders to understand who most frequently used this platform. I was designing for 3 different users with 3 different goals. Panacea Biotec's traffic was driven by investors, procurement officers, healthcare professionals and job seekers.</p>
             </div>
-            <div class="pb-persona-row">
-              <div class="pb-persona-card">
-                <p class="t">Healthcare professionals</p>
-                <p class="b">They need fast access to clinical trial updates, new product releases and drug safety profiles</p>
-              </div>
-              <div class="pb-persona-card">
-                <p class="t">Investors &amp; Global Partners</p>
-                <p class="b">They want to track corporate governance, clinical milestones, and performance metrics.</p>
-              </div>
-              <div class="pb-persona-card">
-                <p class="t">Job seekers</p>
-                <p class="b">They want to learn about company culture, career opportunities, R&amp;D and manufacturing divisions and their recent updates.</p>
-              </div>
+            <div class="pb-persona-video">
+              <div class="flourish-embed flourish-radar" data-src="visualisation/30374980"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/30374980/thumbnail" width="100%" alt="radar visualization" /></noscript></div>
             </div>
           </div>
 
           <div class="pb-research-group">
             <div class="pb-insight-head">
-              <div class="pb-insight-row">
-                <p class="pb-insight-num">02</p>
+              <p class="pb-insight-num">02</p>
+              <div class="pb-insight-text">
                 <p class="pb-insight-title">What was the current experience like?</p>
+                <p class="pb-insight-body">Since they did not have access to any user analytics I was not able to look at heatmaps/scroll depth. I conducted a heuristic evaluation of their platform to understand the experience for current users.</p>
               </div>
-              <p class="pb-insight-body">Since they did not have access to any user analytics I was not able to look at heatmaps/scroll depth. I conducted a heuristic evaluation of their platform to understand the experience for current users.</p>
             </div>
             <div class="pb-heuristic-frame">
               <video autoplay muted loop playsinline>
@@ -616,11 +606,11 @@
 
           <div class="pb-research-group">
             <div class="pb-insight-head">
-              <div class="pb-insight-row">
-                <p class="pb-insight-num">03</p>
+              <p class="pb-insight-num">03</p>
+              <div class="pb-insight-text">
                 <p class="pb-insight-title">Who were the competitors?</p>
+                <p class="pb-insight-body">I analysed the top 3 B2B pharmaceutical companies, mapping how they surfaced information, click depth to key pages, and how navigation guided users to relevant content.</p>
               </div>
-              <p class="pb-insight-body">I analysed the top 3 B2B pharmaceutical companies, mapping how they surfaced information, click depth to key pages, and how navigation guided users to relevant content.</p>
             </div>
             <div class="pb-competitor-row">
               <div class="pb-competitor-card">
@@ -850,6 +840,10 @@
    </div><!-- /home-layout -->
   </div><!-- /home-wrap -->
 
+  <footer class="reveal-footer">
+    <div data-component="thank-you-note"></div>
+  </footer>
+
 
   <script>
     // IA before/after toggle
@@ -907,5 +901,7 @@
   setActive(current);
 })();
 </script>
+<script src="assets/thank-you-note.js" defer></script>
+<script src="assets/split-scroll.js" defer></script>
 </body>
 </html>

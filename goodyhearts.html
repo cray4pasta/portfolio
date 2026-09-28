@@ -67,7 +67,7 @@
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       text-wrap: balance;
       margin-bottom: 20px;
     }
@@ -76,13 +76,13 @@
     .gh-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
     .gh-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .gh-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
-    .gh-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); }
+    .gh-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-400); }
 
     /* Active link slides right and darkens, matching the reference sidebar's
        scroll-spy animation (color + transform, 0.2s each). */
     .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .cs-context-link {
-      color: var(--text-body);
+      color: var(--gray-300);
       font-size: 12px;
       text-transform: uppercase;
       text-decoration: none;
@@ -90,8 +90,8 @@
       transform: translateX(0);
       transition: color 0.2s, transform 0.2s;
     }
-    .cs-context-link:hover { color: var(--text); }
-    .cs-context-link.active { color: var(--text); transform: translateX(12px); }
+    .cs-context-link:hover { color: var(--gray-400); }
+    .cs-context-link.active { color: var(--gray-400); transform: translateX(12px); }
     /* Section nav relies on .home-right being a scroll container for its
        scroll-spy; once the layout stacks (same breakpoint as the sidebar
        collapse below), that stops being true, so hide it. */
@@ -105,13 +105,12 @@
     .cs-v2 .cs-main { max-width: none; margin: 0; }
     .cs-v2 .hero-img {
       width: 100%;
-      height: 465px;
+      aspect-ratio: 16 / 9;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 40px;
     }
     .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .hero-img video { object-position: center 67%; }
     .cs-v2 .section-break {
       display: flex;
       flex-direction: column;
@@ -133,13 +132,13 @@
        gap: 14px) — this wins since it loads after shared.css. */
     .cs-v2 .section-header { gap: 8px; }
     .cs-v2 .label { color: var(--text-label); font-weight: 300; font-size: 14px; line-height: 20px; }
-    .cs-v2 .section-heading { font-weight: 400; color: var(--text); letter-spacing: 0; font-size: 20px; line-height: 24px; }
-    .cs-v2 .section-body { font-weight: 400; color: var(--text-body); }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--gray-400); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--gray-300); }
     .cs-v2 .cs-content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 120px;
+      gap: 80px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
@@ -164,7 +163,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--text-body);
+      color: var(--gray-300);
       text-align: center;
       width: 100%;
     }
@@ -172,7 +171,7 @@
     /* ─── FRAME BOX (video/screen-mockup placeholders) ─── */
     .frame-box {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       height: 583px;
@@ -194,7 +193,7 @@
     /* ─── DESIGN 03 (cropped screen "peeks" with captions) ─── */
     .small-things-frame {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       height: 433px;
@@ -209,18 +208,19 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: #333233;
+      color: var(--gray-400);
     }
     .st-peek { position: absolute; top: 192.27px; border-radius: 12px 12px 0 0; overflow: hidden; }
     .st-peek.shadow { box-shadow: 0 16px 60px 0 rgba(0,0,0,0.12); }
     .st-peek img { position: absolute; display: block; max-width: none; }
 
     /* ─── USABILITY TESTING (numbered insights + annotated UT screenshots) ─── */
+    .ut-groups { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .ut-group { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .ut-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .ut-frame {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       flex-shrink: 0;
@@ -237,7 +237,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: #333233;
+      color: var(--gray-400);
     }
     .ut-page-label {
       position: absolute;
@@ -245,14 +245,14 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       white-space: nowrap;
     }
 
     /* ─── AI EXPERIMENTS ─── */
     .ai-exp-frame {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       height: 433px;
@@ -276,6 +276,7 @@
       gap: 12px;
       align-items: flex-start;
       background: var(--card);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       padding: 20px;
       width: 100%;
@@ -283,10 +284,10 @@
     .icon-row img { width: 36px; height: 36px; flex-shrink: 0; }
     .icon-row .icon-title {
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       margin-bottom: 8px;
     }
     .icon-row .icon-body {
@@ -294,13 +295,14 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text-body);
+      color: var(--gray-300);
     }
 
     /* ─── QUOTE GRID (2×2) ─── */
     .quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
     .quote-card {
       background: var(--card);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       padding: 20px;
       display: flex;
@@ -308,7 +310,7 @@
       align-items: center;
     }
     .quote-card::before { content: ''; width: 1px; align-self: stretch; background: var(--frame-border); flex-shrink: 0; }
-    .quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     /* ─── CENTERED MEDIA (CA image) ─── */
     .ca-img { width: 100%; height: 528px; }
@@ -326,15 +328,15 @@
       width: 100%;
       box-sizing: border-box;
     }
-    .pivot-card.bad { background: #fef5f4; border: 1px solid #e50000; }
-    .pivot-card.good { background: rgba(209,223,214,0.2); border: 1px solid #1b6134; }
+    .pivot-card.bad,
+    .pivot-card.good { background: var(--card); border: 1px solid #f6f6f6; }
     .pivot-card img { flex-shrink: 0; margin-top: 2px; }
     .pivot-card .t {
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text-body);
+      color: var(--gray-300);
       margin-bottom: 12px;
     }
     .pivot-card .b {
@@ -342,17 +344,17 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text-body);
+      color: var(--gray-300);
     }
 
     /* ─── BEFORE/AFTER FLOW ─── */
     .flow-block { display: flex; flex-direction: column; gap: 12px; width: 675px; max-width: 100%; }
     .flow-label {
       font-family: var(--font-sans);
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 24px;
-      color: var(--text);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--gray-400);
     }
     .flow-row { display: flex; align-items: center; width: 100%; }
     .flow-card {
@@ -361,7 +363,7 @@
       flex-shrink: 0;
       box-sizing: border-box;
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -372,7 +374,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text-body);
+      color: var(--gray-300);
     }
     .flow-arrow { width: 21px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
     .flow-arrow img { width: 21px; height: auto; display: block; }
@@ -394,33 +396,33 @@
     .insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
     .insight-num {
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 500;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       flex-shrink: 0;
     }
     .insight-text { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .insight-text .t {
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
     }
     .insight-text .b {
       font-family: var(--font-sans);
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text-body);
+      color: var(--gray-300);
     }
 
     /* ─── DESIGN PRINCIPLES ─── */
     .principle-row { display: flex; gap: 24px; align-items: center; width: 100%; }
     .principle-card {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 224px;
       height: 96px;
@@ -436,7 +438,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: #333233;
+      color: var(--gray-400);
     }
 
     /* ─── DESIGN SECTIONS (observation/insight/action cards + iteration frames) ─── */
@@ -445,7 +447,7 @@
     .design-cards-row { display: flex; gap: 8px; width: 100%; }
     .design-card {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 234px;
       flex: 1;
@@ -457,14 +459,14 @@
       gap: 8px;
     }
     .design-card.tall { height: 212px; }
-    .design-card .lbl { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
-    .design-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); }
-    .design-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .design-card .lbl { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
+    .design-card .t { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .design-card .b { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     .iteration-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .iteration-frame {
       background: var(--card);
-      border: 1px solid var(--frame-border);
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       height: 583px;
@@ -477,10 +479,10 @@
       left: 19px;
       top: 24px;
       font-family: var(--font-sans);
-      font-weight: 600;
+      font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       white-space: nowrap;
     }
     .iteration-frame img.it-phone { position: absolute; top: 48px; width: 237px; height: 485px; object-fit: cover; }
@@ -492,7 +494,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       flex-shrink: 0;
     }
     .callout-line { position: relative; height: 1px; background: var(--text); flex-shrink: 0; }
@@ -531,18 +533,28 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--text-body);
+      color: var(--gray-300);
       text-decoration: none;
       width: fit-content;
       transition: color 0.2s;
     }
-    .cs-back-link:hover { color: var(--text); }
+    .cs-back-link:hover { color: var(--gray-400); }
 
     /* ─── REFLECTION (matches copart.html's cf-reflection-row/col) ─── */
     .gh-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
     .gh-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
-    .gh-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); margin: 0; }
-    .gh-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }
+    .gh-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); margin: 0; }
+    .gh-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); margin: 0; }
+
+    /* ─── IMAGE CARD STROKE ─── One #f6f6f6 border on every card that
+       holds an image or video (matches copart.html). */
+    .cs-v2 .hero-img,
+    .photo-pair figure,
+    .ideation-images figure,
+    .ca-img {
+      border: 1px solid #f6f6f6;
+      box-sizing: border-box;
+    }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }
@@ -558,7 +570,7 @@
   <script src="assets/nav.js"></script>
 
   <!-- LAYOUT (split-scroll, same system as the homepage / copart.html) -->
-  <div class="home-wrap">
+  <div class="home-wrap split-stage">
    <div class="home-layout">
 
     <!-- SIDEBAR (Figma case-study design) -->
@@ -581,8 +593,8 @@
       <h1 class="gh-page-heading">Helping artists contribute to social impact</h1>
 
       <div class="hero-img">
-        <video autoplay muted loop playsinline>
-          <source src="assets/goodyhearts-hero-new-2.mov" type="video/mp4">
+        <video autoplay muted loop playsinline aria-label="Submitting art on Goody Hearts Club: a doodle drops into the upload circle, a thank-you appears, and a tree gets planted">
+          <source src="assets/goodyhearts-submit-art-v3.mp4" type="video/mp4">
         </video>
       </div>
 
@@ -902,58 +914,60 @@
             <p class="section-body">To understand if there was a gap between my design intentions and real user perceptions, I ran 5 usability tests focusing on the emotional and cognitive experience of the artists. I wanted to understand how users felt navigating the platform.</p>
           </div>
 
-          <div class="ut-group">
-            <div class="insight-list">
-              <div class="insight-row">
-                <p class="insight-num">01</p>
-                <div class="insight-text">
-                  <p class="t">Participants repeatedly tried clicking on existing community stickers in the gallery.</p>
-                  <p class="b">This behavior made me realize that people want to connect with the art and understand the story behind the design.</p>
+          <div class="ut-groups">
+            <div class="ut-group">
+              <div class="insight-list">
+                <div class="insight-row">
+                  <p class="insight-num">01</p>
+                  <div class="insight-text">
+                    <p class="t">Participants repeatedly tried clicking on existing community stickers in the gallery.</p>
+                    <p class="b">This behavior made me realize that people want to connect with the art and understand the story behind the design.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ut-stack">
+                <div class="ut-frame h-345">
+                  <div class="ut-card" style="left:88px; top:44px; width:219px; height:257px;">
+                    <img src="assets/IMG_1137.png" alt="Expanded sticker card showing artist attribution and story" style="height:184.74%; width:100%; left:0; top:-29.33%;">
+                  </div>
+                  <p class="ut-caption" style="left:344px; top:145px; width:267px;">Made gallery art interactive to open into a bigger card and reveal more information about the artist.</p>
+                </div>
+                <div class="ut-frame h-345">
+                  <div class="ut-card" style="left:41px; top:44px; width:315px; height:242px;">
+                    <img src="assets/IMG_1138.png" alt="Optional connection and story form fields on the submission flow" style="height:282.12%; width:99.92%; left:0; top:-82.42%;">
+                  </div>
+                  <p class="ut-caption" style="left:383px; top:116px; width:254px;">Added new form fields so artists can share their connection/story but made it optional to avoid forcing vulnerability</p>
                 </div>
               </div>
             </div>
 
-            <div class="ut-stack">
-              <div class="ut-frame h-345">
-                <div class="ut-card" style="left:88px; top:44px; width:219px; height:257px;">
-                  <img src="assets/IMG_1137.png" alt="Expanded sticker card showing artist attribution and story" style="height:184.74%; width:100%; left:0; top:-29.33%;">
-                </div>
-                <p class="ut-caption" style="left:344px; top:145px; width:267px;">Made gallery art interactive to open into a bigger card and reveal more information about the artist.</p>
-              </div>
-              <div class="ut-frame h-345">
-                <div class="ut-card" style="left:41px; top:44px; width:315px; height:242px;">
-                  <img src="assets/IMG_1138.png" alt="Optional connection and story form fields on the submission flow" style="height:282.12%; width:99.92%; left:0; top:-82.42%;">
-                </div>
-                <p class="ut-caption" style="left:383px; top:116px; width:254px;">Added new form fields so artists can share their connection/story but made it optional to avoid forcing vulnerability</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="ut-group">
-            <div class="insight-list">
-              <div class="insight-row">
-                <p class="insight-num">02</p>
-                <div class="insight-text">
-                  <p class="t">Do I need to add more drawings?</p>
-                  <p class="b">The empty placeholder slots on the personal details screen caused confusion. Instead of making it easier to add more art it made participants feel like they had made a mistake or needed to upload more artwork.</p>
+            <div class="ut-group">
+              <div class="insight-list">
+                <div class="insight-row">
+                  <p class="insight-num">02</p>
+                  <div class="insight-text">
+                    <p class="t">Do I need to add more drawings?</p>
+                    <p class="b">The empty placeholder slots on the personal details screen caused confusion. Instead of making it easier to add more art it made participants feel like they had made a mistake or needed to upload more artwork.</p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="ut-frame h-581">
-              <p class="ut-page-label" style="left:126px; top:44px;">Before</p>
-              <div class="ut-card" style="left:55px; top:81px; width:192px; height:445px;">
-                <img src="assets/Confirm page3.png" alt="Before: personal details screen showing empty placeholder slots" style="height:130.62%; width:100%; left:0; top:-0.1%;">
-              </div>
+              <div class="ut-frame h-581">
+                <p class="ut-page-label" style="left:126px; top:44px;">Before</p>
+                <div class="ut-card" style="left:55px; top:81px; width:192px; height:445px;">
+                  <img src="assets/Confirm page3.png" alt="Before: personal details screen showing empty placeholder slots" style="height:130.62%; width:100%; left:0; top:-0.1%;">
+                </div>
 
-              <p class="ut-page-label" style="left:349px; top:44px;">After</p>
-              <div class="ut-card" style="left:272px; top:81px; width:193px; height:392px;">
-                <img src="assets/Confirm page2.png" alt="After: personal details screen showing only uploaded art" style="height:148.38%; width:100%; left:0; top:-0.11%;">
-              </div>
+                <p class="ut-page-label" style="left:349px; top:44px;">After</p>
+                <div class="ut-card" style="left:272px; top:81px; width:193px; height:392px;">
+                  <img src="assets/Confirm page2.png" alt="After: personal details screen showing only uploaded art" style="height:148.38%; width:100%; left:0; top:-0.11%;">
+                </div>
 
-              <div class="callout" style="left:481px; top:240px;">
-                <span class="callout-line dot-start" style="width:48px;"></span>
-                <p class="callout-text" style="width:123px;">Changed to show only uploaded art</p>
+                <div class="callout" style="left:481px; top:240px;">
+                  <span class="callout-line dot-start" style="width:48px;"></span>
+                  <p class="callout-text" style="width:123px;">Changed to show only uploaded art</p>
+                </div>
               </div>
             </div>
           </div>
@@ -996,6 +1010,10 @@
    </div><!-- /home-layout -->
   </div><!-- /home-wrap -->
 
+  <footer class="reveal-footer">
+    <div data-component="thank-you-note"></div>
+  </footer>
+
 
   <script>
   </script>
@@ -1033,5 +1051,7 @@
   setActive(current);
 })();
 </script>
+<script src="assets/thank-you-note.js" defer></script>
+<script src="assets/split-scroll.js" defer></script>
 </body>
 </html>

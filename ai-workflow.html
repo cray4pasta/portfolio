@@ -152,7 +152,7 @@
   <div data-component="nav" data-variant="home"></div>
   <script src="assets/nav.js"></script>
 
-  <div class="home-wrap">
+  <div class="home-wrap split-stage">
     <div class="home-layout">
 
       <!-- SIDEBAR -->
@@ -219,10 +219,19 @@
     </div>
   </div>
 
+  <footer class="reveal-footer">
+    <div data-component="thank-you-note"></div>
+  </footer>
+
   <script>
     let raf;
   </script>
 
+<!-- Lenis disabled: the columns scroll independently and split-scroll.js
+     routes the wheel between them and the footer reveal; Lenis smooths
+     window-level scroll and would take wheel input away from both (same
+     reasoning as index.html / fun.html). -->
+<!--
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
   const lenis = window.lenis = new Lenis({ duration: 1.1, smoothWheel: true });
@@ -232,7 +241,10 @@
   }
   requestAnimationFrame(raf);
 </script>
+-->
 <script src="assets/cursor-trail.js"></script>
 <script src="assets/cta-roll.js" defer></script>
+<script src="assets/thank-you-note.js" defer></script>
+<script src="assets/split-scroll.js" defer></script>
 </body>
 </html>

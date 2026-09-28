@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Mood Field — demo</title>
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <style>
+    html, body { margin: 0; height: 100%; background: #ffffff; }
+    #field { position: fixed; inset: 0; }
+  </style>
+</head>
+<body>
+  <div id="field"></div>
+
+  <script src="assets/mood-field.js"></script>
+  <script>
+    // Originkit defaults in comments.
+    const SETTINGS = {
+      background: '#ffffff',    // #05060a
+      intenseColor: '#cddbff',  // #ff3a1f
+      calmColor: '#cddbff',     // #2f6bff
+      mood: 'intense',          // 'intense' | 'calm'
+      speed: 47,                // 50 = normal
+      density: 85,              // 100 = normal
+      damping: 8,               // 50; 1–100, how fast mood changes blend
+      flow: { warp: 109, turbulence: 100, contrast: 100 },  // 100 / 100 / 100
+      cursor: { reach: 138, hover: 110, swirl: -40 },       // 260 / 100 / 45
+    };
+
+    MoodField(document.getElementById('field'), SETTINGS);
+  </script>
+</body>
+</html>

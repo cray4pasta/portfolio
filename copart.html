@@ -68,13 +68,13 @@
     .cf-meta-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; box-sizing: border-box; padding-right: 140px; margin-bottom: 120px; flex-wrap: nowrap; }
     .cf-meta-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
     .cf-meta-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
-    .cf-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); }
+    .cf-meta-value { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-400); }
     .cf-page-heading {
       font-family: var(--font-sans);
       font-weight: 400;
       font-size: 20px;
       line-height: 24px;
-      color: var(--text);
+      color: var(--gray-400);
       text-wrap: balance;
       margin-bottom: 20px;
     }
@@ -82,7 +82,7 @@
        scroll-spy animation (color + transform, 0.2s each). */
     .cs-context-nav { display: flex; flex-direction: column; gap: 8px; width: 100%; }
     .cs-context-link {
-      color: var(--text-body);
+      color: var(--gray-300);
       font-size: 12px;
       text-transform: uppercase;
       text-decoration: none;
@@ -90,8 +90,8 @@
       transform: translateX(0);
       transition: color 0.2s, transform 0.2s;
     }
-    .cs-context-link:hover { color: var(--text); }
-    .cs-context-link.active { color: var(--text); transform: translateX(12px); }
+    .cs-context-link:hover { color: var(--gray-400); }
+    .cs-context-link.active { color: var(--gray-400); transform: translateX(12px); }
     /* Section nav relies on .home-right being a scroll container for its
        scroll-spy; once the layout stacks (same breakpoint as the sidebar
        collapse below), that stops being true, so hide it — same call the
@@ -104,14 +104,19 @@
        shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
        column is wider (~936px), so drop that cap for this page. */
     .cs-v2 .cs-main { max-width: none; margin: 0; }
+    /* Same width as the sections below: .cs-content's right padding
+       (140 / 70 / 35px by breakpoint) and .section-break's 936px cap. */
     .cs-v2 .hero-img {
-      width: 100%;
+      width: calc(100% - 140px);
+      max-width: 936px;
       height: 465px;
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 40px;
     }
     .hero-img img, .hero-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Zoom in on the hero video (clipped by .hero-img's overflow: hidden) */
+    .hero-img video { transform: scale(1.15); }
     .cs-v2 .section-break {
       display: flex;
       flex-direction: column;
@@ -133,13 +138,13 @@
        gap: 14px) — this wins since it loads after shared.css. */
     .cs-v2 .section-header { gap: 8px; }
     .cs-v2 .label { color: var(--text-label); font-weight: 300; font-size: 14px; line-height: 20px; }
-    .cs-v2 .section-heading { font-weight: 400; color: var(--text); letter-spacing: 0; font-size: 20px; line-height: 24px; }
-    .cs-v2 .section-body { font-weight: 400; color: var(--text-body); }
+    .cs-v2 .section-heading { font-weight: 400; color: var(--gray-400); letter-spacing: 0; font-size: 20px; line-height: 24px; }
+    .cs-v2 .section-body { font-weight: 400; color: var(--gray-300); }
     .cs-v2 .cs-content {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 120px;
+      gap: 80px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
@@ -151,9 +156,11 @@
        with the hero img/meta row) at every width. */
     @media (max-width: 1040px) {
       .cs-v2 .cs-content { padding-right: 70px; }
+      .cs-v2 .hero-img { width: calc(100% - 70px); }
     }
     @media (max-width: 640px) {
       .cs-v2 .cs-content { padding-right: 35px; }
+      .cs-v2 .hero-img { width: calc(100% - 35px); }
     }
 
     .home-right { padding-top: 0; overflow-x: hidden; }
@@ -167,20 +174,20 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--text-body);
+      color: var(--gray-300);
       text-decoration: none;
       width: fit-content;
       transition: color 0.2s;
     }
-    .cs-back-link:hover { color: var(--text); }
+    .cs-back-link:hover { color: var(--gray-400); }
 
     /* ─── PROBLEM: subheading (Heading 2 SB — 16px medium) ─── */
-    .cf-subheading-sb { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); width: 100%; margin: 0; }
+    .cf-subheading-sb { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); width: 100%; margin: 0; }
 
     /* ─── PROBLEM: funnel bar chart ─── */
     .cf-funnel-chart-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       padding: 20px;
       display: flex;
@@ -191,17 +198,17 @@
       width: 100%;
       box-sizing: border-box;
     }
-    .cf-funnel-chart-title { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); white-space: nowrap; margin: 0; }
+    .cf-funnel-chart-title { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-300); white-space: nowrap; margin: 0; }
     .cf-funnel-bars { display: flex; gap: 12px; align-items: flex-end; }
     .cf-funnel-bar-col { display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; width: 100px; }
-    .cf-funnel-bar-label, .cf-funnel-bar-caption { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); text-align: center; width: 100%; margin: 0; }
+    .cf-funnel-bar-label, .cf-funnel-bar-caption { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-300); text-align: center; width: 100%; margin: 0; }
     .cf-funnel-bar { background: var(--text); border-radius: 4px; width: 99px; }
 
     /* ─── PROBLEM: reason cards ─── */
     .cf-reason-row { display: flex; gap: 19px; align-items: stretch; width: 100%; }
     .cf-reason-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       flex: 1;
       box-sizing: border-box;
@@ -211,23 +218,23 @@
       align-items: center;
       gap: 8px;
     }
-    .cf-reason-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); text-align: left; margin: 0; }
+    .cf-reason-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); text-align: left; margin: 0; }
 
     /* ─── RESEARCH: NUMBERED INSIGHTS ─── */
-    .cf-insight-list { display: flex; flex-direction: column; gap: 40px; width: 100%; }
+    .cf-insight-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .cf-insight-row { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
-    .cf-insight-num { font-family: var(--font-sans); font-weight: 500; font-size: 16px; line-height: 24px; color: var(--text); flex-shrink: 0; white-space: nowrap; }
+    .cf-insight-num { font-family: var(--font-sans); font-weight: 500; font-size: 16px; line-height: 24px; color: var(--gray-400); flex-shrink: 0; white-space: nowrap; }
     .cf-insight-body { display: flex; flex-direction: column; gap: 8px; width: 550px; max-width: 100%; }
-    .cf-insight-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); }
-    .cf-insight-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .cf-insight-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .cf-insight-desc { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     /* phone mockup: bezel PNG overlaid on top of a cropped screenshot */
-    .cf-phone-frame { background: var(--card); border: 1px solid var(--frame-border); border-radius: 4px; width: 550px; max-width: 100%; height: 543px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .cf-phone-frame { background: var(--card); border: 1px solid #f6f6f6; border-radius: 4px; width: 550px; max-width: 100%; height: 543px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
     .cf-phone-wrap { position: relative; width: 221px; height: 452px; flex-shrink: 0; }
     .cf-phone-bezel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; z-index: 2; }
     .cf-phone-screen { position: absolute; overflow: hidden; z-index: 1; }
     .cf-phone-screen img { position: absolute; display: block; max-width: none; }
-    .cf-phone-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); white-space: nowrap; }
+    .cf-phone-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); white-space: nowrap; }
 
     .cf-screen-1 { left: 5.43%; right: 5.34%; top: 8px; border-radius: 23px; aspect-ratio: 439 / 970; }
     .cf-screen-1 img { height: 98.18%; width: 100%; left: 0; top: 0; }
@@ -251,7 +258,7 @@
     /* ─── IMAGE UPLOAD: final prototype card ─── */
     .cf-upload-proto-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       box-sizing: border-box;
@@ -262,10 +269,10 @@
       justify-content: center;
       gap: 8px;
     }
-    .cf-upload-proto-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); text-align: center; width: 221px; margin: 0; }
+    .cf-upload-proto-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); text-align: center; width: 221px; margin: 0; }
 
     /* ─── IMAGE UPLOAD: annotated stencil diagram ─── */
-    .cf-stencil-diagram-card { position: relative; width: 100%; max-width: 790px; height: 576px; background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
+    .cf-stencil-diagram-card { position: relative; width: 100%; max-width: 790px; height: 576px; background: #fafafa; border: 1px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
     /* Fills to the column's right edge like the other cards, unlike the
        offer-breakdown instance of this same card (explicitly excluded) —
        scoped here rather than on the shared rule so that one is untouched.
@@ -278,7 +285,7 @@
     .cf-stencil-offer-wide .cf-stencil-phone-pos { left: 36.67%; top: 10.86%; width: 26.72%; height: 78.47%; }
     .cf-stencil-phone-pos { position: absolute; left: 285px; top: 51px; width: 221px; height: 452px; }
     .cf-stencil-phone-pos img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cf-stencil-label { position: absolute; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text); margin: 0; }
+    .cf-stencil-label { position: absolute; font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-400); margin: 0; }
     .cf-stencil-line { position: absolute; height: 1px; background: var(--text-label); }
     .cf-stencil-line::before { content: ''; position: absolute; width: 5px; height: 5px; margin-top: -2px; border-radius: 50%; background: var(--text-label); }
     .cf-stencil-line.dot-left::before { left: 0; }
@@ -288,7 +295,7 @@
     .cf-offer-compare-row { display: flex; gap: 20px; align-items: center; width: 100%; flex-wrap: wrap; }
     .cf-offer-compare-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       flex: 1;
       min-width: 260px;
@@ -302,17 +309,17 @@
       gap: 8px;
     }
     .cf-offer-compare-card img.flat-shot { width: 220px; height: 452px; object-fit: cover; display: block; }
-    .cf-offer-compare-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); text-align: center; margin: 0; }
+    .cf-offer-compare-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); text-align: center; margin: 0; }
 
     /* ─── DESIGN: offer-breakdown exploration rows ─── */
     .cf-offer-explore-row { position: relative; width: 100%; max-width: 827px; height: 393px; }
-    .cf-offer-explore-box { position: absolute; left: 0; top: 0; width: 414px; height: 393px; background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
+    .cf-offer-explore-box { position: absolute; left: 0; top: 0; width: 414px; height: 393px; background: #fafafa; border: 1px solid #f6f6f6; border-radius: 4px; box-sizing: border-box; overflow: hidden; }
     .cf-offer-explore-box > img { position: absolute; left: 24px; top: 17px; width: 368px; height: auto; object-fit: cover; }
     .cf-offer-explore-caption { position: absolute; left: 434px; top: 273px; width: 393px; display: flex; flex-direction: column; gap: 8px; text-align: left; }
     .cf-offer-explore-caption p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; margin: 0; }
     .cf-offer-explore-caption .label { font-size: 14px; line-height: 20px; color: var(--text-label); }
-    .cf-offer-explore-caption .title { color: var(--text); }
-    .cf-offer-explore-caption .body { color: var(--text-body); }
+    .cf-offer-explore-caption .title { color: var(--gray-400); }
+    .cf-offer-explore-caption .body { color: var(--gray-300); }
 
     /* ─── DESIGN: offer-breakdown card mockup (real UI, not screenshot) ─── */
     .cf-offer-card-mock {
@@ -329,25 +336,25 @@
 
     /* ─── BUILDING BLOCKS: progress bar mockups ─── */
     .cf-progressbar-row { display: flex; gap: 20px; align-items: flex-end; width: 100%; flex-wrap: wrap; }
-    .cf-progressbar-card { background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; width: 416px; max-width: 100%; height: 177px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .cf-progressbar-card { background: #fafafa; border: 1px solid #f6f6f6; border-radius: 4px; width: 416px; max-width: 100%; height: 177px; position: relative; overflow: hidden; flex-shrink: 0; }
     .cf-progressbar-phone-top { position: absolute; left: 80px; top: 75px; width: 254px; height: 101px; background: #fffffe; border-radius: 40px 40px 0 0; }
     .cf-progressbar-bezel-window { position: absolute; left: 67px; top: 65px; width: 280px; height: 165px; overflow: hidden; z-index: 1; }
     .cf-progressbar-bezel-window img { position: absolute; left: 0; top: 0; width: 280px; height: 578px; max-width: none; }
 
     /* ─── BUILDING BLOCKS: skeleton screens compare ─── */
     .cf-skeleton-row { display: flex; gap: 20px; align-items: center; width: 100%; flex-wrap: wrap; }
-    .cf-skeleton-card { background: #fafafa; border: 1px solid #f2f2f2; border-radius: 4px; flex: 1; min-width: 260px; height: 576px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .cf-skeleton-card { background: #fafafa; border: 1px solid #f6f6f6; border-radius: 4px; flex: 1; min-width: 260px; height: 576px; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
     .cf-skeleton-card img.flat-shot { width: 221px; height: 452px; object-fit: cover; display: block; }
-    .cf-skeleton-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); text-align: center; margin: 0; }
+    .cf-skeleton-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); text-align: center; margin: 0; }
     .cf-progressbar-track { position: absolute; top: 150px; height: 4px; background: #e2e5e9; }
     .cf-progressbar-fill { position: absolute; top: 150px; height: 4px; background: #2059cc; }
     .cf-progressbar-caption { display: flex; flex-direction: column; gap: 8px; width: 361px; max-width: 100%; }
-    .cf-progressbar-caption p { margin: 0; font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
-    .cf-progressbar-caption .title { color: var(--text); }
+    .cf-progressbar-caption p { margin: 0; font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
+    .cf-progressbar-caption .title { color: var(--gray-400); }
     .cf-progressbar-caption .label { font-size: 14px; line-height: 20px; color: var(--text-label); }
 
-    .cf-quote-card { background: #fffffe; border: 1px solid var(--frame-border); border-radius: 8px; padding: 20px; width: 550px; max-width: 100%; box-sizing: border-box; }
-    .cf-quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: #000; }
+    .cf-quote-card { background: #fffffe; border: 1px solid #f6f6f6; border-radius: 8px; padding: 20px; width: 550px; max-width: 100%; box-sizing: border-box; }
+    .cf-quote-card p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
 
     /* ─── COMPANY LINK CARD (icon + name + external-link arrow + subtitle) ─── */
     /* Matches Figma node 1307:3444 — no outer card framing, just the icon
@@ -378,7 +385,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--text);
+      color: var(--gray-400);
     }
     .cf-company-name svg { width: 12px; height: 12px; flex-shrink: 0; }
     .cf-company-sub { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
@@ -397,7 +404,7 @@
       min-width: 260px;
       aspect-ratio: 353.5 / 237;
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       overflow: hidden;
     }
@@ -450,13 +457,13 @@
     .cf-arrow-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .cf-arrow-row { display: flex; gap: 12px; align-items: flex-start; }
     .cf-arrow-row img { width: 11px; height: 9px; flex-shrink: 0; margin-top: 8px; }
-    .cf-arrow-row p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); width: 587px; max-width: 100%; margin: 0; }
+    .cf-arrow-row p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); width: 587px; max-width: 100%; margin: 0; }
 
     /* ─── REFLECTION: two-column takeaways ─── */
     .cf-reflection-row { display: flex; gap: 24px; align-items: flex-start; width: 100%; flex-wrap: wrap; }
     .cf-reflection-col { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 260px; }
-    .cf-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); margin: 0; }
-    .cf-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }
+    .cf-reflection-col .title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); margin: 0; }
+    .cf-reflection-col .body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); margin: 0; }
 
     /* ─── IMPACT: team screenshot with privacy blur redactions ───
        Positions are % of the original 727x424 Figma frame so the redaction
@@ -471,7 +478,7 @@
     .cf-damage-compare-row { display: flex; gap: 20px; align-items: center; width: 100%; flex-wrap: wrap; }
     .cf-damage-compare-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       flex: 1;
       min-width: 260px;
@@ -485,14 +492,14 @@
       gap: 12px;
     }
     .cf-damage-compare-card img.flat-shot { width: 221px; height: 452px; display: block; object-fit: cover; }
-    .cf-damage-compare-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); text-align: center; margin: 0; }
+    .cf-damage-compare-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); text-align: center; margin: 0; }
 
     /* ─── EXPLORATION CARDS (two flat phone shots + arrow callout) ─── */
     .cf-exploration { display: flex; flex-direction: column; gap: 20px; width: 100%; }
     .cf-exploration-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); margin: 0; }
     .cf-exploration-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       height: 576px;
@@ -510,7 +517,7 @@
     /* ─── IMAGE UPLOAD: BEFORE/AFTER FLOW DIAGRAM ─── */
     .cf-flow-card {
       background: #fafafa;
-      border: 1px solid #f2f2f2;
+      border: 1px solid #f6f6f6;
       border-radius: 4px;
       width: 100%;
       box-sizing: border-box;
@@ -522,7 +529,7 @@
     }
     .cf-flow-group { display: flex; flex-direction: column; gap: 20px; width: 728px; max-width: 100%; }
     .cf-flow-section { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .cf-flow-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: #000; margin: 0; }
+    .cf-flow-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-400); margin: 0; }
     .cf-flow-row { position: relative; width: 100%; }
     .cf-flow-row.before { height: 61px; }
     .cf-flow-row.after { height: 110px; }
@@ -543,8 +550,8 @@
       font-size: 14px;
       line-height: 20px;
     }
-    .cf-flow-box.light { background: #fffffe; border: 1px solid #f2f2f2; color: var(--text-body); }
-    .cf-flow-box.dark { background: var(--text); border: 1px solid var(--text); color: #fffffe; }
+    .cf-flow-box.light { background: #fffffe; border: 1px solid #f6f6f6; color: var(--gray-300); }
+    .cf-flow-box.dark { background: var(--text); border: 1px solid var(--text); color: var(--gray-50); }
     .cf-flow-line { position: absolute; top: 30px; height: 1px; background: var(--text-label); }
     .cf-flow-line.dashed { background: none; border-top: 1px dashed var(--text-label); }
     .cf-flow-line-v { position: absolute; width: 1px; background: var(--text-label); }
@@ -553,37 +560,56 @@
     .cf-flow-tag.no { color: #e50000; }
 
     /* ─── USER FLOW: FUNNEL DIAGRAM (question reorder) ─── */
-    .cf-funnel-frame { background: var(--card); border: 1px solid var(--frame-border); border-radius: 4px; width: 587px; max-width: 100%; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .cf-funnel-frame { background: var(--card); border: 1px solid #f6f6f6; border-radius: 4px; width: 587px; max-width: 100%; box-sizing: border-box; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
     .cf-funnel-arrow-wrap { width: 409px; max-width: 100%; display: flex; justify-content: flex-end; }
     .cf-funnel-arrow-wrap img { width: 377px; max-width: 100%; display: block; }
     .cf-funnel-boxes { display: flex; gap: 197px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
     .cf-funnel-box-wrap { display: flex; flex-direction: column; gap: 8px; align-items: center; }
     .cf-funnel-box { background: #ffedf9; border: 1px solid #ff75cf; border-radius: 4px; width: 156px; height: 92px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 20px 32px; }
-    .cf-funnel-box p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); text-align: center; margin: 0; }
-    .cf-funnel-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); text-align: center; width: 156px; margin: 0; }
+    .cf-funnel-box p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); text-align: center; margin: 0; }
+    .cf-funnel-caption { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); text-align: center; width: 156px; margin: 0; }
 
     /* ─── USER FLOW: LIGHTBULB CALLOUT ─── */
-    .cf-lightbulb-card { background: var(--card); border: 1px solid var(--frame-border); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box; }
+    .cf-lightbulb-card { background: var(--card); border: 1px solid #f6f6f6; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px; width: 100%; box-sizing: border-box; }
     .cf-lightbulb-row { display: flex; gap: 12px; align-items: center; width: 100%; }
     .cf-lightbulb-row img { width: 16px; height: 16px; flex-shrink: 0; }
     .cf-lightbulb-label { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-label); }
-    .cf-lightbulb-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text); }
-    .cf-lightbulb-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--text-body); }
+    .cf-lightbulb-title { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-400); }
+    .cf-lightbulb-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; line-height: 24px; color: var(--gray-300); }
 
     /* ─── USER FLOW: PROS/CONS ─── */
     .cf-proscons-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
     .cf-proscons-card { border-radius: 8px; padding: 20px; flex: 1; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; }
     .cf-proscons-card.pros { background: #f6f9f6; border: 1px solid #1b6134; }
     .cf-proscons-card.cons { background: #fef5f4; border: 1px solid #e50000; }
-    .cf-proscons-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--text); width: 100%; margin: 0; }
+    .cf-proscons-card .t { font-family: var(--font-sans); font-weight: 600; font-size: 16px; line-height: 24px; color: var(--gray-400); width: 100%; margin: 0; }
     .cf-proscons-card ul { margin: 0; padding-left: 21px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
-    .cf-proscons-card li { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--text-body); }
+    .cf-proscons-card li { font-family: var(--font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--gray-300); }
 
     @media (max-width: 768px) {
       .nav-links { gap: 16px; }
       .nav-clock { display: none; }
       .side-card { padding: 16px; }
       * { cursor: auto !important; }
+    }
+
+    /* ─── IMAGE CARD STROKE ─── One #f6f6f6 border on every card that
+       holds an image or video (the text-only cards keep their own). */
+    .cs-v2 .hero-img,
+    .cf-impact-shot,
+    .cf-chat-card,
+    .cf-damage-compare-card,
+    .cf-doc-card,
+    .cf-exploration-card,
+    .cf-offer-compare-card,
+    .cf-offer-explore-box,
+    .cf-phone-frame,
+    .cf-progressbar-card,
+    .cf-skeleton-card,
+    .cf-stencil-diagram-card,
+    .cf-upload-proto-card {
+      border: 1px solid #f6f6f6;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -594,7 +620,7 @@
   <script src="assets/nav.js"></script>
 
   <!-- LAYOUT (split-scroll, same system as the homepage / goodyhearts.html / panacea.html) -->
-  <div class="home-wrap">
+  <div class="home-wrap split-stage">
    <div class="home-layout">
 
     <!-- SIDEBAR (Figma case-study design) -->
@@ -605,8 +631,8 @@
         <a href="#section-context" class="cs-context-link">Context</a>
         <a href="#section-problem" class="cs-context-link">Problem</a>
         <a href="#section-data" class="cs-context-link">Data analysis</a>
-        <a href="#section-pricing" class="cs-context-link">Improving the pricing accuracy</a>
-        <a href="#section-design" class="cs-context-link">Designing for trust and transparency</a>
+        <a href="#section-pricing" class="cs-context-link">Improving accuracy</a>
+        <a href="#section-design" class="cs-context-link">Designing for trust</a>
         <a href="#section-building-blocks" class="cs-context-link">Building blocks</a>
         <a href="#section-impact" class="cs-context-link">Impact</a>
         <a href="#section-reflection" class="cs-context-link">Reflection</a>
@@ -706,10 +732,7 @@
         </div>
 
         <!-- PROBLEM: USER PROBLEM -->
-        <!-- cs-content's gap is 120px; -80px here brings the space after
-             this section down to the requested 40px without touching the
-             shared gap used by every other section. -->
-        <div class="section-break cf-user-problem" id="section-user-problem" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub-lead" id="section-user-problem">
           <div class="section-header">
             <p class="label">User problem</p>
             <p class="section-heading">The flow lacked clarity, leading to confusion &amp; anxiety amongst users, making the final offer feel unreliable.</p>
@@ -798,9 +821,7 @@
         </div>
 
         <!-- IMPROVING THE PRICING ACCURACY -->
-        <!-- cs-content's gap is 120px; -80px here brings the space after
-             this section down to the requested 40px. -->
-        <div class="section-break cf-user-problem" id="section-pricing" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub-lead" id="section-pricing">
           <div class="section-header">
             <p class="label">Improving the pricing accuracy</p>
             <p class="section-heading">Since updating the backend required high engineering effort, I designed solutions focusing on better inputs, working within the same limitations but still improving overall accuracy.</p>
@@ -808,9 +829,7 @@
         </div>
 
         <!-- DAMAGE QUESTION EXPLORATION -->
-        <!-- cs-content's gap is 120px; -80px here brings the space after
-             this section down to the requested 40px. -->
-        <div class="section-break cf-user-problem" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub">
           <div class="cf-insight-row">
             <p class="cf-insight-num">01</p>
             <div class="cf-wide-insight-body">
@@ -967,9 +986,7 @@
         </div>
 
         <!-- DESIGN: TRUST & TRANSPARENCY -->
-        <!-- cs-content's gap is 120px; -80px here brings the space after
-             this section down to the requested 40px. -->
-        <div class="section-break cf-user-problem" id="section-design" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub-lead" id="section-design">
           <div class="section-header">
             <p class="label">Designing for trust and transparency</p>
             <p class="section-heading">Balancing transparency without overwhelming the user.</p>
@@ -1052,9 +1069,7 @@
         </div>
 
         <!-- BUILDING BLOCKS -->
-        <!-- cs-content's gap is 120px; -80px here brings the space after
-             this section down to the requested 40px. -->
-        <div class="section-break cf-user-problem" id="section-building-blocks" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub-lead" id="section-building-blocks">
           <div class="section-header">
             <p class="label">Building blocks</p>
             <p class="section-heading">Small changes I made that led to big impacts.</p>
@@ -1062,7 +1077,7 @@
         </div>
 
         <!-- 01: CHOOSING THE RIGHT PROGRESS BAR -->
-        <div class="section-break cf-user-problem" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub">
           <div class="cf-insight-row">
             <p class="cf-insight-num">01</p>
             <div class="cf-wide-insight-body">
@@ -1125,7 +1140,7 @@
         </div>
 
         <!-- 02: ADDING SKELETON SCREENS -->
-        <div class="section-break cf-user-problem" style="margin-bottom: -80px;">
+        <div class="section-break cf-user-problem cs-sub">
           <div class="cf-insight-row">
             <p class="cf-insight-num">02</p>
             <div class="cf-wide-insight-body">
@@ -1153,9 +1168,7 @@
         </div>
 
         <!-- 03: REMOVING CTAS -->
-        <!-- cs-content's gap is 120px; -40px here brings the space after
-             this section down to the requested 80px. -->
-        <div class="section-break cf-user-problem" style="margin-bottom: -40px;">
+        <div class="section-break cf-user-problem">
           <div class="cf-insight-row">
             <p class="cf-insight-num">03</p>
             <div class="cf-wide-insight-body">
@@ -1181,7 +1194,7 @@
         <div class="section-break cf-user-problem" id="section-impact">
           <div class="section-header">
             <p class="label">Impact</p>
-            <p class="section-body" style="color: var(--text);">Our work was highly praised by the Copart leadership and product teams, and most of our designs are currently under A/B testing.</p>
+            <p class="section-body" style="color: var(--gray-400);">Our work was highly praised by the Copart leadership and product teams, and most of our designs are currently under A/B testing.</p>
             <p class="section-body">Here is a snapshot from our final presentation with the entire Copart design team:</p>
           </div>
 
@@ -1200,7 +1213,7 @@
             <div class="cf-impact-blur" style="left: 53.51%; top: 69.34%; width: 13.34%; height: 5.19%;"></div>
           </div>
 
-          <p class="section-body" style="color: var(--text); margin-top: 24px;">Other measurable wins</p>
+          <p class="section-body" style="color: var(--gray-400); margin-top: 24px;">Other measurable wins</p>
           <div class="cf-arrow-list">
             <div class="cf-arrow-row">
               <img src="assets/copart-arrow-icon.svg" alt="">
@@ -1212,7 +1225,7 @@
             </div>
             <div class="cf-arrow-row">
               <img src="assets/copart-arrow-icon.svg" alt="">
-              <p>Improved pricing model accuracy by 47% through the introduction of image upload.</p>
+              <p>Improved pricing model accuracy by 16.5% through the introduction of image upload.</p>
             </div>
           </div>
         </div>
@@ -1241,6 +1254,10 @@
     </section><!-- /home-right -->
    </div><!-- /home-layout -->
   </div><!-- /home-wrap -->
+
+  <footer class="reveal-footer">
+    <div data-component="thank-you-note"></div>
+  </footer>
 
 
   <script>
@@ -1279,5 +1296,7 @@
   setActive(current);
 })();
 </script>
+<script src="assets/thank-you-note.js" defer></script>
+<script src="assets/split-scroll.js" defer></script>
 </body>
 </html>

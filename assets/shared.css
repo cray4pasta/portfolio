@@ -17,9 +17,30 @@
   font-weight: 100 900; font-style: italic; font-display: swap;
 }
 
+@font-face {
+  font-family: 'PP Editorial Old';
+  src: url('../Fonts/PP Editorial Old/PPEditorialOld-Ultrabold-name.woff2') format('woff2');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+/* Free font by Christoph Mueller — redistributed with its MTReadme.txt as required */
+@font-face {
+  font-family: 'Moms Typewriter';
+  src: url('../Fonts/Moms Typewriter/MomsTypewriter.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+/* The font has no "0", "1" or "@"; fill just those from a heavy typewriter
+   face so they match its inked weight instead of a thin fallback. */
+@font-face {
+  font-family: 'Moms Typewriter';
+  src: local('Courier New Bold'), local('CourierNewPS-BoldMT'), local('Courier Bold');
+  font-weight: 400; font-style: normal;
+  unicode-range: U+0030-0031, U+0040;
+}
+
 /* ─── Tokens ─── */
 :root {
   /* Gray scale (from Figma) */
+  --gray-400:    #212121;
   --gray-300:    #4D4D4D;
   --gray-200:    #767676;
   --gray-100:    #B8B8B8;
@@ -53,8 +74,10 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
-body { background: var(--bg); color: var(--text); font-family: var(--font-sans); overflow-x: hidden; max-width: 100vw; }
+/* overflow-x: clip, not hidden: hidden on both html and body turns body into
+   its own scroll container, which breaks position: sticky (nav, reveal footer). */
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); overflow-x: clip; max-width: 100vw; }
 
 /* ─── RISO GRAIN TEXTURE ─── */
 body::before {
@@ -85,28 +108,31 @@ nav {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
+  text-transform: uppercase;
 }
+/* Logo pushes Work/Fun/About + Resume together on the right */
+.nav-logo { margin-right: auto; }
 .nav-logo, .nav-logo a {
   font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 24px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 26px;
   letter-spacing: -0.01em;
-  color: var(--gray-300);
+  color: var(--gray-400);
   text-decoration: none;
   display: block;
 }
 .nav-links {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
 }
 .nav-links a {
   font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 26px;
   color: var(--gray-300);
   text-decoration: none;
   transition: color 0.25s ease;
@@ -115,9 +141,9 @@ nav {
 .nav-links a.active { color: var(--gray-100); }
 .nav-clock {
   font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 26px;
   color: var(--gray-300);
   white-space: nowrap;
   text-decoration: none;
@@ -171,6 +197,266 @@ footer {
   transition: color 0.25s ease;
 }
 .footer-links a:hover { color: var(--text-muted); }
+
+/* ─── FOOTER REVEAL (assets/split-scroll.js) ───
+   The page (nav + .split-stage) is a sheet laid over the footer: the footer
+   is pinned to the bottom of the viewport underneath it, and scrolling past
+   the end of the columns slides the sheet up to uncover it. --lift (0 → 1,
+   set by split-scroll.js) is how much of the footer is showing: the sheet's
+   bottom corners round off and cast a shadow onto the footer, and the
+   footer's content rises and brightens into place, so it reads as a second
+   layer rather than more of the same page. */
+.split-stage {
+  position: relative;
+  z-index: 1;
+  background: var(--page-bg, #fffffe);
+  border-radius: 0 0 calc(var(--lift, 0) * 28px) calc(var(--lift, 0) * 28px);
+  box-shadow: 0 calc(var(--lift, 0) * 20px) calc(var(--lift, 0) * 60px) rgb(0 0 0 / calc(var(--lift, 0) * 0.1));
+}
+/* Nav rides up with the sheet instead of staying stuck over the footer */
+.split-active nav { position: relative; }
+/* clip: the settle-in transform below must not add scroll height */
+footer.reveal-footer { position: sticky; bottom: 0; z-index: 0; overflow: clip; }
+/* No gap above the footer to rise into anymore (the sheet covers it), so the
+   ticket's rise room lives inside the footer: 40px + the old 120px gap. */
+footer.reveal-footer:has(.tyn) { margin-top: 0; padding-top: 160px; }
+footer.reveal-footer > * {
+  transform: translateY(calc((1 - var(--lift, 1)) * 72px)) scale(calc(0.95 + var(--lift, 1) * 0.05));
+  opacity: calc(0.35 + var(--lift, 1) * 0.65);
+  transform-origin: 50% 100%;
+}
+footer.reveal-footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / calc((1 - var(--lift, 1)) * 0.12));
+  pointer-events: none;
+}
+/* Split columns: hidden scrollbars; wheel chaining is handled in JS, but on
+   touch screens let a column hand off to the page natively at its end so
+   the footer is still reachable. */
+.split-col { scrollbar-width: none; -ms-overflow-style: none; }
+.split-col::-webkit-scrollbar { display: none; }
+@media (hover: none) { .split-col { overscroll-behavior-y: auto !important; } }
+/* Too short to pin a ~430px footer under the page: plain flow instead */
+@media (max-height: 620px) {
+  footer.reveal-footer { position: relative; }
+  footer.reveal-footer > * { transform: none; opacity: 1; }
+  footer.reveal-footer::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  footer.reveal-footer > * { transform: none; }
+}
+
+/* ─── THANK-YOU NOTE (assets/thank-you-note.js) — typewriter from Figma node 103:563 ───
+   The typewriter frame is 686×179 in Figma, rendered here at up to 720px wide.
+   The PNG is drawn twice and split with clip-path (points traced in that 686×179
+   frame, as percentages): .tyn-body is just the outer shell and stays still, on top;
+   .tyn-carriage-img is everything else (roller, knobs, lever, and what shows through
+   the shell's opening) with the shell cut out (evenodd), and slides underneath the
+   shell when the lever is clicked.
+   Note the Figma crop stretches the PNG non-uniformly (100% × 168.72% of the frame),
+   so frame coordinates were measured on a render with that exact geometry.
+   The paper tray rides in the carriage, behind the roller, with its bottom edge at
+   80/179 of the frame (just under the roller's top edge, measured from the PNG's
+   alpha), so the note appears to feed up from behind the roller.
+   Sizes use cqw (1% of .tyn's width) so paper and handwriting scale with the machine.
+   The paper rises out of the footer into the page's 120px footer gap; the machine's
+   top margin only reserves whatever part of the rise doesn't fit in that gap plus
+   the footer's 40px top padding. The footer has no bottom padding, so the machine
+   sits flush with the bottom of the page. */
+footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; background: var(--gray-50); border-top: none; }
+.tyn {
+  --tray-h: max(34cqw, 330px);
+  width: 720px; max-width: 100%;
+  container-type: inline-size;
+}
+.tyn-machine {
+  position: relative; width: 100%; aspect-ratio: 686 / 179;
+  margin-top: max(0px, calc(var(--tray-h) - 100cqw * 80 / 686 - 160px));
+}
+.tyn-carriage { position: absolute; inset: 0; transition: translate 0.3s ease; }
+.tyn-machine > .tyn-body { z-index: 1; } /* shell over the sliding carriage */
+.tyn-tray {
+  position: absolute;
+  bottom: calc(100% * (179 - 80) / 179);
+  left: 50%; translate: -50% 0;
+  width: max(60%, 240px); /* inside the roller (x 130–600 of 686); 432px at full size, so the 429px ticket fits unscaled */
+  height: var(--tray-h);
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+.tyn-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.tyn-layer img { position: absolute; left: 0; top: -68.66%; width: 100%; height: 168.72%; max-width: none; }
+.tyn-body { clip-path: polygon(10.13% 100%, 10.57% 94.97%, 11.01% 86.59%, 11.44% 78.21%, 11.88% 70.95%, 12.54% 67.60%, 12.97% 64.80%, 13.41% 62.57%, 13.99% 61.45%, 29.59% 61.45%, 30.17% 63.13%, 30.47% 65.92%, 30.76% 69.83%, 31.20% 73.18%, 32.07% 75.42%, 33.53% 76.54%, 66.33% 76.54%, 67.35% 75.42%, 68.22% 73.74%, 68.80% 70.95%, 69.24% 67.04%, 69.68% 63.69%, 70.26% 62.01%, 70.85% 61.45%, 87.17% 61.45%, 87.61% 62.01%, 87.76% 69.27%, 89.50% 69.27%, 90.52% 75.42%, 90.67% 81.01%, 91.25% 88.27%, 91.84% 94.97%, 92.27% 100%); }
+.tyn-carriage-img { clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 10.13% 100%, 10.57% 94.97%, 11.01% 86.59%, 11.44% 78.21%, 11.88% 70.95%, 12.54% 67.60%, 12.97% 64.80%, 13.41% 62.57%, 13.99% 61.45%, 29.59% 61.45%, 30.17% 63.13%, 30.47% 65.92%, 30.76% 69.83%, 31.20% 73.18%, 32.07% 75.42%, 33.53% 76.54%, 66.33% 76.54%, 67.35% 75.42%, 68.22% 73.74%, 68.80% 70.95%, 69.24% 67.04%, 69.68% 63.69%, 70.26% 62.01%, 70.85% 61.45%, 87.17% 61.45%, 87.61% 62.01%, 87.76% 69.27%, 89.50% 69.27%, 90.52% 75.42%, 90.67% 81.01%, 91.25% 88.27%, 91.84% 94.97%, 92.27% 100%, 10.13% 100%, 0 100%); }
+/* As the carriage slides right, the opening's left wall briefly exposes the strip
+   of carriage that was cut out behind the shell. The opening is dark inside, so a
+   static dark patch (x 200–260, y 108–138) behind everything fills it. */
+.tyn-gap-fill { position: absolute; left: 29.15%; top: 60.34%; width: 8.75%; height: 16.76%; background: #1b1b1b; }
+/* Same for the opening's right wall (x 430–490) while the carriage ticks left during typing */
+.tyn-gap-fill-r { left: 62.68%; }
+/* The shell's top-right corner (x 598–615, y 110–124) is hidden behind the right
+   carriage bracket in the photo; when the bracket slides away this stands in for it,
+   banded with the rim's own highlight colors. */
+.tyn-corner-fill {
+  position: absolute; left: 87.17%; top: 61.45%; width: 2.48%; height: 7.82%;
+  border-top-right-radius: 70% 60%;
+  background: linear-gradient(#5f6062 0%, #b3b5b7 21%, #353637 43%, #818283 64%, #626065 86%, #606166 100%);
+}
+/* Hit area over the carriage-return lever (x 6–124, y 22–128 in the 686×179 frame) */
+.tyn-handle {
+  position: absolute; left: 0.87%; top: 12.29%; width: 17.2%; height: 59.22%;
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+.tyn-handle:focus-visible { outline: 2px solid var(--gray-300); outline-offset: 2px; border-radius: 4px; }
+.tyn.is-busy .tyn-handle { cursor: wait; }
+/* Hover hint: the carriage gives a little as if the lever was touched */
+.tyn:not(.is-busy):has(.tyn-handle:hover) .tyn-carriage { translate: 0.6% 0; }
+/* The sheet that feeds out: a transparent carrier for the ticket. Its bottom
+   padding clears the strip hidden behind the bail rod and roller (y 47–80 of the
+   typewriter frame), so the whole ticket is visible once it's out. */
+.tyn-note {
+  width: 100%;
+  display: flex; justify-content: center;
+  padding-bottom: calc(100cqw * 33 / 686);
+  transform: translateY(100%); /* fed up line by line by typeOut() in thank-you-note.js */
+}
+
+/* ─── TICKET (Figma node 120:4409, 428.74×220) ───
+   Every position/size below is the Figma value × --u, where --u is 1/428.74 of
+   the ticket's rendered width (the ticket is its own size container), so the
+   whole ticket scales as one piece on narrow screens. Hairline rules stay 1px. */
+.tyn-ticket {
+  --u: calc(100cqw / 428.74);
+  position: relative;
+  flex: none;
+  width: min(428.74px, 100%);
+  aspect-ratio: 428.74 / 220;
+  container-type: inline-size;
+  color: #000;
+  font-family: 'Moms Typewriter', 'Courier New', monospace;
+  font-weight: 400;
+}
+.tyn-ticket > * { position: absolute; margin: 0; }
+.tk-shape { left: 0; top: 0; width: 100%; height: calc(219.891 * var(--u)); overflow: hidden; }
+.tk-shape img { display: block; width: 100%; height: calc(220.203 * var(--u)); }
+/* Grain overlay (Figma: #575757 @ 40%, masked to x < 403 at 56%), above everything */
+.tk-texture { left: 0; top: 0; width: calc(403 * var(--u)); height: 100%; overflow: hidden; opacity: 0.56; pointer-events: none; }
+.tk-texture img { position: absolute; left: calc(8 * var(--u)); top: 0; width: calc(414 * var(--u)); height: calc(219 * var(--u)); max-width: none; }
+/* Rules */
+.tk-frame { left: calc(42 * var(--u)); top: calc(24 * var(--u)); width: calc(343.62 * var(--u)); height: calc(172.82 * var(--u)); border: 1px solid #000; box-sizing: border-box; }
+.tk-col-name { left: calc(43 * var(--u)); top: calc(27 * var(--u)); width: calc(45 * var(--u)); height: calc(167 * var(--u)); border-right: 1px solid #000; box-sizing: border-box; }
+.tk-col-date { left: calc(88 * var(--u)); top: calc(26.67 * var(--u)); width: calc(63 * var(--u)); height: calc(140 * var(--u)); border-right: 1px solid #000; box-sizing: border-box; }
+.tk-rule { left: calc(91 * var(--u)); top: calc(110 * var(--u)); width: calc(288 * var(--u)); height: calc(60 * var(--u)); border-bottom: 1px solid #000; box-sizing: border-box; }
+/* Name, set vertically in the left column */
+.tk-name { left: calc(52 * var(--u)); top: calc(25 * var(--u)); width: calc(24 * var(--u)); height: calc(171 * var(--u)); display: flex; align-items: center; justify-content: center; }
+.tk-name p {
+  flex: none; width: calc(171 * var(--u)); margin: 0;
+  transform: rotate(-90deg);
+  font-family: 'PP Editorial Old', serif; font-weight: 800;
+  font-size: calc(20 * var(--u)); line-height: calc(24 * var(--u));
+  text-align: center; white-space: nowrap;
+}
+/* Date column: "Sep 24" / "2026" centered in x 88–151; time below */
+.tk-day, .tk-year, .tk-time { left: calc(88 * var(--u)); width: calc(63 * var(--u)); text-align: center; line-height: normal; }
+.tk-day { top: calc(48 * var(--u)); font-size: calc(14 * var(--u)); }
+.tk-year { top: calc(69 * var(--u)); font-size: calc(14 * var(--u)); }
+.tk-time { top: calc(120.67 * var(--u)); font-size: calc(12 * var(--u)); padding: 0 calc(4 * var(--u)); box-sizing: border-box; }
+.tk-message { left: calc(159 * var(--u)); top: calc(50.67 * var(--u)); width: calc(220 * var(--u)); font-size: calc(12 * var(--u)); line-height: normal; }
+.tk-email { left: calc(87 * var(--u)); top: calc(170 * var(--u)); width: calc(291 * var(--u)); font-size: calc(10 * var(--u)); line-height: calc(24 * var(--u)); text-align: center; white-space: nowrap; color: inherit; text-decoration: none; }
+.tk-email:hover { text-decoration: underline; }
+/* Flowers: the left group is the source image cropped and rotated as in Figma */
+.tk-flowers { top: calc(110.67 * var(--u)); height: calc(56 * var(--u)); display: flex; align-items: center; justify-content: center; }
+.tk-flowers > div { flex: none; position: relative; overflow: hidden; }
+.tk-flowers img { position: absolute; max-width: none; }
+/* The right-hand peony's crop lives inside Figma's image fill, which its code
+   export can't express, so it's Figma's own 4× export of that layer (120:2874). */
+.tk-flowers-a { left: calc(300 * var(--u)); width: calc(71 * var(--u)); }
+/* The export sits on Figma's #1e1e1e canvas: brightening ×8.5 turns that exact
+   grey white (30 × 8.5 = 255) while the black ink stays black, and multiply
+   then drops the white into the pink ticket. */
+.tk-flowers-a img { position: static; display: block; width: 100%; height: 100%; filter: brightness(8.5); mix-blend-mode: multiply; }
+.tk-flowers-b { left: calc(159 * var(--u)); width: calc(141 * var(--u)); }
+.tk-flowers-b > div { width: calc(56 * var(--u)); height: calc(141 * var(--u)); transform: rotate(90deg); }
+.tk-flowers-b img { left: -0.09%; top: 0; width: 157.32%; height: 100%; }
+.tyn-note.is-out { transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .tyn-carriage { transition: none; }
+}
+
+/* ─── FLOATING TICKET (thank-you-note.js floatTicket) ───
+   The printed ticket's copy flips toward the viewer (front + pink back face,
+   preserve-3d) and floats over a blurred backdrop above two round buttons. */
+.tyn-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 16px;
+  perspective: 1400px;
+}
+/* A plain wash, no backdrop blur: blurring the whole page under a moving
+   3D layer is the most expensive thing on screen. Only its opacity animates. */
+.tyn-backdrop {
+  position: absolute; inset: 0;
+  background: rgb(250 250 250 / 0.9);
+  opacity: 0; transition: opacity 0.5s ease;
+}
+.tyn-overlay.is-open .tyn-backdrop { opacity: 1; }
+/* Laid out at its final size and animated from small, so it's rasterized once
+   and stays crisp; will-change keeps it on its own layer for the flight. */
+.tyn-float { position: relative; flex: none; transform-style: preserve-3d; will-change: transform; }
+.tyn-float-bob { position: relative; transform-style: preserve-3d; }
+.tyn-overlay.is-floating .tyn-float-bob { animation: tyn-bob 4s ease-in-out infinite alternate; }
+@keyframes tyn-bob {
+  from { transform: translateY(-5px) rotate(-1deg); }
+  to   { transform: translateY(5px) rotate(1deg); }
+}
+.tyn-float-front, .tyn-float-back { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+/* Shadow only once it has landed; a filter on the moving layer would be
+   repainted every frame. */
+.tyn-float-front { transition: filter 0.4s ease; }
+.tyn-overlay.is-floating .tyn-float-front { filter: drop-shadow(0 18px 28px rgb(0 0 0 / 0.14)); }
+/* Both faces are single images with 2px of transparent padding, so their
+   edges sit inside the layer and stay smooth (not jagged) while rotating in 3D */
+.tyn-float-front canvas, .tyn-float-back img { display: block; width: 100%; height: auto; padding: 2px; box-sizing: border-box; }
+/* The floating ticket is a picture, so the email is an invisible link laid over
+   its email line (x 87–378, y 170–194 of the 428.74×220 ticket) */
+.tyn-float-front { position: relative; }
+.tyn-email-link {
+  position: absolute; left: 20.29%; top: 77.27%; width: 67.87%; height: 10.91%;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+.tyn-email-link:hover { background: rgb(0 0 0 / 0.06); }
+.tyn-email-link:focus-visible { outline: 2px solid var(--gray-300); outline-offset: 2px; }
+/* Back of the ticket: the plain pink shape, facing the other way */
+.tyn-float-back { position: absolute; inset: 0; transform: rotateX(180deg); }
+.tyn-float-back img { height: 100%; }
+.tyn-actions {
+  position: relative;
+  display: flex; gap: 16px; margin-top: 32px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.tyn-overlay.is-floating .tyn-actions { opacity: 1; transform: none; }
+.tyn-action {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #fff; color: var(--gray-400);
+  border: 1px solid #ececec;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.tyn-action:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgb(0 0 0 / 0.12); }
+.tyn-action:active { transform: scale(0.96); }
+.tyn-action:focus-visible { outline: 2px solid var(--gray-300); outline-offset: 3px; }
+.tyn-action:disabled { cursor: progress; opacity: 0.6; }
+@media (prefers-reduced-motion: reduce) {
+  .tyn-backdrop, .tyn-actions, .tyn-float-front { transition: none; }
+  .tyn-overlay.is-floating .tyn-float-bob { animation: none; }
+}
+
 
 /* ─── PAGE LAYOUT (fixed bio sidebar + content column) ───
    Used by index.html and any page opting into the sidebar
@@ -623,6 +909,17 @@ footer {
   text-align: left;
 }
 
+/* ─── CASE STUDY SPACING RHYTHM ───
+   Every case study's .cs-content uses an 80px gap between sections.
+   Subsections (01 / 02 / 03…) are sibling .section-breaks, pulled up by
+   negative margins so the rhythm is:
+     section → section ............ 80px (the gap itself)
+     headline → first subsection .. 40px (.cs-sub-lead on the headline block)
+     subsection → subsection ...... 20px (.cs-sub on every subsection but the last)
+   The last subsection has no class, so the next section sits 80px below. */
+.cs-v2 .cs-content > .cs-sub-lead { margin-bottom: -40px; }
+.cs-v2 .cs-content > .cs-sub { margin-bottom: -60px; }
+
 /* ─── ACCESSIBILITY ─── */
 :focus-visible {
   outline: 2px solid var(--text);
@@ -652,7 +949,7 @@ footer {
 
    --roll-lh sets the roll distance (= the label's own line-height, so
    the two rows swap exactly and nothing else shifts). Defaults to the
-   CTA's 32px; nav links override it to their own 24px line-height. */
+   CTA's 32px; nav links override it to their own 26px line-height. */
 .roll-cta.home-intro-cta:hover,
 .roll-cta.home-intro-cta:focus-visible,
 .roll-cta.fun2-cta:hover,
@@ -670,7 +967,7 @@ footer {
   vertical-align: middle;
 }
 .mo-nav-link .roll-viewport {
-  --roll-lh: 24px;
+  --roll-lh: 26px;
 }
 .roll-row {
   display: flex;

@@ -71,6 +71,62 @@
       text-decoration: none;
     }
 
+    /* ─── SOCIAL LINKS ─── A plain list under "Talk to me :)", same type
+       and roll-on-hover as that link. Hovering (or focusing) one pops a
+       small preview card out to its right: a crop of the profile. The
+       card lives inside the <a>, so moving onto it keeps it open and
+       clicking it follows the link. */
+    .home-social {
+      list-style: none;
+      margin: 20px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+    /* Cards position against the list (not each link), bottom-aligned
+       with its last item, so they grow upward and never run past the
+       bottom of the screen now that the list sits 40px above it. */
+    .home-social .home-talk { margin-top: 0; position: static; }
+    .social-card {
+      position: absolute;
+      /* Fixed offset (past the longest label, "LinkedIn") so all three
+         cards line up; 104 + 200 stays inside the 320px column. */
+      left: 104px;
+      bottom: 0;
+      z-index: 5;
+      display: block;
+      width: 200px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06), 0 12px 32px -12px rgb(0 0 0 / 0.18);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-6px) scale(0.96) rotate(-1.5deg);
+      transform-origin: left bottom;
+      transition: opacity 0.18s ease, transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .social-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    @media (hover: hover) {
+      .home-social a:hover .social-card,
+      .home-social a:focus-visible .social-card {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0) scale(1) rotate(-1.5deg);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .social-card,
+      .home-social a:hover .social-card,
+      .home-social a:focus-visible .social-card { transform: none; }
+    }
+
     /* Video grid: two equal-width columns (each case study gets the same
        weight), 20px apart, filling the second column out to the grid's
        40px page margin. Each column stacks its cards independently, 20px
@@ -91,10 +147,10 @@
     /* Absolutely positioned so the video adds no height of its own: the
        column (stretched to the left column's height) decides the box. */
     .home-video-item.is-fill .home-video { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; object-fit: cover; }
-    /* Zoomed 1.5× (the same as the case study's hero), which also keeps the
+    /* Zoomed 1.8× (20% past the case study hero's 1.5×), which also keeps the
        black bands baked into the file's top and bottom (95px of 1556 each,
        ~6%) out of frame at any box shape. */
-    .home-video-item.is-fill .home-video { transform: scale(1.5); }
+    .home-video-item.is-fill .home-video { transform: scale(1.8); }
     /* Never cropped: width fills the cell, height follows the file's
        own aspect ratio (set per video via --ar). */
     .home-video {
@@ -168,14 +224,59 @@
       min-height: 0;
       overflow-y: auto;
       overscroll-behavior: contain;
+      padding-bottom: 160px;
+    }
+    /* Intro column: bio at the top, social links pushed down to sit 40px
+       above the bottom of the screen (the column ends at the viewport's
+       bottom edge, see above). */
+    .home-col-intro {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       padding-bottom: 40px;
     }
+    .home-col-intro .home-social { margin-top: auto; padding-top: 40px; }
 
     @media (max-width: 640px) {
       .home-grid { grid-template-columns: minmax(0, 1fr); height: auto; }
       main.split-stage { overflow: visible; }
       .home-col { overflow-y: visible; padding-bottom: 0; }
-      .home-grid { padding-bottom: 120px; }
+      .home-grid { padding-bottom: 160px; }
+      .home-col-intro .home-social { margin-top: 20px; padding-top: 0; }
+
+      /* Phone: the case-study cards are a preview only, not links. Every
+         frame is the same square; each video is fitted whole inside it
+         (letterboxed on the gray card colour), never cropped. */
+      .home-video-item { pointer-events: none; cursor: default; }
+      .home-video-item.is-fill { flex: none; display: block; }
+      .home-video-frame,
+      .home-video-item.is-fill .home-video-frame {
+        flex: none;
+        aspect-ratio: 1 / 1;
+        background: var(--card);
+      }
+      .home-video,
+      .home-video-item.is-fill .home-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: auto;
+        object-fit: contain;
+        transform: none;
+      }
+      /* LinkedIn's file has black bands baked into its top and bottom
+         (95px of 1556 each): size it at its own ratio, centred, and clip
+         the bands off, leaving the 2048×1366 picture whole. */
+      .home-video-item.is-fill .home-video {
+        inset: auto 0;
+        top: 50%;
+        height: auto;
+        aspect-ratio: 2048 / 1556;
+        object-fit: fill;
+        transform: translateY(-50%);
+        clip-path: inset(6.4% 0 6.4% 0);
+      }
     }
   </style>
 </head>
@@ -188,10 +289,33 @@
   <main class="split-stage">
     <h1 class="home-name visually-hidden">Prerna Kashyap</h1>
     <div class="home-grid">
-      <div class="home-col">
-        <p class="home-bio">I am a product design engineer with experience across fintech and B2B2C. Currently using my expertise across design, strategy &amp; CX to create experiences that build trust and emotional safety.</p>
+      <div class="home-col home-col-intro">
+        <p class="home-bio">I am a product design engineer with experience building 0-to-1 products. I use my expertise across CX, research &amp; design to create experiences for moments of anxiety and distrust.</p>
         <p class="home-bio">My goal is to make technology a tool for better living rather than a source of dependency.</p>
-        <a href="mailto:prernakashyap1610@yahoo.com" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">Talk to me :)</span></a>
+        <a href="mailto:prernakashyapuw@gmail.com" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">Talk to me :)</span></a>
+        <ul class="home-social">
+          <li>
+            <a href="https://github.com/cray4pasta" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">GitHub</span>
+              <span class="social-card" aria-hidden="true">
+                <img src="assets/social-github.jpg" alt="" loading="lazy">
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/prernaakashyap/" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">LinkedIn</span>
+              <span class="social-card" aria-hidden="true">
+                <img src="assets/social-linkedin.jpg" alt="" loading="lazy">
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://x.com/survivingux" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">X</span>
+              <span class="social-card" aria-hidden="true">
+                <img src="assets/social-x.jpg" alt="" loading="lazy">
+              </span>
+            </a>
+          </li>
+        </ul>
       </div>
       <div class="home-col">
         <div class="home-videos">
@@ -240,5 +364,6 @@
 <script src="assets/split-scroll.js" defer></script>
 <script src="assets/motion-breathe.js" defer></script>
 <script src="assets/cta-roll.js" defer></script>
+<script src="assets/clip-reveal.js" defer></script>
 </body>
 </html>

@@ -27,6 +27,7 @@
   <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
   <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
   <link rel="stylesheet" href="assets/shared.css">
+  <link rel="stylesheet" href="assets/motion-breathe.css">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-X8PC6EMSNX"></script>
   <script>
@@ -37,327 +38,202 @@
   </script>
 
   <style>
-    /* Fun page (Figma: node 1186-1021). Plain top-nav + a full-width row:
-       a 349px intro card on the left (matches .sidebar width on index.html),
-       a 3-column masonry of media on the right. Padding/column behavior
-       mirrors the homepage's .home-layout (40px sides, fluid — not capped
-       to a fixed max-width) instead of Figma's fixed 1200px canvas, so the
-       columns scale with the viewport like the homepage's project grid. */
-
-    .fun2-wrap {
-      margin-top: 20px;
-      height: calc(100vh - 64px - 20px);
-      overflow: hidden;
+    /* ─── TWO-COLUMN LAYOUT ─── Same grid as the homepage and About:
+       fixed 320px first column (left empty here, like About), media takes
+       the rest, 80px apart, 40px from the page edges. */
+    .home-grid {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      align-items: start;
+      gap: 80px;
+      margin: 0 40px;
+      padding-top: 20px;
     }
-    .fun2-row {
-      display: flex;
-      align-items: stretch;
-      gap: 20px;
-      height: 100%;
-      padding: 0 40px;
-    }
-
-    /* ─── LEFT: INTRO CARD ─── */
-    .fun2-left {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 349px;
-      flex-shrink: 0;
-      height: 100%;
+    /* ─── SPLIT SCROLL (assets/split-scroll.js) ─── Each column scrolls on
+       its own inside <main>, which the script sizes to end at the bottom of
+       the viewport; past the end of both, the page lifts off the footer.
+       Below 640px the columns stack into normal page flow. */
+    main.split-stage { overflow: hidden; }
+    .home-grid { height: 100%; align-items: stretch; }
+    .home-col {
+      min-height: 0;
       overflow-y: auto;
       overscroll-behavior: contain;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 0 0 40px;
+      padding-bottom: 160px;
     }
-    .fun2-left::-webkit-scrollbar { display: none; }
-    .fun2-photo {
-      width: 100%;
-      height: 364px;
-      flex-shrink: 0;
+
+    /* ─── MEDIA GRID ─── Two equal columns, 20px apart, like the homepage
+       video grid; each column stacks its items independently so a shorter
+       one leaves no gap. */
+    .fun-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: 20px;
+    }
+    .fun-col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+    /* Frame matches the homepage video cards: 4px corners and a faint
+       hairline drawn inside the edge. */
+    .fun-frame {
+      position: relative;
       border-radius: 4px;
       overflow: hidden;
-      position: relative;
+      background: var(--gray-50, #f6f6f6);
+      aspect-ratio: var(--ar);
     }
-    .fun2-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .fun2-photo img.media-loaded { opacity: 1; }
-    .fun2-photo canvas {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .fun2-intro {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      width: 100%;
-    }
-    .fun2-title {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 32px;
-      color: var(--text);
-      width: 100%;
-      text-wrap: balance;
-    }
-    .fun2-cta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-    }
-    .fun2-cta:hover { opacity: 0.7; }
-    .fun2-cta-text {
-      font-family: var(--font-sans);
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 24px;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-    .fun2-cta svg { flex-shrink: 0; width: 24px; height: 24px; fill: var(--accent); }
-
-    /* ─── RIGHT: MEDIA GRID ─── */
-    .fun2-grid {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      flex: 1;
-      min-width: 0;
-      height: 100%;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 0 0 40px;
-    }
-    .fun2-grid::-webkit-scrollbar { display: none; }
-    .fun2-col {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      min-width: 0;
-    }
-    .fun2-col-a { flex: 336 1 0; }
-    .fun2-col-b { flex: 252 1 0; }
-    .fun2-col-c { flex: 203 1 0; }
-
-    .fun2-cell {
-      width: 100%;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-      background: #e8e8e8;
-    }
-    .fun2-cell img,
-    .fun2-cell video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .fun2-cell img.media-loaded,
-    .fun2-cell video.media-loaded { opacity: 1; }
-
-    .fun2-cell-golf   { aspect-ratio: 336 / 290; }
-    .fun2-cell-fruit  { aspect-ratio: 336 / 224; }
-    .fun2-cell-recap  { aspect-ratio: 252 / 336; }
-    .fun2-cell-screen { aspect-ratio: 252 / 178; }
-    .fun2-cell-print  { aspect-ratio: 203 / 243; }
-    .fun2-cell-adobe  { aspect-ratio: 203 / 271; }
-
-    /* ─── HOVER GLASS OVERLAY (same treatment as homepage project cards) ─── */
-    .fun2-glass {
+    .fun-frame::after {
+      content: "";
       position: absolute;
       inset: 0;
-      z-index: 1;
-      background: rgba(255, 255, 255, 0);
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-      transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1), -webkit-backdrop-filter 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
       pointer-events: none;
     }
-    .fun2-cell:hover .fun2-glass {
-      background: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    .fun2-hover-box {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .fun2-hover-title {
+    .fun-frame img,
+    .fun-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      font-family: var(--font-sans);
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      color: var(--text);
       opacity: 0;
-      transform: translateY(100%);
-      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+      transition: opacity 0.5s ease;
     }
-    .fun2-cell:hover .fun2-hover-title {
-      opacity: 1;
-      transform: translateY(0);
+    .fun-frame img.media-loaded,
+    .fun-frame video.media-loaded { opacity: 1; }
+
+    /* Caption under each item, same type as the homepage captions */
+    .fun-caption {
+      margin-top: 12px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: var(--gray-300);
+      text-wrap: pretty;
     }
 
-    /* ─── RESPONSIVE ─── */
-    /* Below 1040px the columns stack, so the split-scroll (each column
-       capped to viewport height with its own scrollbar) no longer makes
-       sense — flatten back to normal document flow, same as the desktop
-       columns' behavior before this was split-scroll. */
-    @media (max-width: 1040px) {
-      .fun2-wrap { height: auto; overflow: visible; padding: 0 40px 172px; }
-      .fun2-row { flex-direction: column; height: auto; padding: 0; }
-      .fun2-left { width: 100%; flex-direction: row; height: auto; overflow-y: visible; padding: 0; }
-      .fun2-photo { width: 349px; }
-      .fun2-grid { width: 100%; height: auto; overflow-y: visible; padding: 0; }
+    .fun-item { margin: 0; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      margin: -1px; padding: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
-    @media (max-width: 768px) {
-      .fun2-wrap { padding: 0 24px 96px; }
-      .fun2-left { flex-direction: column; }
-      .fun2-photo { width: 100%; }
-    }
+
     @media (max-width: 640px) {
-      .fun2-grid { flex-direction: column; }
-      .fun2-col-a, .fun2-col-b, .fun2-col-c { width: 100%; }
-      .fun2-title { font-size: 20px; line-height: 28px; }
+      .home-grid { grid-template-columns: minmax(0, 1fr); height: auto; gap: 0; padding-bottom: 160px; }
+      main.split-stage { overflow: visible; }
+      .home-col { overflow-y: visible; padding-bottom: 0; }
+      .home-col:empty { display: none; }
+      .fun-grid { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <div data-component="nav"></div>
+  <div data-component="nav" data-variant="home"></div>
   <script src="assets/nav.js"></script>
 
-  <div class="fun2-wrap split-stage">
-    <div class="fun2-row">
-
-      <!-- LEFT: INTRO CARD -->
-      <div class="fun2-left">
-        <div class="fun2-photo">
-          <img src="assets/fun-soldering.png" alt="Prerna soldering a circuit board">
-          <canvas class="hero-color-trail" aria-hidden="true"></canvas>
-        </div>
-        <div class="fun2-intro">
-          <p class="fun2-title">Things I have built, physically and digitally.</p>
-          <a href="mailto:prernakashyap1610@yahoo.com" class="fun2-cta roll-cta">
-            <span class="fun2-cta-text roll-cta-label">Come lets grab boba</span>
-            <svg viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"></path></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- RIGHT: MEDIA GRID -->
-      <div class="fun2-grid">
-        <div class="fun2-col fun2-col-a">
-          <div class="fun2-cell fun2-cell-golf">
-            <video autoplay muted loop playsinline preload="none">
-              <source src="assets/mini golf.webm" type="video/webm">
-              <source src="assets/mini golf.mov" type="video/mp4">
-            </video>
-            <div class="fun2-glass"></div>
-            <div class="fun2-hover-box">
-              <span class="fun2-hover-title">Light interaction for marine inspired mini golf</span>
-            </div>
+  <main class="split-stage">
+    <h1 class="visually-hidden">Fun — things I have built, physically and digitally</h1>
+    <div class="home-grid">
+      <div class="home-col"></div>
+      <div class="home-col">
+        <div class="fun-grid">
+          <div class="fun-col">
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 1248 / 904">
+                <video autoplay muted loop playsinline preload="none" poster="assets/fun-ascii-butterfly.jpg">
+                  <source src="assets/fun-ascii-butterfly.webm" type="video/webm">
+                  <source src="assets/fun-ascii-butterfly.mp4" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">ASCII art animation</figcaption>
+            </figure>
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 1868 / 1310">
+                <video autoplay muted loop playsinline preload="none" poster="assets/fun-prompt-visibility.png">
+                  <source src="assets/fun-prompt-visibility.webm" type="video/webm">
+                  <source src="assets/fun-prompt-visibility.mp4" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">Better visibility into prompting</figcaption>
+            </figure>
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 252 / 336">
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="assets/weekly recap.webm" type="video/webm">
+                  <source src="assets/weekly recap.mp4" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">Social media post for MHCID</figcaption>
+            </figure>
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 252 / 178">
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="assets/screen recording.webm" type="video/webm">
+                  <source src="assets/screen recording.mov" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">Playing with different textures on images — built using Claude</figcaption>
+            </figure>
           </div>
-          <div class="fun2-cell fun2-cell-fruit">
-            <video autoplay muted loop playsinline preload="none">
-              <source src="assets/fruit game.webm" type="video/webm">
-              <source src="assets/fruit game.mov" type="video/mp4">
-            </video>
-            <div class="fun2-glass"></div>
-            <div class="fun2-hover-box">
-              <span class="fun2-hover-title">Fruit Ninja made using MediaPipe</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="fun2-col fun2-col-b">
-          <div class="fun2-cell fun2-cell-recap">
-            <video autoplay muted loop playsinline preload="none">
-              <source src="assets/weekly recap.webm" type="video/webm">
-              <source src="assets/weekly recap.mp4" type="video/mp4">
-            </video>
-            <div class="fun2-glass"></div>
-            <div class="fun2-hover-box">
-              <span class="fun2-hover-title">Social media post for MHCID</span>
-            </div>
-          </div>
-          <div class="fun2-cell fun2-cell-screen">
-            <video autoplay muted loop playsinline preload="none">
-              <source src="assets/screen recording.webm" type="video/webm">
-              <source src="assets/screen recording.mov" type="video/mp4">
-            </video>
-            <div class="fun2-glass"></div>
-            <div class="fun2-hover-box">
-              <span class="fun2-hover-title">Playing with different textures on images — built using Claude</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="fun2-col fun2-col-c">
-          <div class="fun2-cell fun2-cell-print">
-            <video autoplay muted loop playsinline preload="none">
-              <source src="assets/3d print.webm" type="video/webm">
-              <source src="assets/3d print.MOV" type="video/mp4">
-            </video>
-            <div class="fun2-glass"></div>
-            <div class="fun2-hover-box">
-              <span class="fun2-hover-title">3D printed light, built with CPX</span>
-            </div>
-          </div>
-          <div class="fun2-cell fun2-cell-adobe">
-            <video autoplay muted loop playsinline preload="none">
-              <source src="assets/adobe walk.webm" type="video/webm">
-              <source src="assets/adobe walk.mp4" type="video/mp4">
-            </video>
-            <div class="fun2-glass"></div>
-            <div class="fun2-hover-box">
-              <span class="fun2-hover-title">Social media post for MHCID</span>
-            </div>
+          <div class="fun-col">
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 336 / 290">
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="assets/mini golf.webm" type="video/webm">
+                  <source src="assets/mini golf.mov" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">Light interaction for marine inspired mini golf</figcaption>
+            </figure>
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 203 / 243">
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="assets/3d print.webm" type="video/webm">
+                  <source src="assets/3d print.MOV" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">3D printed light, built with CPX</figcaption>
+            </figure>
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 336 / 224">
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="assets/fruit game.webm" type="video/webm">
+                  <source src="assets/fruit game.mov" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">Fruit Ninja made using MediaPipe</figcaption>
+            </figure>
+            <figure class="fun-item">
+              <div class="fun-frame" style="--ar: 203 / 271">
+                <video autoplay muted loop playsinline preload="none">
+                  <source src="assets/adobe walk.webm" type="video/webm">
+                  <source src="assets/adobe walk.mp4" type="video/mp4">
+                </video>
+              </div>
+              <figcaption class="fun-caption">Social media post for MHCID</figcaption>
+            </figure>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
+  </main>
 
   <footer class="reveal-footer">
     <div data-component="thank-you-note"></div>
   </footer>
 
-
   <script>
-
     // Fade in media once loaded, instead of popping in instantly
-    document.querySelectorAll('.fun2-photo img, .fun2-cell img, .fun2-cell video').forEach(el => {
+    document.querySelectorAll('.fun-frame img, .fun-frame video').forEach(el => {
       const markLoaded = () => el.classList.add('media-loaded');
       if (el.tagName === 'IMG') {
         if (el.complete && el.naturalWidth > 0) markLoaded();
@@ -367,147 +243,13 @@
         else el.addEventListener('loadeddata', markLoaded, { once: true });
       }
     });
-
   </script>
 
-<!-- Lenis disabled: the two fun2 columns scroll independently now (each
-     its own overflow-y), not the window. Lenis smooths window-level
-     scrolling by default and doesn't know about those nested containers
-     without extra config, so enabling it here hijacks scroll input away
-     from them — same reasoning as index.html. Leaving it out until it's
-     set up with Lenis's wrapper/content options pointed at each column. -->
-<!--
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script>
-  const lenis = window.lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-  function lenisRaf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(lenisRaf);
-  }
-  requestAnimationFrame(lenisRaf);
-</script>
--->
-
-<!-- PHOTO COLOR REVEAL — same effect as the homepage hero: paints the color
-     photo in the cursor's path over the B&W one, fading each painted spot
-     back to B&W after a few seconds. -->
-<script>
-(function() {
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var container = document.querySelector('.fun2-photo');
-  var canvas = container && container.querySelector('.hero-color-trail');
-  if (!container || !canvas || reduceMotion) return;
-
-  var ctx = canvas.getContext('2d');
-  var brush = document.createElement('canvas');
-  var brushCtx = brush.getContext('2d');
-
-  var colorImg = new Image();
-  colorImg.src = 'assets/fundiethercolor.png';
-
-  var BRUSH_SIZE = 34;       // triangle brush size, px
-  var FADE_PER_FRAME = 0.02; // ~2.5s for a stroke to fully fade at 60fps
-
-  var dpr = Math.min(window.devicePixelRatio || 1, 2);
-  var w = 0, h = 0;
-  var lastX = null, lastY = null;
-
-  function resize() {
-    var rect = canvas.getBoundingClientRect();
-    w = rect.width;
-    h = rect.height;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    brush.width = w * dpr;
-    brush.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    brushCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  // Replicates CSS object-fit: cover so the color image lines up with
-  // the B&W one pixel-for-pixel (both boxes share the same crop values).
-  function drawCover(context, img, cw, ch) {
-    var scale = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-    var dw = img.naturalWidth * scale;
-    var dh = img.naturalHeight * scale;
-    context.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
-  }
-
-  // Stamps a triangular brush tip at (x, y), pointing in the direction
-  // of travel (angle), like an arrowhead-shaped nib.
-  function drawTriangle(x, y, angle) {
-    var tipLen = BRUSH_SIZE * 0.6;
-    var backLen = BRUSH_SIZE * 0.4;
-    var halfBase = BRUSH_SIZE * 0.5;
-    var tipX = x + tipLen * Math.cos(angle);
-    var tipY = y + tipLen * Math.sin(angle);
-    var baseX = x - backLen * Math.cos(angle);
-    var baseY = y - backLen * Math.sin(angle);
-    var perp = angle + Math.PI / 2;
-
-    brushCtx.beginPath();
-    brushCtx.moveTo(tipX, tipY);
-    brushCtx.lineTo(baseX + halfBase * Math.cos(perp), baseY + halfBase * Math.sin(perp));
-    brushCtx.lineTo(baseX - halfBase * Math.cos(perp), baseY - halfBase * Math.sin(perp));
-    brushCtx.closePath();
-    brushCtx.fill();
-  }
-
-  // Paints a row of triangular stamps from the last cursor position to
-  // the new one (not just a single stamp) so fast movement still traces
-  // a continuous path instead of leaving gaps.
-  function paintSegment(x0, y0, x1, y1) {
-    if (!colorImg.complete) return;
-
-    var dx = x1 - x0, dy = y1 - y0;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-    var angle = Math.atan2(dy, dx);
-    var steps = Math.max(1, Math.ceil(dist / 4));
-
-    brushCtx.clearRect(0, 0, w, h);
-    brushCtx.globalCompositeOperation = 'source-over';
-    brushCtx.fillStyle = '#fff';
-    for (var i = 0; i <= steps; i++) {
-      var t = i / steps;
-      drawTriangle(x0 + dx * t, y0 + dy * t, angle);
-    }
-
-    brushCtx.globalCompositeOperation = 'source-in';
-    drawCover(brushCtx, colorImg, w, h);
-
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.drawImage(brush, 0, 0, w, h);
-  }
-
-  container.addEventListener('mousemove', function(e) {
-    var rect = canvas.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var y = e.clientY - rect.top;
-    if (lastX !== null) paintSegment(lastX, lastY, x, y);
-    lastX = x;
-    lastY = y;
-  });
-  container.addEventListener('mouseleave', function() {
-    lastX = null;
-    lastY = null;
-  });
-
-  function render() {
-    // Fade whatever's already painted, revealing B&W underneath.
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.fillStyle = 'rgba(0,0,0,' + FADE_PER_FRAME + ')';
-    ctx.fillRect(0, 0, w, h);
-    requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render);
-})();
-</script>
-
-<script src="assets/cursor-trail.js"></script>
-<script src="assets/cta-roll.js" defer></script>
 <script src="assets/thank-you-note.js" defer></script>
 <script src="assets/split-scroll.js" defer></script>
+<script src="assets/motion-breathe.js" defer></script>
+<script src="assets/cta-roll.js" defer></script>
+<script src="assets/clip-reveal.js" defer></script>
+<script src="assets/magic-cursor.js" defer></script>
 </body>
 </html>

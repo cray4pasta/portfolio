@@ -25,8 +25,6 @@
   };
 
   /* ─── 1. Visit tracker ─── */
-  // First page of the session stamps the visit date; later pages reuse it.
-  if (!store.get('start')) store.set('start', String(Date.now()));
   let activeMs = Number(store.get('activeMs')) || 0; // banked from earlier pages
   let segmentStart = document.visibilityState === 'visible' ? performance.now() : null;
 
@@ -51,10 +49,11 @@
 
   // Ticket shows the first page view of the session as "Sep 24" over "2026"
   function getVisitData() {
-    const start = new Date(Number(store.get('start')));
+    // Today's date at print time (a tab left open overnight still prints today)
+    const now = new Date();
     return {
-      day: start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-      year: String(start.getFullYear()),
+      day: now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      year: String(now.getFullYear()),
       seconds: secondsSpent(),
     };
   }
@@ -84,6 +83,7 @@
   const img = '<img src="assets/typewriter.png" alt="" width="1758" height="895">';
   document.querySelectorAll('[data-component="thank-you-note"]').forEach((el) => {
     el.outerHTML = `
+  <p class="tyn-hint">Click the typewriter :)</p>
   <div class="tyn">
     <div class="tyn-machine">
       <div class="tyn-gap-fill"></div>
@@ -440,6 +440,12 @@
     const carriage = root.querySelector('.tyn-carriage');
     const note = root.querySelector('.tyn-note');
     let busy = false;
+
+    // The whole machine works as the lever: a click anywhere on it (outside
+    // the paper tray, which may hold the ticket's email link) pulls it.
+    root.querySelector('.tyn-machine').addEventListener('click', (e) => {
+      if (e.target !== handle && !e.target.closest('.tyn-tray')) handle.click();
+    });
 
     handle.addEventListener('click', async () => {
       if (busy) return;

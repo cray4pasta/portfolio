@@ -309,10 +309,25 @@ footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; backgroun
   position: absolute; left: 0.87%; top: 12.29%; width: 17.2%; height: 59.22%;
   background: none; border: 0; padding: 0; cursor: pointer;
 }
+/* The whole machine is clickable (thank-you-note.js forwards clicks to the
+   lever); the paper tray above it isn't, except the ticket's email link. */
+.tyn-machine { cursor: pointer; }
+.tyn-tray { pointer-events: none; }
+.tyn-tray a { pointer-events: auto; }
 .tyn-handle:focus-visible { outline: 2px solid var(--gray-300); outline-offset: 2px; border-radius: 4px; }
-.tyn.is-busy .tyn-handle { cursor: wait; }
+.tyn.is-busy .tyn-machine, .tyn.is-busy .tyn-handle { cursor: wait; }
+/* Prompt 80px below the footer's top edge (out of flow, so the footer's
+   layout is unchanged); fades while a ticket prints up past it */
+.tyn-hint {
+  position: absolute; left: 0; right: 0; top: 80px; margin: 0;
+  text-align: center;
+  font-family: var(--font-sans); font-size: 14px; font-weight: 400; line-height: 20px;
+  color: var(--gray-300);
+  transition: opacity 0.3s ease;
+}
+.tyn-hint:has(+ .tyn.is-busy) { opacity: 0; }
 /* Hover hint: the carriage gives a little as if the lever was touched */
-.tyn:not(.is-busy):has(.tyn-handle:hover) .tyn-carriage { translate: 0.6% 0; }
+.tyn:not(.is-busy):has(.tyn-machine:hover) .tyn-carriage { translate: 0.6% 0; }
 /* The sheet that feeds out: a transparent carrier for the ticket. Its bottom
    padding clears the strip hidden behind the bail rod and roller (y 47–80 of the
    typewriter frame), so the whole ticket is visible once it's out. */
@@ -739,7 +754,8 @@ footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; backgroun
   overscroll-behavior: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 0 0 40px;
+  /* 160px under the last block: the standard gap above the footer. */
+  padding: 0 0 160px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -755,8 +771,11 @@ footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; backgroun
 }
 
 @media (max-width: 1040px) {
-  .home-wrap { height: auto; overflow: visible; }
-  .home-layout { flex-direction: column; align-items: stretch; height: auto; gap: 40px; padding: 32px 24px 96px; }
+  /* `html` for specificity: each case study sets its own fixed
+     .home-wrap height (after this file), which must not apply once the
+     columns stack, or the content spills out over the footer. */
+  html .home-wrap { height: auto; overflow: visible; }
+  .home-layout { flex-direction: column; align-items: stretch; height: auto; gap: 40px; padding: 32px 24px 160px; }
   /* display: contents lets the sidebar's children (intro content + CTA) and
      .home-right become siblings in the same flex flow, so `order` below can
      push the CTA below the main content once everything stacks on mobile. */
@@ -777,7 +796,7 @@ footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; backgroun
   .home-intro-title { font-size: 28px; line-height: 34px; }
   .home-cta { height: auto; padding: 20px; }
   .home-cta-text { font-size: 28px; line-height: 34px; }
-  .home-layout { padding: 24px 16px 64px; }
+  .home-layout { padding: 24px 16px 160px; }
 }
 
 /* ─── CASE STUDY CONTEXT (sidebar block under the bio, replaces the
@@ -1010,4 +1029,19 @@ footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; backgroun
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
   .footer-heading { font-size: 32px; line-height: 40px; }
   .footer-links a { font-size: 16px; }
+}
+
+/* ─── IMAGE WIPE-UP REVEAL (assets/clip-reveal.js) ───
+   A visual is uncovered bottom-to-top while settling from 106% to 100%.
+   Clip and scale sit on the same element, so the side/bottom insets start
+   at 2.83% ((1 − 1/1.06) / 2) to keep the scaled-up media inside its
+   original box, then open to 0 as the scale lands. `scale` (not
+   `transform`) composes with any transform the element already has.
+   The script only adds .cr-pending when it runs, so without JS (or with
+   reduced motion) everything simply shows. */
+.cr-pending { clip-path: inset(100% 2.83% 2.83% 2.83%); }
+.cr-pending.cr-in { animation: cr-wipe 0.9s cubic-bezier(0.76, 0, 0.24, 1) both; }
+@keyframes cr-wipe {
+  from { clip-path: inset(100% 2.83% 2.83% 2.83%); scale: 1.06; }
+  to   { clip-path: inset(0 0 0 0); scale: 1; }
 }

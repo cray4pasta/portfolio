@@ -98,10 +98,48 @@
     else window.scrollBy({ top: dy, behavior: 'instant' });
   }, { passive: false });
 
+  // In-page links (the case studies' side-column section links). A native
+  // #hash jump scrolls every scrollable ancestor of the target, the window
+  // included, which lifts the page and flashes the footer. Instead scroll
+  // only the column that holds the section, and lower the page if it was
+  // lifted.
+  function columnOf(el) {
+    return cols.find((c) => c.contains(el));
+  }
+  function jumpTo(target, smooth) {
+    const col = columnOf(target);
+    if (!col) return false;
+    const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    const top = col.scrollTop + target.getBoundingClientRect().top - col.getBoundingClientRect().top - margin;
+    const behavior = smooth ? 'smooth' : 'instant';
+    col.scrollTo({ top, behavior });
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior });
+    return true;
+  }
+  document.addEventListener('click', (e) => {
+    if (!split || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href').length < 2) return;
+    let target;
+    try { target = document.querySelector(a.getAttribute('href')); } catch (_) { return; }
+    if (!target || !stage.contains(target)) return;
+    if (!jumpTo(target, true)) return;
+    e.preventDefault();
+    history.replaceState(null, '', a.getAttribute('href'));
+  });
+
   window.addEventListener('scroll', updateLift, { passive: true });
   window.addEventListener('resize', layout);
   // Late-loading media/fonts can change what's scrollable or the footer height
   window.addEventListener('load', layout);
   if (window.ResizeObserver && footer) new ResizeObserver(updateLift).observe(footer);
   layout();
+
+  // Opened with a #section in the URL: the browser's own jump may have
+  // lifted the page, so settle it back and scroll just the column.
+  if (split && location.hash) {
+    let target = null;
+    try { target = document.querySelector(location.hash); } catch (_) {}
+    if (target && stage.contains(target)) jumpTo(target, false);
+  }
 })();

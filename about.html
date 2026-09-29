@@ -51,29 +51,58 @@
 
   <style>
     /* ─── TWO-COLUMN LAYOUT ─── Same grid as the homepage (index.html):
-       fixed 320px intro column, coins take the rest, 80px apart, 40px
-       from the page edges. */
+       fixed 320px left column, content in the rest, 80px apart, 40px
+       from the page edges. The page scrolls as one document (no split
+       columns) so the photo strip can run the full width between the
+       intro and the coins; split-scroll.js then only handles the footer. */
     .home-grid {
       display: grid;
       grid-template-columns: 320px minmax(0, 1fr);
       align-items: start;
       gap: 80px;
       margin: 0 40px;
-      padding-top: 20px;
     }
-    /* ─── SPLIT SCROLL (assets/split-scroll.js) ─── Each column scrolls on
-       its own inside <main>, which the script sizes to end at the bottom of
-       the viewport; past the end of both, the page lifts off the footer.
-       Below 640px the columns stack into normal page flow. */
-    main.split-stage { overflow: hidden; }
-    .home-grid { height: 100%; align-items: stretch; }
-    .home-col {
-      min-height: 0;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding-bottom: 40px;
+    .home-grid:first-of-type { padding-top: 20px; }
+    .home-grid:last-of-type { padding-bottom: 160px; }
+
+    /* ─── PHOTO STRIP ─── Full-bleed row of 336×197 cards that drifts left
+       on a loop and pauses on hover. The track holds the photos twice and
+       slides by exactly one set (-50%), so the loop has no seam; each card
+       carries its own 20px right margin so both halves measure the same. */
+    .photo-strip { overflow: hidden; margin-bottom: 80px; }
+    .photo-track {
+      display: flex;
+      width: max-content;
+      animation: photo-drift 160s linear infinite;
+    }
+    .photo-strip:hover .photo-track { animation-play-state: paused; }
+    @keyframes photo-drift { to { transform: translateX(-50%); } }
+    .photo {
+      flex: none;
+      width: 336px;
+      height: 197px;
+      margin-right: 20px;
+      border: 1px solid #f6f6f6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    /* Crops from the Figma frame: portrait shots fill the width and are
+       shifted vertically via object-position (--y). */
+    .photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% var(--y, 50%); }
+    @media (prefers-reduced-motion: reduce) {
+      .photo-strip { overflow-x: auto; }
+      .photo-track { animation: none; }
     }
 
+    .about-intro { max-width: 520px; margin-bottom: 80px; }
+    .about-label {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-label);
+      margin-bottom: 40px;
+    }
     .home-bio {
       font-family: var(--font-sans);
       font-size: 14px;
@@ -83,16 +112,6 @@
       text-wrap: pretty;
     }
     .home-bio + .home-bio { margin-top: 20px; }
-    .home-talk {
-      margin-top: 20px;
-      font-family: var(--font-sans);
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 26px;
-      text-transform: uppercase;
-      color: var(--gray-400);
-      text-decoration: none;
-    }
 
     /* ─── COIN POSTER (assets/coin-poster.js) ─── */
     .coin-stage { position: relative; }
@@ -128,9 +147,8 @@
       border: 0;
     }
     @media (max-width: 640px) {
-      .home-grid { grid-template-columns: minmax(0, 1fr); height: auto; padding-bottom: 120px; }
-      main.split-stage { overflow: visible; }
-      .home-col { overflow-y: visible; padding-bottom: 0; }
+      .home-grid { grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0 16px; }
+      .home-grid:last-of-type { padding-bottom: 160px; }
       .coin-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
@@ -142,14 +160,68 @@
   <script src="assets/nav.js"></script>
 
   <main class="split-stage">
-    <h1 class="visually-hidden">About Prerna Kashyap</h1>
     <div class="home-grid">
+      <div class="home-col"></div>
       <div class="home-col">
-        <p class="home-bio">I love exploring, whether it's new ideas, places, hobbies or cuisines. In fact, exploring is what got me here.</p>
-        <p class="home-bio">I bring home a coin from every place I visit. Hover one to give it a spin.</p>
-        <a href="mailto:prernakashyap1610@yahoo.com" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">Come lets grab boba</span></a>
+        <div class="about-intro">
+          <p class="about-label">About me</p>
+          <h1 class="home-bio">I'm the eldest daughter in an Asian family. Problem solving is in my bones. If you come to me with a problem, I will sit with you until we have a solution and at least two backup plans. (I am trying to practice just listening, I promise)</h1>
+          <p class="home-bio">I love exploring, whether it's new ideas, places, hobbies or cuisines. In fact, exploring is what got me here.</p>
+          <p class="home-bio">I read this quote somewhere, “Design is a way of seeing the world. It’s not just a job; it’s kind of a lifestyle,” and I think it makes perfect sense when I think about my background. I don’t come from a traditional design path. I have worked in social media, customer success, and research labs as a biotechnologist, and every path I have explored taught me the skills I now use daily as a designer.</p>
+        </div>
+        <p class="about-label" id="photos-label">Me in a set of pictures</p>
       </div>
-      <div class="home-col" id="coin-poster"></div>
+    </div>
+
+    <section class="photo-strip" aria-labelledby="photos-label">
+      <div class="photo-track">
+          <div class="photo"><img src="assets/about-photos/photo-01.jpg" alt="" loading="lazy" decoding="async" style="--y: 69.17%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-02.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-03.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-04.jpg" alt="" loading="lazy" decoding="async" style="--y: 73.94%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-05.jpg" alt="" loading="lazy" decoding="async" style="--y: 49.81%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-06.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-07.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-08.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-09.jpg" alt="" loading="lazy" decoding="async" style="--y: 58.66%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-10.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-11.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-12.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-13.jpg" alt="" loading="lazy" decoding="async" style="--y: 75.2%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-14.jpg" alt="" loading="lazy" decoding="async" style="--y: 64.13%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-15.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-16.jpg" alt="" loading="lazy" decoding="async" style="--y: 67.0%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-17.jpg" alt="" loading="lazy" decoding="async" style="--y: 77.53%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-18.jpg" alt="" loading="lazy" decoding="async" style="--y: 72.45%"></div>
+        <div class="photo-track-copy" aria-hidden="true" style="display: contents">
+          <div class="photo"><img src="assets/about-photos/photo-01.jpg" alt="" loading="lazy" decoding="async" style="--y: 69.17%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-02.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-03.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-04.jpg" alt="" loading="lazy" decoding="async" style="--y: 73.94%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-05.jpg" alt="" loading="lazy" decoding="async" style="--y: 49.81%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-06.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-07.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-08.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-09.jpg" alt="" loading="lazy" decoding="async" style="--y: 58.66%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-10.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-11.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-12.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-13.jpg" alt="" loading="lazy" decoding="async" style="--y: 75.2%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-14.jpg" alt="" loading="lazy" decoding="async" style="--y: 64.13%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-15.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="photo"><img src="assets/about-photos/photo-16.jpg" alt="" loading="lazy" decoding="async" style="--y: 67.0%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-17.jpg" alt="" loading="lazy" decoding="async" style="--y: 77.53%"></div>
+          <div class="photo"><img src="assets/about-photos/photo-18.jpg" alt="" loading="lazy" decoding="async" style="--y: 72.45%"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="home-grid">
+      <div class="home-col"></div>
+      <div class="home-col">
+        <p class="about-label">I love traveling… here’s a collection of coins I have collected over the years</p>
+        <div id="coin-poster"></div>
+      </div>
     </div>
   </main>
 
@@ -162,5 +234,6 @@
 <script src="assets/motion-breathe.js" defer></script>
 <script src="assets/cta-roll.js" defer></script>
 <script type="module" src="assets/coin-poster.js"></script>
+<script src="assets/clip-reveal.js" defer></script>
 </body>
 </html>

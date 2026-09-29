@@ -244,40 +244,26 @@
       .home-grid { padding-bottom: 160px; }
       .home-col-intro .home-social { margin-top: 20px; padding-top: 0; }
 
-      /* Phone: the case-study cards are a preview only, not links. Every
-         frame is the same square; each video is fitted whole inside it
-         (letterboxed on the gray card colour), never cropped. */
-      .home-videos { grid-template-columns: minmax(0, 1fr); }
+      /* Phone: the case-study cards are a preview only, not links, stacked
+         one per row. Each card is exactly its video's own shape (the
+         desktop --ar sizing), never cropped and with no fill around it. */
+      /* The two desktop columns dissolve into one list (display: contents)
+         so the cards can be reordered: Copart, Panacea, Goody Hearts,
+         LinkedIn. */
+      .home-videos { display: flex; flex-direction: column; gap: 20px; }
+      .home-videos-col { display: contents; }
+      .home-video-item[href="copart.html"] { order: 1; }
+      .home-video-item[href="panacea.html"] { order: 2; }
+      .home-video-item[href="goodyhearts.html"] { order: 3; }
+      .home-video-item[href="linkedin.html"] { order: 4; }
       .home-video-item { pointer-events: none; cursor: default; }
       .home-video-item.is-fill { flex: none; display: block; }
-      .home-video-frame,
-      .home-video-item.is-fill .home-video-frame {
-        flex: none;
-        aspect-ratio: 1 / 1;
-        background: var(--card);
-      }
-      .home-video,
-      .home-video-item.is-fill .home-video {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        aspect-ratio: auto;
-        object-fit: contain;
-        transform: none;
-      }
-      /* LinkedIn's file has black bands baked into its top and bottom
-         (95px of 1556 each): size it at its own ratio, centred, and clip
-         the bands off, leaving the 2048×1366 picture whole. */
-      .home-video-item.is-fill .home-video {
-        inset: auto 0;
-        top: 50%;
-        height: auto;
-        aspect-ratio: 2048 / 1556;
-        object-fit: fill;
-        transform: translateY(-50%);
-        clip-path: inset(6.4% 0 6.4% 0);
-      }
+      /* LinkedIn fills a stretched box on desktop; here its card takes the
+         file's picture area, 2048×1366 once the black bands baked into its
+         top and bottom (95px of 1556 each, plus a few px of edge blur) are left out. Covering that box
+         trims exactly those bands and nothing else. */
+      .home-video-item.is-fill .home-video-frame { flex: none; aspect-ratio: 2048 / 1350; }
+      .home-video-item.is-fill .home-video { object-fit: cover; transform: none; }
     }
   </style>
 </head>

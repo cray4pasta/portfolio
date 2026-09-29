@@ -103,8 +103,11 @@
        shared.css's .cs-v2 .cs-main caps content at 720px — Figma's actual
        column is wider (~936px), so drop that cap for this page. */
     .cs-v2 .cs-main { max-width: none; margin: 0; }
+    /* Same width as the sections below: .cs-content's right padding
+       (140 / 70 / 35px by breakpoint) and .section-break's 936px cap. */
     .cs-v2 .hero-img {
-      width: 100%;
+      width: calc(100% - 140px);
+      max-width: 936px;
       aspect-ratio: 16 / 9;
       border-radius: 4px;
       overflow: hidden;
@@ -149,9 +152,11 @@
        (flush with the hero img/meta row) at every width. */
     @media (max-width: 1040px) {
       .cs-v2 .cs-content { padding-right: 70px; }
+      .cs-v2 .hero-img { width: calc(100% - 70px); }
     }
     @media (max-width: 640px) {
       .cs-v2 .cs-content { padding-right: 35px; }
+      .cs-v2 .hero-img { width: calc(100% - 35px); }
     }
 
     /* ─── PHOTO PAIR (Impact section) ─── */

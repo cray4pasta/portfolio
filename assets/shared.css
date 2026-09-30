@@ -1030,18 +1030,3 @@ footer:has(.tyn) { height: auto; padding-top: 40px; padding-bottom: 0; backgroun
   .footer-heading { font-size: 32px; line-height: 40px; }
   .footer-links a { font-size: 16px; }
 }
-
-/* ─── IMAGE WIPE-UP REVEAL (assets/clip-reveal.js) ───
-   A visual is uncovered bottom-to-top while settling from 106% to 100%.
-   Clip and scale sit on the same element, so the side/bottom insets start
-   at 2.83% ((1 − 1/1.06) / 2) to keep the scaled-up media inside its
-   original box, then open to 0 as the scale lands. `scale` (not
-   `transform`) composes with any transform the element already has.
-   The script only adds .cr-pending when it runs, so without JS (or with
-   reduced motion) everything simply shows. */
-.cr-pending { clip-path: inset(100% 2.83% 2.83% 2.83%); }
-.cr-pending.cr-in { animation: cr-wipe 0.9s cubic-bezier(0.76, 0, 0.24, 1) both; }
-@keyframes cr-wipe {
-  from { clip-path: inset(100% 2.83% 2.83% 2.83%); scale: 1.06; }
-  to   { clip-path: inset(0 0 0 0); scale: 1; }
-}

@@ -19,6 +19,13 @@
   const font = document.createElement('link');
   font.rel = 'stylesheet';
   font.href = 'https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@700&display=swap';
+  // The font only exists once this stylesheet has arrived; asking for it any
+  // earlier resolves at once and the glue gets drawn in a fallback cursive.
+  // Give up after 4s so a blocked stylesheet can't hold the intro forever.
+  const fontCss = new Promise(res => {
+    font.onload = font.onerror = res;
+    setTimeout(res, 4000);
+  });
   document.head.appendChild(font);
   const style = document.createElement('style');
   style.textContent = `
@@ -1024,7 +1031,7 @@ void main(){
   resize();
   let ready = false;
   // The glue lettering needs the script font, so wait for it before drawing the glue
-  document.fonts.load(`700 100px ${GLUE_FONT}`).catch(() => {}).finally(() => {
+  fontCss.then(() => document.fonts.load(`700 100px ${GLUE_FONT}`)).catch(() => {}).finally(() => {
     alloc();
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { reset(); reveal(); finishIntro(); }
     else playIntro();

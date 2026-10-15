@@ -71,61 +71,47 @@
       text-decoration: none;
     }
 
-    /* ─── SOCIAL LINKS ─── A plain list under "Talk to me :)", same type
-       and roll-on-hover as that link. Hovering (or focusing) one pops a
-       small preview card out to its right: a crop of the profile. The
-       card lives inside the <a>, so moving onto it keeps it open and
-       clicking it follows the link. */
+    /* Small grey section label, same as the about page's "About me" */
+    .about-label {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--text-label);
+      margin-bottom: 40px;
+    }
+    .home-social-label { margin: 40px 0 0; }
+
+    /* Stained glass window. Width and shape are set by assets/stained-glass.js from its CONFIG;
+       max-width lets it shrink with the column on narrow screens */
+    .home-glass { display: block; max-width: 100%; height: auto; aspect-ratio: 540 / 235; margin-bottom: 40px; align-self: center; }
+
+    /* ─── SOCIAL LINKS ─── A row under "Reach out :))", 24px apart, with the
+       nav links' roll-on-hover. */
     .home-social {
       list-style: none;
-      margin: 20px 0 0;
+      margin: 4px 0 0;
       padding: 0;
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 24px;
     }
-    /* Cards position against the list (not each link), bottom-aligned
-       with its last item, so they grow upward and never run past the
-       bottom of the screen now that the list sits 40px above it. */
+    /* Email address on the left, the social links pushed to the right */
+    .home-social-email { margin-right: auto; }
+    /* After a click, "Copied" (in the grey of the "Reach out :))" label)
+       rises from below while "Email" vanishes at once, so no half-cut word
+       ever shows above it; then the reverse. Same 26px window as the hover
+       roll. */
+    .copy-swap { display: inline-block; overflow: hidden; height: 26px; line-height: 26px; vertical-align: middle; }
+    .copy-track { display: block; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+    .copy-line { display: block; height: 26px; }
+    .copy-done { opacity: 0; }                       /* the word leaving vanishes at once; */
+    .is-copied .copy-line:first-child { opacity: 0; }  /* only the one arriving is seen moving */
+    .is-copied .copy-done { opacity: 1; }
+    .copy-done { color: var(--text-label); }
+    .is-copied .copy-track { transform: translateY(-26px); }
+    @media (prefers-reduced-motion: reduce) { .copy-track { transition: none; } }
     .home-social .home-talk { margin-top: 0; position: static; }
-    .social-card {
-      position: absolute;
-      /* Fixed offset (past the longest label, "LinkedIn") so all three
-         cards line up; 104 + 200 stays inside the 320px column. */
-      left: 104px;
-      bottom: 0;
-      z-index: 5;
-      display: block;
-      width: 200px;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 0 0 1px rgb(0 0 0 / 0.06), 0 12px 32px -12px rgb(0 0 0 / 0.18);
-      pointer-events: none;
-      opacity: 0;
-      transform: translateX(-6px) scale(0.96) rotate(-1.5deg);
-      transform-origin: left bottom;
-      transition: opacity 0.18s ease, transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-    .social-card img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-    }
-    @media (hover: hover) {
-      .home-social a:hover .social-card,
-      .home-social a:focus-visible .social-card {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateX(0) scale(1) rotate(-1.5deg);
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .social-card,
-      .home-social a:hover .social-card,
-      .home-social a:focus-visible .social-card { transform: none; }
-    }
 
     /* Video grid: two equal-width columns (each case study gets the same
        weight), 20px apart, filling the second column out to the grid's
@@ -214,35 +200,44 @@
     }
 
 
-    /* ─── SPLIT SCROLL (assets/split-scroll.js) ─── Each column scrolls on
-       its own inside <main>, which the script sizes to end at the bottom of
-       the viewport; past the end of both, the page lifts off the footer.
-       Below 640px the columns stack into normal page flow. */
-    main.split-stage { overflow: hidden; }
-    .home-grid { height: 100%; align-items: stretch; }
-    .home-col {
-      min-height: 0;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding-bottom: 160px;
-    }
-    /* Intro column: bio at the top, social links pushed down to sit 40px
-       above the bottom of the screen (the column ends at the viewport's
-       bottom edge, see above). */
-    .home-col-intro {
+    /* ─── SINGLE-COLUMN FLOW ─── Like the about page: the left column
+       stays empty, the intro sits at the start of the second column and
+       the case-study cards follow below it. The page scrolls as one
+       document, so split-scroll.js only handles the footer reveal. */
+    /* Centred: the left column is dropped and the content is at most
+       960px wide (the cards' width on a 1440px laptop), with at least 40px
+       either side. Big screens get wider margins instead of wider cards;
+       tablets get narrower margins instead of squashed cards. The intro
+       block is centred over the cards. */
+    .home-grid { grid-template-columns: minmax(0, 1fr); width: min(960px, 100% - 80px); margin: 0 auto; padding-bottom: 160px; }
+    .home-col-empty { display: none; }
+    /* 540px wide for the window; the text below sits in a 520px column
+       centred under it. No gap between children: the spacing is exactly the
+       margins (window 40, paragraphs 20, then 40 to "Connect with me"). */
+    .home-intro {
+      position: relative;
+      max-width: 540px;
+      margin: 0 auto 80px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding-bottom: 40px;
+      gap: 0;
     }
-    .home-col-intro .home-social { margin-top: auto; padding-top: 40px; }
+    .home-intro > .home-bio,
+    .home-intro > .home-social-label,
+    .home-intro > .home-social { align-self: center; width: min(520px, 100%); }
+    /* Light beams from the stained glass (assets/stained-glass.js): placed by
+       script around the window, over it but under the text. Nothing can be
+       clicked on them, so clicks reach the window and links. */
+    .home-intro > * { position: relative; z-index: 3; }
+    .home-intro > .home-glass { z-index: 1; }
+    .home-intro > .home-glass-rays { position: absolute; z-index: 2; pointer-events: none; max-width: none; }
+    /* the beams reach past the column's sides; never let them widen the page */
+    html, body { overflow-x: clip; }
 
     @media (max-width: 640px) {
-      .home-grid { grid-template-columns: minmax(0, 1fr); height: auto; }
-      main.split-stage { overflow: visible; }
-      .home-col { overflow-y: visible; padding-bottom: 0; }
-      .home-grid { padding-bottom: 160px; }
-      .home-col-intro .home-social { margin-top: 20px; padding-top: 0; }
+      .home-grid { gap: 0; }
+      .home-glass-rays { display: none; }
 
       /* Phone: the case-study cards are a preview only, not links, stacked
          one per row. Each card is exactly its video's own shape (the
@@ -268,6 +263,9 @@
   </style>
 </head>
 <body>
+  <!-- Glitter intro: covers the page, blows away to "hello", then fades to the homepage.
+       Loaded first (not deferred) so the homepage never flashes before the overlay. -->
+  <script src="assets/glitter-intro.js"></script>
 
   <!-- NAV -->
   <div data-component="nav" data-variant="home" data-logo-link="false" data-work-href="#work"></div>
@@ -276,35 +274,28 @@
   <main class="split-stage">
     <h1 class="home-name visually-hidden">Prerna Kashyap</h1>
     <div class="home-grid">
-      <div class="home-col home-col-intro">
-        <p class="home-bio">I am a product design engineer with experience building 0-to-1 products. I use my expertise across CX, research &amp; design to create experiences for moments of anxiety and distrust.</p>
-        <p class="home-bio">My goal is to make technology a tool for better living rather than a source of dependency.</p>
-        <a href="mailto:prernakashyapuw@gmail.com" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">Talk to me :)</span></a>
-        <ul class="home-social">
-          <li>
-            <a href="https://github.com/cray4pasta" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">GitHub</span>
-              <span class="social-card" aria-hidden="true">
-                <img src="assets/social-github.jpg" alt="" loading="lazy">
-              </span>
-            </a>
+      <div class="home-col home-col-empty"></div>
+      <div class="home-col">
+        <div class="home-intro">
+        <canvas class="home-glass" width="540" height="235" aria-hidden="true" data-edit="window"></canvas>
+        <p class="home-bio" data-edit="bio-1" data-edit-text>I am a Product Design Engineer based in Seattle. With experience across design, research, CX &amp; social media marketing, I draw on that background to create experiences for moments of anxiety and distrust.</p>
+        <p class="home-bio" data-edit="bio-2" data-edit-text>My goal is to make technology a tool for better living. I&rsquo;m always open to conversations about design, tech &amp; your fav TV show.</p>
+        <p class="about-label home-social-label" data-edit="connect-label" data-edit-text>Reach out :))</p>
+        <ul class="home-social" data-edit="social-links">
+          <li class="home-social-email">
+            <a href="mailto:prernakashyapuw@gmail.com" class="home-talk mo-nav-link roll-cta" data-copy-email="prernakashyapuw@gmail.com" title="Copy prernakashyapuw@gmail.com"><span class="roll-cta-label" aria-live="polite">Email</span></a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/prernaakashyap/" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">LinkedIn</span>
-              <span class="social-card" aria-hidden="true">
-                <img src="assets/social-linkedin.jpg" alt="" loading="lazy">
-              </span>
-            </a>
+            <a href="https://www.linkedin.com/in/prernaakashyap/" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">LinkedIn</span></a>
           </li>
           <li>
-            <a href="https://x.com/survivingux" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">X</span>
-              <span class="social-card" aria-hidden="true">
-                <img src="assets/social-x.jpg" alt="" loading="lazy">
-              </span>
-            </a>
+            <a href="https://x.com/survivingux" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">X</span></a>
+          </li>
+          <li>
+            <a href="https://github.com/cray4pasta" target="_blank" rel="noopener" class="home-talk mo-nav-link roll-cta"><span class="roll-cta-label">GitHub</span></a>
           </li>
         </ul>
-      </div>
-      <div class="home-col">
+        </div>
         <div class="home-videos">
           <div class="home-videos-col">
             <a href="copart.html" class="home-video-item">
@@ -351,5 +342,42 @@
 <script src="assets/split-scroll.js" defer></script>
 <script src="assets/motion-breathe.js" defer></script>
 <script src="assets/cta-roll.js" defer></script>
+<script src="assets/stained-glass.js" defer></script>
+<script src="assets/page-edit.js" defer></script>
+<script>
+  // Email copies the address instead of opening a mail app (plenty of people
+  // use webmail and have none set up). The label reads "Copied" for a moment;
+  // if copying isn't allowed, the link falls back to opening an email.
+  document.querySelectorAll('[data-copy-email]').forEach((a) => {
+    a.addEventListener('click', async (e) => {
+      if (!navigator.clipboard) return;
+      e.preventDefault();
+      try { await navigator.clipboard.writeText(a.dataset.copyEmail); }
+      catch { location.href = a.href; return; }
+      const label = a.querySelector('.roll-cta-label');
+      clearTimeout(a._copied);
+      clearTimeout(a._restore);
+      // Slide the label's own letters, never copies of them: rebuilt letters
+      // would restart the hover roll and flash for a moment above "Copied"
+      let swap = label.querySelector('.copy-swap');
+      if (!swap) {
+        swap = document.createElement('span');
+        swap.className = 'copy-swap';
+        swap.innerHTML = '<span class="copy-track"><span class="copy-line"></span><span class="copy-line copy-done">Copied</span></span>';
+        swap.querySelector('.copy-line').append(...label.childNodes);
+        label.append(swap);
+        label.offsetHeight;                       // lay it out first, so the slide animates
+      }
+      a.classList.add('is-copied');
+      a._copied = setTimeout(() => {
+        a.classList.remove('is-copied');          // "Email" slides back down into place
+        a._restore = setTimeout(() => {           // then unwrap, putting the same letters back
+          label.append(...swap.querySelector('.copy-line').childNodes);
+          swap.remove();
+        }, 500);
+      }, 1600);
+    });
+  });
+</script>
 </body>
 </html>

@@ -38,28 +38,31 @@
   </script>
 
   <style>
-    /* ─── TWO-COLUMN LAYOUT ─── Same grid as the homepage and About:
-       fixed 320px first column (left empty here, like About), media takes
-       the rest, 80px apart, 40px from the page edges. */
+    /* ─── LAYOUT ─── The same box as the homepage's project cards: at most
+       960px wide, at least 40px from each edge, centred, 20px below the
+       nav. The page scrolls as one document, so split-scroll.js only
+       handles the footer reveal. */
     .home-grid {
       display: grid;
-      grid-template-columns: 320px minmax(0, 1fr);
-      align-items: start;
-      gap: 80px;
-      margin: 0 40px;
-      padding-top: 20px;
+      grid-template-columns: minmax(0, 1fr);
+      width: min(960px, 100% - 80px);
+      margin: 0 auto;
+      padding: 20px 0 160px;
     }
-    /* ─── SPLIT SCROLL (assets/split-scroll.js) ─── Each column scrolls on
-       its own inside <main>, which the script sizes to end at the bottom of
-       the viewport; past the end of both, the page lifts off the footer.
-       Below 640px the columns stack into normal page flow. */
-    main.split-stage { overflow: hidden; }
-    .home-grid { height: 100%; align-items: stretch; }
-    .home-col {
-      min-height: 0;
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding-bottom: 160px;
+    .home-col:empty { display: none; }
+
+    /* Intro line above the cards: the homepage's bio text, in the same
+       520px column centred over the cards, 80px above them. 60px on top
+       matches the About page's text, the same distance below the nav. */
+    .fun-intro {
+      width: min(520px, 100%);
+      margin: 60px auto 80px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: var(--gray-300);
+      text-wrap: pretty;
     }
 
     /* ─── MEDIA GRID ─── Two equal columns, 20px apart, like the homepage
@@ -126,10 +129,6 @@
     }
 
     @media (max-width: 640px) {
-      .home-grid { grid-template-columns: minmax(0, 1fr); height: auto; gap: 0; padding-bottom: 160px; }
-      main.split-stage { overflow: visible; }
-      .home-col { overflow-y: visible; padding-bottom: 0; }
-      .home-col:empty { display: none; }
       .fun-grid { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
@@ -145,6 +144,7 @@
     <div class="home-grid">
       <div class="home-col"></div>
       <div class="home-col">
+        <p class="fun-intro">I like building things, physically and digitally.</p>
         <div class="fun-grid">
           <div class="fun-col">
             <figure class="fun-item">

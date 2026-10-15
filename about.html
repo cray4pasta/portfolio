@@ -50,18 +50,20 @@
   </script>
 
   <style>
-    /* ─── TWO-COLUMN LAYOUT ─── Same grid as the homepage (index.html):
-       fixed 320px left column, content in the rest, 80px apart, 40px
-       from the page edges. The page scrolls as one document (no split
-       columns) so the photo strip can run the full width between the
-       intro and the coins; split-scroll.js then only handles the footer. */
+    /* ─── LAYOUT ─── Same boxes as the homepage (index.html): content at
+       most 960px wide and at least 40px from each edge, centred; text in a
+       520px column centred inside it, the coins across the full 960. The
+       page scrolls as one document (no split columns) so the photo strip
+       can run the full width between the intro and the coins;
+       split-scroll.js then only handles the footer. */
     .home-grid {
       display: grid;
-      grid-template-columns: 320px minmax(0, 1fr);
-      align-items: start;
-      gap: 80px;
-      margin: 0 40px;
+      grid-template-columns: minmax(0, 1fr);
+      width: min(960px, 100% - 80px);
+      margin: 0 auto;
     }
+    .home-col:empty { display: none; }
+    .text-col { width: min(520px, 100%); margin-left: auto; margin-right: auto; }
     .home-grid:first-of-type { padding-top: 20px; }
     .home-grid:last-of-type { padding-bottom: 160px; }
 
@@ -94,7 +96,9 @@
       .photo-track { animation: none; }
     }
 
-    .about-intro { max-width: 520px; margin-bottom: 80px; }
+    /* 60px on top keeps the text where it sat under the old "About me" label
+       (20px line + 40px gap) */
+    .about-intro { margin-top: 60px; margin-bottom: 80px; }
     .about-label {
       font-family: var(--font-sans);
       font-weight: 400;
@@ -147,8 +151,6 @@
       border: 0;
     }
     @media (max-width: 640px) {
-      .home-grid { grid-template-columns: minmax(0, 1fr); gap: 0; margin: 0 16px; }
-      .home-grid:last-of-type { padding-bottom: 160px; }
       .coin-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
@@ -163,13 +165,12 @@
     <div class="home-grid">
       <div class="home-col"></div>
       <div class="home-col">
-        <div class="about-intro">
-          <p class="about-label">About me</p>
+        <div class="about-intro text-col">
           <h1 class="home-bio">I'm the eldest daughter in an Asian family. Problem solving is in my bones. If you come to me with a problem, I will sit with you until we have a solution and at least two backup plans. (I am trying to practice just listening, I promise)</h1>
           <p class="home-bio">I love exploring, whether it's new ideas, places, hobbies or cuisines. In fact, exploring is what got me here.</p>
           <p class="home-bio">I read this quote somewhere, “Design is a way of seeing the world. It’s not just a job; it’s kind of a lifestyle,” and I think it makes perfect sense when I think about my background. I don’t come from a traditional design path. I have worked in social media, customer success, and research labs as a biotechnologist, and every path I have explored taught me the skills I now use daily as a designer.</p>
         </div>
-        <p class="about-label" id="photos-label">Me in a set of pictures</p>
+        <p class="about-label text-col" id="photos-label">Me in a set of pictures</p>
       </div>
     </div>
 

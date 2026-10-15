@@ -25,8 +25,8 @@
     frame: 5,          // thickness of the frame around the window, px
     frameMaterial: 'wood',  // 'wood' or 'glass' for the frame and bars
     frameColor: '#583400',  // their colour: the wood's, or the glass's tint (white is clear glass)
-    jointColor: '#d6ece4',  // tint of the glass joints between tiles, seen edge-on (white is clear)
-    edgeWave: 30,      // how far the window's outer edge wanders in and out, px (0 for a clean edge)
+    jointColor: '#f9d3e0',  // tint of the glass joints between tiles, seen edge-on (white is clear)
+    edgeWave: 16,      // how far the window's outer edge wanders in and out, px (0 for a clean edge)
     edgeBlur: 40,      // how softly the outer edge fades into the page, px (0 for a crisp edge)
     cornerRadius: 4,   // roundness of each glass block's corners, px
     gap: 1.8,          // mortar showing between blocks, px
@@ -100,13 +100,15 @@
       '8,6': { color: '#ebebeb' },
       '9,6': { color: '#e32400' },
     },
-    sunX: 0.55,        // where the sun sits behind the window: 0 left edge – 1 right edge
-    sunY: 0.13,        //   and 0 top – 1 bottom
+    sunX: 0.58,        // where the sun sits behind the window: 0 left edge – 1 right edge
+    sunFollowsCursor: true,   // the sun follows the cursor left to right (sunX is where it starts)
+    sunY: 0,           //   and 0 top – 1 bottom
     glare: 3,          // the sun's glare glinting through the bumpy glass (0 for none)
     glareSize: 0.115,  // how tight that glare is: small is a sharp glint, large a soft bloom
     sheen: 1.4,        // reflections on the glass surface, strongest where it tilts away (0 for none)
     rays: 0.95,        // beams of light coming out of each tile toward you (0 for none)
     rayLength: 235,    // how far the beams reach past the window's edges, px
+    rayOpacity: 0.64,  // how see-through the beams are, all together (0 invisible – 1 full)
     softness: 0,       // how much the beams soften and spread as they travel (0 stay crisp)
     dust: 0,           // dust motes drifting and twinkling in the beams (0 none)
     bloom: 3,          // soft glow around the brightest glass and glints (0 none)
@@ -523,6 +525,9 @@ void main() {
   // the arch, mullions and transoms all land on seams between blocks.
   const CAM = 1100;                            // camera's distance from the window, px: how strong the perspective is
   let current;
+  let sunX = null;                             // the sun's position this frame, 0–1 across
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let follow = canvas.hasAttribute('data-follow-cursor') || CONFIG.sunFollowsCursor;
   function apply(c) {
     current = c;
     gl.uniform1f(u('uCam'), CAM);
@@ -645,7 +650,11 @@ void main() {
     const s = t / 1000;
     // the sun wanders side to side on two unrelated rhythms, so the beams never settle square
     const st = s * current.raySpeed;
-    const sun = [W * current.sunX + (Math.sin(st * 0.11) * 0.6 + Math.sin(st * 0.07 + 1.7) * 0.4) * W * 0.025,
+    // with the cursor in charge, the sun glides toward where it points (left–right only)
+    // (no target: it glides back to where CONFIG puts it)
+    if (sunX === null || !follow) sunX = current.sunX;
+    else sunX += ((follow.target ?? current.sunX) - sunX) * (still ? 1 : 0.06);
+    const sun = [W * sunX + (Math.sin(st * 0.11) * 0.6 + Math.sin(st * 0.07 + 1.7) * 0.4) * W * 0.025,
                  H * current.sunY + Math.sin(st * 0.09 + 0.6) * H * 0.012];
     gl.uniform2f(u('uSun'), sun[0], sun[1]);
     gl.uniform1f(u('uPulse'), 0.5 + 0.5 * Math.sin(s * 0.4));
@@ -863,6 +872,7 @@ void main() {
       if (rc.width !== bw || rc.height !== bh) { rc.width = bw; rc.height = bh; }
       rc.style.width = cw + 'px';
       rc.style.height = ch + 'px';
+      rc.style.opacity = c.rayOpacity;
       rc.style.left = canvas.offsetLeft - pad + 'px';
       rc.style.top = canvas.offsetTop - pad + 'px';
       rg.viewport(0, 0, bw, bh);
@@ -905,7 +915,29 @@ void main() {
   apply(CONFIG);
   render(0);
 
-  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Sun follows the cursor left to right: on a canvas marked data-follow-cursor
+  // (window.html), or everywhere with CONFIG.sunFollowsCursor. Across the
+  // whole page width, edge to edge, maps to the sun crossing the glass. Only
+  // sideways moves steer it: a move that's mostly up, down or diagonal (more
+  // than ~27° off horizontal) sends it gliding back to its own position.
+  function followCursor() {
+    const f = { target: null };
+    let lastX = null, lastY = null;
+    addEventListener('pointermove', (e) => {
+      if (lastX !== null) {
+        const dx = e.clientX - lastX, dy = e.clientY - lastY;
+        if (Math.abs(dx) + Math.abs(dy) > 0) {
+          f.target = Math.abs(dy) <= Math.abs(dx) * 0.5
+            ? 0.05 + 0.9 * Math.min(Math.max(e.clientX / innerWidth, 0), 1)
+            : null;
+        }
+      }
+      lastX = e.clientX; lastY = e.clientY;
+      if (still) render(performance.now());
+    }, { passive: true });
+    return f;
+  }
+  if (follow) follow = followCursor();
   if (!still) {
     // Animate only while the window is on screen
     let raf = 0;
@@ -952,6 +984,7 @@ void main() {
     ['sheen', 'Glass sheen', 0, 3, 0.05],
     ['rays', 'Light beams', 0, 3, 0.05],
     ['rayLength', 'Beam length', 0, 500, 5],
+    ['rayOpacity', 'Beam opacity', 0, 1, 0.01],
     ['softness', 'Beam softness', 0, 2, 0.05],
     ['dust', 'Dust motes', 0, 1.6, 0.05],
     ['bloom', 'Bloom', 0, 3, 0.05],

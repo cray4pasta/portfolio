@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Stained glass — Prerna Kashyap</title>
+  <meta name="description" content="Prerna Kashyap's stained-glass window, on its own. Move the cursor left and right to move the sun.">
+  <meta name="author" content="Prerna Kashyap">
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=2">
+  <link rel="stylesheet" href="assets/shared.css">
+
+  <style>
+    /* The homepage's stained-glass window on its own, centred on the page.
+       The sun behind it follows the cursor left to right
+       (data-follow-cursor, see assets/stained-glass.js). */
+    html, body { height: 100%; overflow: hidden; }
+    body { margin: 0; background: var(--bg, #fff); }
+    .window-stage {
+      position: relative;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    .home-glass { display: block; max-width: 100%; height: auto; aspect-ratio: 540 / 235; position: relative; z-index: 1; }
+    /* The light beams, placed around the window by the script, over the
+       window but never catching clicks */
+    .window-stage > .home-glass-rays { position: absolute; z-index: 2; pointer-events: none; max-width: none; }
+    @media (max-width: 640px) { .home-glass-rays { display: none; } }
+  </style>
+</head>
+<body>
+  <main class="window-stage">
+    <h1 class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Stained glass window</h1>
+    <canvas class="home-glass" width="540" height="235" aria-hidden="true" data-follow-cursor></canvas>
+  </main>
+  <script src="assets/stained-glass.js" defer></script>
+</body>
+</html>

@@ -106,7 +106,7 @@
     glare: 3,          // the sun's glare glinting through the bumpy glass (0 for none)
     glareSize: 0.115,  // how tight that glare is: small is a sharp glint, large a soft bloom
     sheen: 1.4,        // reflections on the glass surface, strongest where it tilts away (0 for none)
-    rays: 0.95,        // beams of light coming out of each tile toward you (0 for none)
+    rays: 0,           // beams of light coming out of each tile toward you (0 for none)
     rayLength: 235,    // how far the beams reach past the window's edges, px
     rayOpacity: 0.64,  // how see-through the beams are, all together (0 invisible – 1 full)
     softness: 0,       // how much the beams soften and spread as they travel (0 stay crisp)
